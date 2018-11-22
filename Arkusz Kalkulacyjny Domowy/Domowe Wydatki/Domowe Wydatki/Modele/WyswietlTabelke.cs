@@ -16,6 +16,8 @@ namespace Domowe_Wydatki.Modele
             data.DataSource = bsource;
             data.AutoResizeColumns(
             DataGridViewAutoSizeColumnsMode.AllCells);
+            data.AutoSizeColumnsMode =
+            DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }

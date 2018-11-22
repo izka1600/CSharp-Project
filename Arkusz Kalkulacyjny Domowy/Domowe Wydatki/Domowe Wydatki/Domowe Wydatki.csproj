@@ -47,8 +47,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,6 +70,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="eAutorzy.cs">
+      <DependentUpon>Kalkulator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="eKategorie.cs">
+      <DependentUpon>Kalkulator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ePodkategorie.cs">
+      <DependentUpon>Kalkulator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="eZestawienie.cs">
+      <DependentUpon>Kalkulator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Kalkulator.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Kalkulator.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Kalkulator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Kalkulator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Kalkulator.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Kalkulator.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Klasy domenowe\Podkategorie.cs" />
     <Compile Include="Klasy domenowe\Kategorie.cs" />
     <Compile Include="Klasy domenowe\Autor.cs" />
@@ -95,6 +132,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EntityDeploy Include="Kalkulator.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Kalkulator.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Kalkulator.edmx.diagram">
+      <DependentUpon>Kalkulator.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -125,6 +170,21 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Kalkulator.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Kalkulator.Context.cs</LastGenOutput>
+      <DependentUpon>Kalkulator.edmx</DependentUpon>
+    </Content>
+    <Content Include="Kalkulator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Kalkulator.edmx</DependentUpon>
+      <LastGenOutput>Kalkulator.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

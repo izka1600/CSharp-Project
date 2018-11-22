@@ -19,6 +19,10 @@ namespace Domowe_Wydatki
             DoWithComboBoxAutor();
             DoWithComboBoxKategoria();
             dateTimePicker1.Value = DateTime.Now;
+            dateTimePicker2.Value = DateTime.Now;
+            dateTimePicker2.Visible = false;
+            label6.Visible = false;
+            btnPokaz.Visible = false;
         }
 
         int IDAutora;
@@ -26,15 +30,16 @@ namespace Domowe_Wydatki
         int IDPodkategorii;
         string kwota;
         DateTime data;
-       
-        
+        int DTPMonth;
+        int DTPYear;
+
 
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             Autor autor = new Autor();
             autor.Id = Convert.ToInt32(((ComboboxItem)comboBox1.SelectedItem).Value);
             IDAutora = autor.Id;
-            autor.Imie= ((ComboboxItem)comboBox1.SelectedItem).Text.ToString();
+            autor.Imie = ((ComboboxItem)comboBox1.SelectedItem).Text.ToString();
         }
 
         public void DoWithComboBoxAutor()
@@ -45,10 +50,10 @@ namespace Domowe_Wydatki
                 List<List<string>> wynik = rezult.PodajWszystkichAutorow();
                 for (int i = 0; i < wynik.Count(); i++)
                 {
-                        ComboboxItem item = new ComboboxItem();
-                        item.Value = wynik[i][0];
-                        item.Text = wynik[i][1];
-                        comboBox1.Items.Add(item);
+                    ComboboxItem item = new ComboboxItem();
+                    item.Value = wynik[i][0];
+                    item.Text = wynik[i][1];
+                    comboBox1.Items.Add(item);
                 }
             }
             catch (Exception ex)
@@ -107,7 +112,7 @@ namespace Domowe_Wydatki
         public void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             Kategorie kategoria = new Kategorie();
-            kategoria.Id= Convert.ToInt32(((ComboboxItem)comboBox2.SelectedItem).Value);
+            kategoria.Id = Convert.ToInt32(((ComboboxItem)comboBox2.SelectedItem).Value);
             IDKategorii = kategoria.Id;
             kategoria.Kategoria = ((ComboboxItem)comboBox2.SelectedItem).Text.ToString();
             DoWithComboBoxPodkategoria();
@@ -116,7 +121,7 @@ namespace Domowe_Wydatki
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             Podkategorie podkategoria = new Podkategorie();
-            podkategoria.Id= Convert.ToInt32(((ComboboxItem)comboBox3.SelectedItem).Value);
+            podkategoria.Id = Convert.ToInt32(((ComboboxItem)comboBox3.SelectedItem).Value);
             IDPodkategorii = podkategoria.Id;
             podkategoria.Podkategoria = ((ComboboxItem)comboBox3.SelectedItem).Value.ToString();
         }
@@ -152,9 +157,9 @@ namespace Domowe_Wydatki
             }
         }
 
-        public  void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        public void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
 
@@ -162,6 +167,7 @@ namespace Domowe_Wydatki
         {
             data = dateTimePicker1.Value;
         }
+
 
         private void btnUsun_Click(object sender, EventArgs e)
         {
@@ -190,6 +196,73 @@ namespace Domowe_Wydatki
                 }
             }
             
+        }
+
+        private void FillChartTest(int month, int year)
+        {
+            Arkusz_WydatkiEntities db = new Arkusz_WydatkiEntities();
+
+            var ZestawienieIza = db.Zestawienie.Where(a => a.IdAutora == 1 && a.Data.Value.Year==year && a.Data.Value.Month == month).OrderByDescending(a=>a.Data);
+
+            foreach (var item in ZestawienieIza)
+            {
+                chart1.Series["Iza"].Points.AddXY(item.Data, item.Kwota);
+            }
+
+            var ZestawieniePiotr = db.Zestawienie.Where(a => a.IdAutora == 2).OrderByDescending(a => a.Data); ;
+
+            foreach (var item in ZestawieniePiotr)
+            {
+                chart1.Series["Piotr"].Points.AddXY(item.Data, item.Kwota);
+            }
+            chart1.ChartAreas[0].RecalculateAxesScale();
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex==1)
+            {
+                int year = DateTime.Now.Year;
+                int month = DateTime.Now.Month;
+                FillChartTest(month,year);
+                btnUsun.Visible = false;
+                dateTimePicker2.Visible = true;
+                dateTimePicker2_ValueChanged(null, null);
+                label6.Visible = true;
+                btnPokaz.Visible = true;
+            }
+            if (tabControl1.SelectedIndex == 0)
+            {
+                btnUsun.Enabled = true;
+                dateTimePicker2.Visible = false;
+                label6.Visible = false;
+                btnPokaz.Visible = false;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            WyswietlTabelke wyswietl = new WyswietlTabelke();
+            wyswietl.Wyswietl(dataGridView1);
+        }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker2.Format = DateTimePickerFormat.Custom;
+            dateTimePicker2.CustomFormat = "MM/yyyy";
+            dateTimePicker2.ShowUpDown = true;
+            DTPMonth = dateTimePicker2.Value.Month;
+            DTPYear = dateTimePicker2.Value.Year;
+        }
+
+        private void btnPokaz_Click(object sender, EventArgs e)
+        {
+            FillChartTest(DTPMonth, DTPYear);
         }
     }
 }
