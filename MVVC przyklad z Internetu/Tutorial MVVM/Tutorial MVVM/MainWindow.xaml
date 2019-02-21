@@ -1,0 +1,17 @@
+﻿<Window x:Class="Tutorial_MVVM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tutorial_MVVM"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="277" Width="274">
+    <Grid Margin="0,0,2,4">
+        <Label Content="Customer Name" HorizontalAlignment="Left" Margin="50,40,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.711,-1.346"/>
+        <Label Content="Sales Amount" HorizontalAlignment="Left" Margin="50,71,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.711,-1.346"/>
+        <Label Content="Buying Habits" HorizontalAlignment="Left" Margin="50,102,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.711,-1.346"/>
+        <Label Content="Married" HorizontalAlignment="Left" Margin="50,133,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.711,-1.346"/>
+        <CheckBox Content="" HorizontalAlignment="Left" Margin="115,139,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
