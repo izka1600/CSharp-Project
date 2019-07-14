@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ArkuszDataBase.Controllers
 {
-	class UzytkownikController
+	public class UzytkownikController
 	{
 		Arkusz_WydatkiContext context = new Arkusz_WydatkiContext();
 		public int StworzNowegoUzytkownika(string firstName, string lastName, string nick, string email)
@@ -42,6 +42,13 @@ namespace ArkuszDataBase.Controllers
 			upd.Nazwisko = lastName;
 			upd.Nick = nick;
 			upd.EMail = email;
+			context.SaveChanges();
+		}
+
+		public void UsunUzytkownika(int Id)
+		{
+			var upd = context.Uzytkownik.Find(Id);
+			upd.DataUsuniecia = DateTime.Now;
 			context.SaveChanges();
 		}
 
