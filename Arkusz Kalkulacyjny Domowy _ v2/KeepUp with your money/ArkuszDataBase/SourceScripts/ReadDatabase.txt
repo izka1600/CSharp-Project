@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=.\SQLEXPRESS01;Database=Arkusz_Wydatki;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
