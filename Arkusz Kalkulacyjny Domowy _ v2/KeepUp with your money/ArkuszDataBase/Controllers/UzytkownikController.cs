@@ -1,4 +1,5 @@
-﻿using ArkuszDataBase.Models;
+﻿using ArkuszDataBase.Class;
+using ArkuszDataBase.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,14 @@ namespace ArkuszDataBase.Controllers
 	public class UzytkownikController
 	{
 		Arkusz_WydatkiContext context = new Arkusz_WydatkiContext();
-		public int StworzNowegoUzytkownika(string firstName, string lastName, string nick, string email)
+		public int StworzNowegoUzytkownika(NowyUzytkownik uz)
 		{
 			var nowyUzytkownik = new Uzytkownik
 			{
-				Imie = firstName,
-				Nazwisko = lastName,
-				Nick = nick,
-				EMail = email,
+				Imie = uz.Imie,
+				Nazwisko = uz.Nazwisko,
+				Nick = uz.Nick,
+				EMail = uz.EMail
 			};
 
 			context.Uzytkownik.Add(nowyUzytkownik);

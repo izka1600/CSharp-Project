@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Web_Api</name>
+    </assembly>
+    <members>
+        <member name="M:Web_Api.Controllers.WebApiUzytkownikController.Get">
+            <summary>
+            Metoda wyświetlająca z bazy wszystkich użytkowników
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiUzytkownikController.Get(System.Int32)">
+            <summary>
+            Znajdź użytkownika o danym ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiUzytkownikController.Post(ArkuszDataBase.Class.NowyUzytkownik)">
+            <summary>
+            Stwórz nowego Użytkownika
+            </summary>
+            <param name="uz"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiUzytkownikController.Delete(System.Int32)">
+            <summary>
+            Usuń użytkownika o danym ID
+            </summary>
+            <param name="id"></param>
+        </member>
+    </members>
+</doc>
