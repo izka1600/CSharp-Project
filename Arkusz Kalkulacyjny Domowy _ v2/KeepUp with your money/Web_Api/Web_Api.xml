@@ -4,6 +4,70 @@
         <name>Web_Api</name>
     </assembly>
     <members>
+        <member name="M:Web_Api.Controllers.WebApiKategoriaController.Get">
+            <summary>
+            Metoda wyświetlająca z bazy wszystkie kategorie
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiKategoriaController.Get_1">
+            <summary>
+            Metoda wyświetlająca z bazy wszystkie podkategorie
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiKategoriaController.Post(ArkuszDataBase.Class.NowaKategoria)">
+            <summary>
+            Stwórz nową Kategorie
+            </summary>
+            <param name="kat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiKategoriaController.Post_1(ArkuszDataBase.Class.NowaPodkategoria)">
+            <summary>
+            Stwórz nową podkategorie
+            </summary>
+            <param name="pkat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiKategoriaController.Delete(System.Int32)">
+            <summary>
+            Usuń kategorie o danym ID
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiKategoriaController.Delete_1(System.Int32)">
+            <summary>
+            Usuń podkategorie o danym ID
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiTranskacjaController.Get">
+            <summary>
+            Metoda wyświetlająca z bazy wszystkie transakcje
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiTranskacjaController.Post(ArkuszDataBase.Class.NowaTransakcja)">
+            <summary>
+            Stwórz nową Transakcję
+            </summary>
+            <param name="tr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiTranskacjaController.Delete(System.Int32)">
+            <summary>
+            Usuń transakcje o danym ID
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiTranskacjaController.Get(System.Int32)">
+            <summary>
+            Znajdź transakcje o danym ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:Web_Api.Controllers.WebApiUzytkownikController.Get">
             <summary>
             Metoda wyświetlająca z bazy wszystkich użytkowników

@@ -35,7 +35,7 @@ namespace TestowanieBazyDanych
 			//}
 
 			TransakcjaController trankontroler = new ArkuszDataBase.Controllers.TransakcjaController();
-			trankontroler.DodajTransakcje(Convert.ToDateTime("2019-07-13"), 1, 1, 1, 12.30);
+			//trankontroler.DodajTransakcje(Convert.ToDateTime("2019-07-13"), 1, 1, 1, 12.30);
 			Console.WriteLine("Done");
 			Console.ReadKey();
 

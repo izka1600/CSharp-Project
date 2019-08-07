@@ -18,7 +18,7 @@ namespace Web_Api.Controllers
 		/// Metoda wyświetlająca z bazy wszystkich użytkowników
 		/// </summary>
 		/// <returns></returns>
-		[HttpGet("Wylistuj")]
+		[HttpGet("WylistujUzytkownikow")]
 		public ActionResult<IEnumerable<Uzytkownik>> Get()
 		{
 			var data = new UzytkownikController().WylistujUzytkownikow();
@@ -35,7 +35,7 @@ namespace Web_Api.Controllers
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		[HttpGet("PokazWybranego")]
+		[HttpGet("PokazWybranegoUzytkownika")]
 		public ActionResult<Uzytkownik> Get(int id)
 		{
 			var data = new UzytkownikController().ZnajdzUzytkownika(id);
@@ -52,7 +52,7 @@ namespace Web_Api.Controllers
 		/// </summary>
 		/// <param name="uz"></param>
 		/// <returns></returns>
-		[HttpPost("DodajNowego")]
+		[HttpPost("DodajNowegoUzytkownika")]
 		public int Post(NowyUzytkownik uz )
 		{
 			return new UzytkownikController().StworzNowegoUzytkownika(uz);
@@ -62,7 +62,7 @@ namespace Web_Api.Controllers
 		/// Usuń użytkownika o danym ID
 		/// </summary>
 		/// <param name="id"></param>
-		[HttpDelete("UsunWskazanego")]
+		[HttpDelete("UsunWskazanegoUzytkownika")]
 		public void Delete(int id)
 		{
 			new UzytkownikController().UsunUzytkownika(id);

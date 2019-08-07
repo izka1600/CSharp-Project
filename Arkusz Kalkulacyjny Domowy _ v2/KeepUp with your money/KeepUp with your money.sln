@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArkuszDataBase", "ArkuszDat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestowanieBazyDanych", "TestowanieBazyDanych\TestowanieBazyDanych.csproj", "{B66F6D21-6707-49E3-B611-9BA9E543B44F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_Api", "Web_Api\Web_Api.csproj", "{43F4CF2D-4723-467B-83A1-E95CB5BE9503}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_Api", "Web_Api\Web_Api.csproj", "{43F4CF2D-4723-467B-83A1-E95CB5BE9503}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{49F89816-C957-46DD-B5F9-C6829D27FA0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{43F4CF2D-4723-467B-83A1-E95CB5BE9503}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43F4CF2D-4723-467B-83A1-E95CB5BE9503}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43F4CF2D-4723-467B-83A1-E95CB5BE9503}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49F89816-C957-46DD-B5F9-C6829D27FA0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49F89816-C957-46DD-B5F9-C6829D27FA0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49F89816-C957-46DD-B5F9-C6829D27FA0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49F89816-C957-46DD-B5F9-C6829D27FA0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

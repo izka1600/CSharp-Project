@@ -1,4 +1,5 @@
-﻿using ArkuszDataBase.Models;
+﻿using ArkuszDataBase.Class;
+using ArkuszDataBase.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +11,28 @@ namespace ArkuszDataBase.Controllers
 	{
 		Arkusz_WydatkiContext context = new Arkusz_WydatkiContext();
 
-		public void DodajKategorie (string nazwa)
+		public int DodajKategorie (NowaKategoria nazwa)
 		{
-			var kategoria = new Kategorie();
-			kategoria.Kategoria = nazwa;
+			var kategoria = new Kategorie
+			{
+				Kategoria = nazwa.Kategoria
+			};
+
 			context.Kategorie.Add(kategoria);
 			context.SaveChanges();
+			int newId = kategoria.KatId;
+			return newId;
 		}
 
-		public void DodajPodkategorie(int idKategorii, string nazwaPodkategorii)
+		public int DodajPodkategorie(NowaPodkategoria pkat)
 		{
 			var podkategoria = new Podkategorie();
-			podkategoria.Podkategoria = nazwaPodkategorii;
-			podkategoria.IdKategorii = idKategorii;
+			podkategoria.Podkategoria = pkat.Podkategoria;
+			podkategoria.IdKategorii = pkat.IdKategorii;
 			context.Podkategorie.Add(podkategoria);
 			context.SaveChanges();
+			int newId = podkategoria.PodId;
+			return newId;
 		}
 
 		public void UsunKategorie(int id)
