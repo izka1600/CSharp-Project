@@ -87,5 +87,16 @@ namespace WebApplication.Services
 			return returnValue;
 		}
 
+		//wyświetlam wszystkich użytkowników
+		public async Task<System.Collections.Generic.ICollection<KategoriaViewModel>> Get_Uzytkownicy()
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+			ICollection<Kategorie> dtoKategorie = await todoServiceClient.GetAllAsync();
+
+			ICollection<KategoriaViewModel> returnValue = _mapper.Map<List<KategoriaViewModel>>(dtoKategorie);
+
+			return returnValue;
+		}
+
 	}
 }
