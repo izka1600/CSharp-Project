@@ -14,6 +14,11 @@ namespace WebApplication.Services
 		Task<System.Collections.Generic.ICollection<TranskacjaViewModel>> Get_Transakcje();
 		Task<int> Post_Transakcja(NewTransakcjaViewModel newtr);
 		Task Delete_Transakcja(int id);
+		Task<TranskacjaViewModel> Get_TransakcjaID(int id);
+		Task<System.Collections.Generic.ICollection<KategoriaViewModel>> Get_Uzytkownicy();
+		Task<UzytkownikViewModel> Get_UzytkownikID(int id);
+		Task<int> Post_Uzytkownik(NewUzytkownikViewModel newtr);
+		Task Delete_Uzykownik(int id);
 
 	}
 }

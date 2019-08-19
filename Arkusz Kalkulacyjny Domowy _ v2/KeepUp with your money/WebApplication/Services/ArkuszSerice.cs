@@ -98,5 +98,33 @@ namespace WebApplication.Services
 			return returnValue;
 		}
 
+		// wyświetlam uzytkownika o danym Id 
+		public async Task<UzytkownikViewModel> Get_UzytkownikID(int id)
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+			Uzytkownik dtouz = await todoServiceClient.Get4Async(id);
+
+			UzytkownikViewModel returnValue = _mapper.Map<UzytkownikViewModel>(dtouz);
+
+			return returnValue;
+		}
+
+		//dodaję nowego użytkownika
+		public async Task<int> Post_Uzytkownik(NewUzytkownikViewModel newtr)
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+
+			int returnValue = await todoServiceClient.Post3Async(_mapper.Map<NowyUzytkownik>(newtr));
+
+			return returnValue;
+		}
+
+		// kasuję użytkownika o danym Id
+		public async Task Delete_Uzykownik(int id)
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+			await todoServiceClient.Delete2Async(id);
+		}
+
 	}
 }
