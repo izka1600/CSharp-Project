@@ -1,0 +1,44 @@
+﻿<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" />
+
+@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@model ListKategoriaViewModel;
+@{
+    ViewData["Title"] = "ListCategories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ListCategories</h1>
+
+
+<div style="margin-top: 50px">
+    <table id="example" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nr</th>
+                <th scope="col">Kategoria</th>
+                <th>Action</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <th scope="row">@item.KatId</th>
+                    <td style="height: 80px;">@item.Kategoria</td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+
