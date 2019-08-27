@@ -55,5 +55,15 @@ namespace WebApplication.Controllers
 			return View(model);
 
 		}
+
+		[Route("/WebApiKategoria/UsunWskazanaKategorie/{id}")]
+		public async Task<IActionResult> DeleteCategory(int id)
+		{
+			await _arkuszService.Delete_Kategoria(id);
+			//new DB_Model_EFCore.Controllers.BooksController().DeletetBook(id);
+			return RedirectToAction(nameof(ListCategories));
+		}
+
+
 	}
 }

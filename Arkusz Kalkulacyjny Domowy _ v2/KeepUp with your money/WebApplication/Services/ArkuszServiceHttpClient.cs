@@ -40,6 +40,235 @@ namespace WebApplication
 		partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
 		partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
+		/// <summary>Usuń podkategorie o danym ID</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		public System.Threading.Tasks.Task DeleteAsync10(int? id)
+		{
+			return DeleteAsync10(id, System.Threading.CancellationToken.None);
+		}
+
+		/// <summary>Usuń podkategorie o danym ID</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+		public async System.Threading.Tasks.Task DeleteAsync10(int? id, System.Threading.CancellationToken cancellationToken)
+		{
+			var urlBuilder_ = new System.Text.StringBuilder();
+			urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/WebApiKategoria/UsunWskazanaPodkategorie?");
+			if (id != null)
+			{
+				urlBuilder_.Append("id=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+			}
+			urlBuilder_.Length--;
+
+			var client_ = _httpClient;
+			try
+			{
+				using (var request_ = new System.Net.Http.HttpRequestMessage())
+				{
+					request_.Method = new System.Net.Http.HttpMethod("DELETE");
+
+					PrepareRequest(client_, request_, urlBuilder_);
+					var url_ = urlBuilder_.ToString();
+					request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+					PrepareRequest(client_, request_, url_);
+
+					var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+					try
+					{
+						var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+						if (response_.Content != null && response_.Content.Headers != null)
+						{
+							foreach (var item_ in response_.Content.Headers)
+								headers_[item_.Key] = item_.Value;
+						}
+
+						ProcessResponse(client_, response_);
+
+						var status_ = ((int)response_.StatusCode).ToString();
+						if (status_ == "200")
+						{
+							return;
+						}
+						else
+						if (status_ != "200" && status_ != "204")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+						}
+					}
+					finally
+					{
+						if (response_ != null)
+							response_.Dispose();
+					}
+				}
+			}
+			finally
+			{
+			}
+		}
+		/// <summary>Stwórz nową podkategorie</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		public System.Threading.Tasks.Task<int> PostAsync10(NowaPodkategoria pkat)
+		{
+			return PostAsync10(pkat, System.Threading.CancellationToken.None);
+		}
+
+		/// <summary>Stwórz nową podkategorie</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+		public async System.Threading.Tasks.Task<int> PostAsync10(NowaPodkategoria pkat, System.Threading.CancellationToken cancellationToken)
+		{
+			var urlBuilder_ = new System.Text.StringBuilder();
+			urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/WebApiKategoria/DodajNowaPodkategorie");
+
+			var client_ = _httpClient;
+			try
+			{
+				using (var request_ = new System.Net.Http.HttpRequestMessage())
+				{
+					var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(pkat, _settings.Value));
+					content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+					request_.Content = content_;
+					request_.Method = new System.Net.Http.HttpMethod("POST");
+					request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+					PrepareRequest(client_, request_, urlBuilder_);
+					var url_ = urlBuilder_.ToString();
+					request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+					PrepareRequest(client_, request_, url_);
+
+					var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+					try
+					{
+						var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+						if (response_.Content != null && response_.Content.Headers != null)
+						{
+							foreach (var item_ in response_.Content.Headers)
+								headers_[item_.Key] = item_.Value;
+						}
+
+						ProcessResponse(client_, response_);
+
+						var status_ = ((int)response_.StatusCode).ToString();
+						if (status_ == "200")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							var result_ = default(int);
+							try
+							{
+								result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<int>(responseData_, _settings.Value);
+								return result_;
+							}
+							catch (System.Exception exception_)
+							{
+								throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+							}
+						}
+						else
+						if (status_ != "200" && status_ != "204")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+						}
+
+						return default(int);
+					}
+					finally
+					{
+						if (response_ != null)
+							response_.Dispose();
+					}
+				}
+			}
+			finally
+			{
+			}
+		}
+
+
+		/// <summary>Metoda wyświetlająca z bazy wszystkie podkategorie</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Podkategorie>> GetAllAsync10()
+		{
+			return GetAllAsync10(System.Threading.CancellationToken.None);
+		}
+
+		/// <summary>Metoda wyświetlająca z bazy wszystkie podkategorie</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+		public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Podkategorie>> GetAllAsync10(System.Threading.CancellationToken cancellationToken)
+		{
+			var urlBuilder_ = new System.Text.StringBuilder();
+			urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/WebApiKategoria/WylistujPodkategorie");
+
+			var client_ = _httpClient;
+			try
+			{
+				using (var request_ = new System.Net.Http.HttpRequestMessage())
+				{
+					request_.Method = new System.Net.Http.HttpMethod("GET");
+					request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+					PrepareRequest(client_, request_, urlBuilder_);
+					var url_ = urlBuilder_.ToString();
+					request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+					PrepareRequest(client_, request_, url_);
+
+					var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+					try
+					{
+						var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+						if (response_.Content != null && response_.Content.Headers != null)
+						{
+							foreach (var item_ in response_.Content.Headers)
+								headers_[item_.Key] = item_.Value;
+						}
+
+						ProcessResponse(client_, response_);
+
+						var status_ = ((int)response_.StatusCode).ToString();
+						if (status_ == "200")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							var result_ = default(System.Collections.Generic.ICollection<Podkategorie>);
+							try
+							{
+								result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.ICollection<Podkategorie>>(responseData_, _settings.Value);
+								return result_;
+							}
+							catch (System.Exception exception_)
+							{
+								throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+							}
+						}
+						else
+						if (status_ != "200" && status_ != "204")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+						}
+
+						return default(System.Collections.Generic.ICollection<Podkategorie>);
+					}
+					finally
+					{
+						if (response_ != null)
+							response_.Dispose();
+					}
+				}
+			}
+			finally
+			{
+			}
+		}
+
 		/// <summary>Metoda wyświetlająca z bazy wszystkie kategorie</summary>
 		/// <returns>Success</returns>
 		/// <exception cref="SwaggerException">A server side error occurred.</exception>
@@ -930,7 +1159,6 @@ namespace WebApplication
 		}
 	}
 
-	
 
 	[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.14.1.0 (Newtonsoft.Json v11.0.0.0)")]
 	public partial class Kategorie

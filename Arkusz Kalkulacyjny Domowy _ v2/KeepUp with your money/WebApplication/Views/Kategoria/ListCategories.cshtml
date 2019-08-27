@@ -9,7 +9,7 @@
 @inject UserManager<AppUser> UserManager
 @model ListKategoriaViewModel;
 @{
-    ViewData["Title"] = "ListCategories";
+    ViewData["Title"] = "Lista dostępnych kategorii produktów";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -17,7 +17,7 @@
 
 
 <div style="margin-top: 50px">
-    <table id="example" class="table table-striped">
+    <table id="myTable" class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">Nr</th>
@@ -30,15 +30,26 @@
         <tbody>
             @foreach (var item in Model.Items)
             {
-                <tr>
-                    <th scope="row">@item.KatId</th>
-                    <td style="height: 80px;">@item.Kategoria</td>
-
-                </tr>
+            <tr>
+                <th scope="row">@item.KatId</th>
+                <td style="height: 50px;">@item.Kategoria</td>
+                <td style="height: 50px;"><a asp-action="DeleteCategory" asp-route-id="@item.KatId">Delete</a></td>
+            </tr>
             }
         </tbody>
 
     </table>
 </div>
+
+<script>
+    $('#myTable').dataTable({
+        columnDefs: [{
+        orderable: false,
+        targets: 2
+        }],
+    });
+    $('#myTable_wrapper').removeClass( 'form-inline' )
+
+</script>
 
 

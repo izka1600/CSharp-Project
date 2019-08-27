@@ -48,6 +48,34 @@ namespace WebApplication.Services
 			await todoServiceClient.DeleteAsync(id);
 		}
 
+		//wyświetlam wszystkie podkategorie
+		public async Task<System.Collections.Generic.ICollection<PodkategoriaViewModel>> Get_Podkategorie()
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+			ICollection<Podkategorie> dtoKategorie = await todoServiceClient.GetAllAsync10();
+
+			ICollection<PodkategoriaViewModel> returnValue = _mapper.Map<List<PodkategoriaViewModel>>(dtoKategorie);
+
+			return returnValue;
+		}
+
+		//dodaję nową podkategorie
+		public async Task<int> Post_Podkategoria(NewPodkategoriaViewModel newkat)
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+
+			int returnValue = await todoServiceClient.PostAsync10(_mapper.Map<NowaPodkategoria>(newkat));
+
+			return returnValue;
+		}
+
+		// kasuję podkategorię o danym Id
+		public async Task Delete_Podkategoria(int id)
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+			await todoServiceClient.DeleteAsync10(id);
+		}
+
 		//wyświetlam wszystkie transakcje
 		public async Task<System.Collections.Generic.ICollection<TranskacjaViewModel>> Get_Transakcje()
 		{

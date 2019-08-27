@@ -9,7 +9,9 @@ namespace WebApplication.Services
 	public interface IArkuszService
 	{
 		Task<System.Collections.Generic.ICollection<KategoriaViewModel>> Get_Kategorie();
+		Task<System.Collections.Generic.ICollection<PodkategoriaViewModel>> Get_Podkategorie();
 		Task<int> Post_Kategoria(NewKategoriaViewModel newkat);
+		Task<int> Post_Podkategoria(NewPodkategoriaViewModel newkat);
 		Task Delete_Kategoria(int id);
 		Task<System.Collections.Generic.ICollection<TranskacjaViewModel>> Get_Transakcje();
 		Task<int> Post_Transakcja(NewTransakcjaViewModel newtr);
