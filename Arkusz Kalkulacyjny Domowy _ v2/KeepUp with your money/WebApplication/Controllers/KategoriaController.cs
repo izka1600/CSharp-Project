@@ -60,10 +60,28 @@ namespace WebApplication.Controllers
 		public async Task<IActionResult> DeleteCategory(int id)
 		{
 			await _arkuszService.Delete_Kategoria(id);
-			//new DB_Model_EFCore.Controllers.BooksController().DeletetBook(id);
 			return RedirectToAction(nameof(ListCategories));
 		}
 
+		[Route("/WebApiKategoria/DodajNowaKategorie")]
+		public IActionResult AddNewCategory()
+		{
+			return View();
+		}
+
+		[Route("/WebApiKategoria/DodajNowaKategorie")]
+		[HttpPost]
+		public async Task<IActionResult> AddNewCategory(NewKategoriaViewModel newkat)
+		{
+			var currentUser = await _userManager.GetUserAsync(User);
+			if (currentUser == null)
+			{
+				RedirectToAction("ListCategories");
+			}
+
+			int currentKategoriaId = await _arkuszService.Post_Kategoria(newkat);
+			return RedirectToAction(nameof(ListCategories));
+		}
 
 	}
 }

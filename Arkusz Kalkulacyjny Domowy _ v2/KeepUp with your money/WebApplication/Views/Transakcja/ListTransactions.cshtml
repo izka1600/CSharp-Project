@@ -7,22 +7,27 @@
 @using AuthDatabase.Entities;
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-@model ListKategoriaViewModel;
+@model ListTransakcjaViewModel;
+
+
 @{
-    ViewData["Title"] = "Lista dostępnych kategorii produktów";
+    ViewData["Title"] = "Lista Twoich Transakcji";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Lista dostępnych kategorii produktów</h1>
-
+<h1>Lista Twoich Transakcji</h1>
 
 <div style="margin-top: 50px">
     <table id="myTable" class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">Nr</th>
-                <th scope="col">Kategoria</th>
-                <th>Action</th>
+                <th scope="col">Data</th>
+                <th scope="col">IdUzytkownika</th>
+                <th scope="col">IdKategorii</th>
+                <th scope="col">IdPodkategorii</th>
+                <th scope="col">Kwota</th>
+                <th>Akcja</th>
 
 
             </tr>
@@ -31,9 +36,13 @@
             @foreach (var item in Model.Items)
             {
             <tr>
-                <th scope="row">@item.KatId</th>
-                <td style="height: 50px;">@item.Kategoria</td>
-                <td style="height: 50px;"><a asp-action="DeleteCategory" asp-route-id="@item.KatId">Delete</a></td>
+                <th scope="row">@item.TransId</th>
+                <td style="height: 50px;">@item.Data</td>
+                <td style="height: 50px;">@item.IdUzytkownika</td>
+                <td style="height: 50px;">@item.IdKategorii</td>
+                <td style="height: 50px;">@item.IdPodkategorii</td>
+                <td style="height: 50px;">@item.Kwota</td>
+                <td style="height: 50px;"><a asp-action="DeleteTransaction" asp-route-id="@item.TransId">Delete</a></td>
             </tr>
             }
         </tbody>
@@ -44,12 +53,10 @@
 <script>
     $('#myTable').dataTable({
         columnDefs: [{
-        orderable: false,
-        targets: 2
+            orderable: false,
+            targets: 2
         }],
     });
-    $('#myTable_wrapper').removeClass( 'form-inline' )
+    $('#myTable_wrapper').removeClass('form-inline')
 
 </script>
-
-
