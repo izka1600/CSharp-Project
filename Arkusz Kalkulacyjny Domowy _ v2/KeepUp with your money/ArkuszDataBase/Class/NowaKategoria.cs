@@ -7,5 +7,6 @@ namespace ArkuszDataBase.Class
 	public class NowaKategoria
 	{
 		public string Kategoria { get; set; }
+		public int IdUzytkownika { get; set; }
 	}
 }

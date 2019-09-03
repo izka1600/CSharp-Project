@@ -39,15 +39,28 @@ namespace ArkuszDataBase.Models
                 entity.HasKey(e => e.KatId)
                     .HasName("PK__Kategori__87B3726890867C4A");
 
+                entity.HasIndex(e => e.Kategoria)
+                    .HasName("KatName")
+                    .IsUnique();
+
                 entity.Property(e => e.KatId).HasColumnName("Kat_Id");
 
                 entity.Property(e => e.Kategoria)
                     .HasMaxLength(100)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Uz)
+                    .WithMany(p => p.Kategorie)
+                    .HasForeignKey(d => d.UzId)
+                    .HasConstraintName("FKUzytkownik_K");
             });
 
             modelBuilder.Entity<Plan>(entity =>
             {
+                entity.HasIndex(e => new { e.Miesiąc, e.ZalozonaKwota, e.FaktycznaKwota, e.IdUzytkownika, e.IdTransakcji })
+                    .HasName("PlanUnique")
+                    .IsUnique();
+
                 entity.Property(e => e.PlanId)
                     .HasColumnName("Plan_ID")
                     .ValueGeneratedNever();
@@ -76,6 +89,10 @@ namespace ArkuszDataBase.Models
                 entity.HasKey(e => e.PodId)
                     .HasName("PK__Podkateg__6680BE6EF145A89C");
 
+                entity.HasIndex(e => e.Podkategoria)
+                    .HasName("PodName")
+                    .IsUnique();
+
                 entity.Property(e => e.PodId).HasColumnName("Pod_ID");
 
                 entity.Property(e => e.Podkategoria)
@@ -92,6 +109,10 @@ namespace ArkuszDataBase.Models
             {
                 entity.HasKey(e => e.TransId)
                     .HasName("PK__Transakc__7B615C8D012D977A");
+
+                entity.HasIndex(e => new { e.Data, e.IdUzytkownika, e.IdKategorii, e.IdPodkategorii, e.Kwota })
+                    .HasName("TranUnique")
+                    .IsUnique();
 
                 entity.Property(e => e.TransId).HasColumnName("Trans_ID");
 
@@ -122,6 +143,10 @@ namespace ArkuszDataBase.Models
             {
                 entity.HasKey(e => e.UzytId)
                     .HasName("PK__Uzytkown__866806738B051B36");
+
+                entity.HasIndex(e => e.EMail)
+                    .HasName("U_Email")
+                    .IsUnique();
 
                 entity.Property(e => e.UzytId).HasColumnName("Uzyt_ID");
 

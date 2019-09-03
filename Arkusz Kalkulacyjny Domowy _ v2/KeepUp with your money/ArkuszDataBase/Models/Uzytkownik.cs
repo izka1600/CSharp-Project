@@ -7,6 +7,7 @@ namespace ArkuszDataBase.Models
     {
         public Uzytkownik()
         {
+            Kategorie = new HashSet<Kategorie>();
             Plan = new HashSet<Plan>();
             Transakcje = new HashSet<Transakcje>();
         }
@@ -18,8 +19,10 @@ namespace ArkuszDataBase.Models
         public string EMail { get; set; }
         public DateTime? DataDodania { get; set; }
         public DateTime? OstatnieLogowanie { get; set; }
-		public DateTime? DataUsuniecia { get; set; }
-		public virtual ICollection<Plan> Plan { get; set; }
+        public DateTime? DataUsuniecia { get; set; }
+
+        public virtual ICollection<Kategorie> Kategorie { get; set; }
+        public virtual ICollection<Plan> Plan { get; set; }
         public virtual ICollection<Transakcje> Transakcje { get; set; }
     }
 }

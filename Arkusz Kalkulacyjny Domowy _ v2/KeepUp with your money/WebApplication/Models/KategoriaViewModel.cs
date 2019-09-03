@@ -17,5 +17,7 @@ namespace WebApplication.Models
 		[StringLength(100, ErrorMessage = "Nazwa kategorii jest za długa")]
 		public string Kategoria { get; set; }
 
+		public int UzId { get; set; }
+
 	}
 }

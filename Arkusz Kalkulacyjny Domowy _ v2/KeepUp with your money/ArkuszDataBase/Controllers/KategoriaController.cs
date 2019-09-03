@@ -15,7 +15,8 @@ namespace ArkuszDataBase.Controllers
 		{
 			var kategoria = new Kategorie
 			{
-				Kategoria = nazwa.Kategoria
+				Kategoria = nazwa.Kategoria,
+				UzId = nazwa.IdUzytkownika
 			};
 
 			context.Kategorie.Add(kategoria);

@@ -13,7 +13,9 @@ namespace ArkuszDataBase.Models
 
         public int KatId { get; set; }
         public string Kategoria { get; set; }
+        public int? UzId { get; set; }
 
+        public virtual Uzytkownik Uz { get; set; }
         public virtual ICollection<Podkategorie> Podkategorie { get; set; }
         public virtual ICollection<Transakcje> Transakcje { get; set; }
     }

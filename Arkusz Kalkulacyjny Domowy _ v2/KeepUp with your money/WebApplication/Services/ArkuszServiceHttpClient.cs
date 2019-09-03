@@ -1169,6 +1169,12 @@ namespace WebApplication
 		[Newtonsoft.Json.JsonProperty("kategoria", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 		public string Kategoria { get; set; }
 
+		[Newtonsoft.Json.JsonProperty("uzId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public int? UzId { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("uz", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public Uzytkownik Uz { get; set; }
+
 		[Newtonsoft.Json.JsonProperty("podkategorie", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 		public System.Collections.Generic.ICollection<Podkategorie> Podkategorie { get; set; }
 
@@ -1346,11 +1352,15 @@ namespace WebApplication
 
 	}
 
+
 	[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.14.1.0 (Newtonsoft.Json v11.0.0.0)")]
 	public partial class NowaKategoria
 	{
 		[Newtonsoft.Json.JsonProperty("kategoria", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 		public string Kategoria { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("idUzytkownika", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public int? IdUzytkownika { get; set; }
 
 		public string ToJson()
 		{
