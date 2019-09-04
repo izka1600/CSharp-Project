@@ -8,21 +8,25 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Models;
+using WebApplication.Services;
 
 namespace WebApplication.Controllers
 {
 	[Authorize]
 	public class AccountController : Controller
     {
+		private readonly IArkuszService _arkuszService;
 		private readonly UserManager<AppUser> _userManager;
 		private readonly SignInManager<AppUser> _signInManager;
 
 		public AccountController(
+			IArkuszService arkuszService,
 			UserManager<AppUser> userManager,
 			SignInManager<AppUser> signInManager)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
+			_arkuszService = arkuszService;
 		}
 
 
@@ -98,6 +102,8 @@ namespace WebApplication.Controllers
 				if (result.Succeeded)
 				{
 					await _signInManager.SignInAsync(user, isPersistent: false);
+					NewUzytkownikViewModel newtr = new NewUzytkownikViewModel() { EMail = model.Email, Imie = model.FirstName, Nazwisko = model.LastName };
+					await _arkuszService.Post_Uzytkownik(newtr);
 					return RedirectToLocal(returnUrl);
 				}
 				AddErrors(result);

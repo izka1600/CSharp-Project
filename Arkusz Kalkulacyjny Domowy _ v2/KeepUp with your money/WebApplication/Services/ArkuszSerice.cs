@@ -116,12 +116,12 @@ namespace WebApplication.Services
 		}
 
 		//wyświetlam wszystkich użytkowników
-		public async Task<System.Collections.Generic.ICollection<KategoriaViewModel>> Get_Uzytkownicy()
+		public async Task<System.Collections.Generic.ICollection<UzytkownikViewModel>> Get_Uzytkownicy()
 		{
 			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
-			ICollection<Kategorie> dtoKategorie = await todoServiceClient.GetAllAsync();
+			ICollection<Uzytkownik> dtoKategorie = await todoServiceClient.Get3Async();
 
-			ICollection<KategoriaViewModel> returnValue = _mapper.Map<List<KategoriaViewModel>>(dtoKategorie);
+			ICollection<UzytkownikViewModel> returnValue = _mapper.Map<List<UzytkownikViewModel>>(dtoKategorie);
 
 			return returnValue;
 		}

@@ -15,6 +15,8 @@ namespace WebApplication
 			CreateMap<KategoriaViewModel, Kategorie>().ReverseMap();
 			CreateMap<TranskacjaViewModel, Transakcje>().ReverseMap();
 			CreateMap<NewKategoriaViewModel, NowaKategoria>().ReverseMap();
+			CreateMap<NewUzytkownikViewModel, NowyUzytkownik>().ReverseMap();
+			CreateMap<UzytkownikViewModel, Uzytkownik>().ReverseMap();
 			CreateMap<DateTimeOffset, DateTime>();
 		}
 

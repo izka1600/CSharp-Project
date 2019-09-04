@@ -48,9 +48,29 @@ namespace WebApplication.Controllers
 			}
 
 			ICollection<KategoriaViewModel> currentKategoriaItems = await _arkuszService.Get_Kategorie();
+			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
+
+			ICollection<KategoriaViewModel> newCurrentKategoriaItems = new List<KategoriaViewModel>();
+			int UzId = 0;
+			foreach (var item in UsersList)
+			{
+				if (item.EMail.ToUpper() == currentUser.Email.ToUpper())
+				{
+					UzId = item.UzytId;
+				}
+			}
+
+			foreach (var item in currentKategoriaItems)
+			{
+				if (item.UzId== UzId || item.UzId==0)
+				{
+					newCurrentKategoriaItems.Add(item);
+				}
+			}
+				
 			var model = new ListKategoriaViewModel()
 			{
-				Items = currentKategoriaItems
+				Items = newCurrentKategoriaItems
 			};
 			return View(model);
 
