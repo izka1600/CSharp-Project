@@ -46,8 +46,27 @@ namespace WebApplication.Controllers
 			{
 				return RedirectToAction("ListTransactions");
 			}
+			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
+			int UzId = 0;
+			foreach (var item in UsersList)
+			{
+				if (item.EMail.ToUpper() == currentUser.Email.ToUpper())
+				{
+					UzId = item.UzytId;
+				}
+			}
+			ICollection<TranskacjaViewModel> AllcurrentTransakcjaItems = await _arkuszService.Get_Transakcje();
 
-			ICollection<TranskacjaViewModel> currentTransakcjaItems = await _arkuszService.Get_Transakcje();
+			ICollection<TranskacjaViewModel> currentTransakcjaItems = new List<TranskacjaViewModel>();
+
+			foreach (var item in AllcurrentTransakcjaItems)
+			{
+				if (item.IdUzytkownika == UzId)
+				{
+					currentTransakcjaItems.Add(item);
+				}
+			}
+
 			var model = new ListTransakcjaViewModel()
 			{
 				Items = currentTransakcjaItems
@@ -55,6 +74,37 @@ namespace WebApplication.Controllers
 			return View(model);
 
 		}
+
+		[Route("/WebApiTranskacja/DodajNowaTransakcje")]
+		public IActionResult AddNewTransaction()
+		{
+			return View();
+		}
+
+		[Route("/WebApiTranskacja/DodajNowaTransakcje")]
+		[HttpPost]
+		public async Task<IActionResult> AddNewTransaction(NewTransakcjaViewModel newtr)
+		{
+			var currentUser = await _userManager.GetUserAsync(User);
+			if (currentUser == null)
+			{
+				RedirectToAction("ListTransactions");
+			}
+			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
+			int UzId = 0;
+			foreach (var item in UsersList)
+			{
+				if (item.EMail.ToUpper() == currentUser.Email.ToUpper())
+				{
+					UzId = item.UzytId;
+				}
+			}
+			newtr.IdUzytkownika = UzId;
+
+			int currentTransakcjaId = await _arkuszService.Post_Transakcja(newtr);
+			return RedirectToAction(nameof(ListTransactions));
+		}
+
 
 		[Route("/WebApiTranskacja/UsunWskazanaTransakcje/{id}")]
 		public async Task<IActionResult> DeleteTransaction(int id)

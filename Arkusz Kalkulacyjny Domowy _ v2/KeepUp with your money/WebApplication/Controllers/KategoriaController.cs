@@ -98,6 +98,16 @@ namespace WebApplication.Controllers
 			{
 				RedirectToAction("ListCategories");
 			}
+			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
+			int UzId = 0;
+			foreach (var item in UsersList)
+			{
+				if (item.EMail.ToUpper() == currentUser.Email.ToUpper())
+				{
+					UzId = item.UzytId;
+				}
+			}
+			newkat.IdUzytkownika = UzId;
 
 			int currentKategoriaId = await _arkuszService.Post_Kategoria(newkat);
 			return RedirectToAction(nameof(ListCategories));

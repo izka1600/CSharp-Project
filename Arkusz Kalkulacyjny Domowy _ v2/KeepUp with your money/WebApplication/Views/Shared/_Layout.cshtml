@@ -39,12 +39,16 @@
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button">Menu</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-area="" asp-controller="Kategoria" asp-action="ListCategories">Menadżer kategorii</a> <br />
-                                <a class="dropdown-item" asp-area="" asp-controller="Transakcja" asp-action="ListTransactions">Menadżer transakcji</a> <br />
                                 @if (SignInManager.IsSignedIn(User))
                                 {
                                     <a class="dropdown-item" asp-area="" asp-controller="Kategoria" asp-action="AddNewCategory">Dodaj nową kategorię</a> <br />
                                 }
-                                </div>
+                                <a class="dropdown-item" asp-area="" asp-controller="Transakcja" asp-action="ListTransactions">Menadżer transakcji</a> <br />
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <a class="dropdown-item" asp-area="" asp-controller="Transakcja" asp-action="AddNewTransaction">Dodaj nową transakcję</a> <br />
+                                }
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>

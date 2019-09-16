@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@model NewTransakcjaViewModel;
+
+@{
+    ViewData["Title"] = "AddNewTransaction";
+}
+
+<h1>Dodaj nową kategorię</h1>
+
+<form asp-action="AddCategory">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Kwota" for="Kwota">Kwota transakcji</label>
+        <input asp-for="Kwota" type="text" class="form-control" id="Kwota" placeholder="Example amount">
+        <span asp-validation-for="Kwota" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Data" for="Data">Data transakcji</label>
+        <input asp-for="Data" type="text" class="form-control" id="Data" placeholder="Example date">
+        <span asp-validation-for="Data" class="text-danger"></span>
+    </div>
+    <div style="display:none">
+        <input asp-for="IdUzytkownika" value="1">
+    </div>
+    <div style="display:none">
+        <input asp-for="IdUzytkownika" value="1">
+    </div>
+    <div style="display:none">
+        <input asp-for="IdUzytkownika" value="1">
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Dodaj kategorię" class="btn btn-success" style="margin-top:30px" />
+    </div>
+</form>
