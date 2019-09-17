@@ -1,8 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using AuthDatabase.Entities;
+@using WebApplication.ViewModels;
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-@model NewTransakcjaViewModel;
+@model Tuple<NewTransakcjaVM,ListKategoriaViewModel> ;
 
 @{
     ViewData["Title"] = "AddNewTransaction";
@@ -13,25 +14,31 @@
 <form asp-action="AddCategory">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
-        <label asp-for="Kwota" for="Kwota">Kwota transakcji</label>
-        <input asp-for="Kwota" type="text" class="form-control" id="Kwota" placeholder="Example amount">
-        <span asp-validation-for="Kwota" class="text-danger"></span>
+        <label asp-for=@Model.Item1.Kwota for="Kwota">Kwota transakcji</label>
+        <input asp-for=@Model.Item1.Kwota type="text" class="form-control" id="Kwota" placeholder="Example amount">
+        <span asp-validation-for=@Model.Item1.Kwota class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Data" for="Data">Data transakcji</label>
-        <input asp-for="Data" type="text" class="form-control" id="Data" placeholder="Example date">
-        <span asp-validation-for="Data" class="text-danger"></span>
-    </div>
-    <div style="display:none">
-        <input asp-for="IdUzytkownika" value="1">
-    </div>
-    <div style="display:none">
-        <input asp-for="IdUzytkownika" value="1">
-    </div>
-    <div style="display:none">
-        <input asp-for="IdUzytkownika" value="1">
+        <label asp-for=@Model.Item1.Data for="Data">Data transakcji</label>
+        <input asp-for=@Model.Item1.Data type="text" class="form-control" id="Data" placeholder="Example date">
+        <span asp-validation-for=@Model.Item1.Data class="text-danger"></span>
     </div>
     <div class="form-group">
-        <input type="submit" value="Dodaj kategorię" class="btn btn-success" style="margin-top:30px" />
+        <label asp-for=@Model.Item1.IdPodkategorii for="Podkategoria">Podkategoria</label>
+        <input asp-for=@Model.Item1.IdPodkategorii type="text" class="form-control" id="Podkategoria" placeholder="Example subcategory">
+        <span asp-validation-for=@Model.Item1.IdPodkategorii class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for=@Model.Item1.IdKategorii for="Kategoria">Kategoria</label>
+        <select asp-for=@Model.Item1.IdKategorii type="text" class="form-control" id="Kategoria">
+        @foreach (var item in @Model.Item2.Items)
+        {
+            <option value=@item.KatId >@item.Kategoria</option>
+        }
+        </select>
+        <span asp-validation-for=@Model.Item1.IdKategorii class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Dodaj transakcję" class="btn btn-success" style="margin-top:30px" />
     </div>
 </form>

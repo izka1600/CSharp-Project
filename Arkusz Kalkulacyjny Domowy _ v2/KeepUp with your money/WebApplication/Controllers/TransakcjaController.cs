@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Models;
 using WebApplication.Services;
+using WebApplication.ViewModels;
 
 namespace WebApplication.Controllers
 {
@@ -76,14 +77,47 @@ namespace WebApplication.Controllers
 		}
 
 		[Route("/WebApiTranskacja/DodajNowaTransakcje")]
-		public IActionResult AddNewTransaction()
+		public async Task<IActionResult> AddNewTransaction()
 		{
-			return View();
+			var currentUser = await _userManager.GetUserAsync(User);
+			if (currentUser == null)
+			{
+				return RedirectToAction("ListCategories");
+			}
+
+			ICollection<KategoriaViewModel> currentKategoriaItems = await _arkuszService.Get_Kategorie();
+			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
+
+			ICollection<KategoriaViewModel> newCurrentKategoriaItems = new List<KategoriaViewModel>();
+			int UzId = 0;
+			foreach (var item in UsersList)
+			{
+				if (item.EMail.ToUpper() == currentUser.Email.ToUpper())
+				{
+					UzId = item.UzytId;
+				}
+			}
+
+			foreach (var item in currentKategoriaItems)
+			{
+				if (item.UzId == UzId || item.UzId == 0)
+				{
+					newCurrentKategoriaItems.Add(item);
+				}
+			}
+
+			var model = new ListKategoriaViewModel()
+			{
+				Items = newCurrentKategoriaItems
+			};
+
+			var tuple = new Tuple<NewTransakcjaVM, ListKategoriaViewModel>(new NewTransakcjaVM(), model);
+			return View(tuple);
 		}
 
 		[Route("/WebApiTranskacja/DodajNowaTransakcje")]
 		[HttpPost]
-		public async Task<IActionResult> AddNewTransaction(NewTransakcjaViewModel newtr)
+		public async Task<IActionResult> AddNewTransaction([Bind(Prefix = "Item1")] NewTransakcjaVM newtrVM)
 		{
 			var currentUser = await _userManager.GetUserAsync(User);
 			if (currentUser == null)
@@ -99,7 +133,15 @@ namespace WebApplication.Controllers
 					UzId = item.UzytId;
 				}
 			}
-			newtr.IdUzytkownika = UzId;
+
+
+			NewTransakcjaViewModel newtr = new NewTransakcjaViewModel
+			{
+				IdUzytkownika = UzId,
+				Kwota = newtrVM.Kwota,
+				IdPodkategorii = newtrVM.IdPodkategorii,
+				IdKategorii = newtrVM.IdKategorii
+			};
 
 			int currentTransakcjaId = await _arkuszService.Post_Transakcja(newtr);
 			return RedirectToAction(nameof(ListTransactions));

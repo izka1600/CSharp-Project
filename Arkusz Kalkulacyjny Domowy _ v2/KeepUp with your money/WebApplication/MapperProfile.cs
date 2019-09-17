@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication.Models;
 using WebApplication.Services;
+using WebApplication.ViewModels;
 
 namespace WebApplication
 {
@@ -17,6 +18,8 @@ namespace WebApplication
 			CreateMap<NewKategoriaViewModel, NowaKategoria>().ReverseMap();
 			CreateMap<NewUzytkownikViewModel, NowyUzytkownik>().ReverseMap();
 			CreateMap<UzytkownikViewModel, Uzytkownik>().ReverseMap();
+			CreateMap<NewTransakcjaViewModel, NowaTransakcja>().ReverseMap();
+			CreateMap<NewTransakcjaViewModel, NewTransakcjaVM>().ReverseMap();
 			CreateMap<DateTimeOffset, DateTime>();
 		}
 
