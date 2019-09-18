@@ -13,6 +13,7 @@ namespace WebApplication.Services
 		Task<int> Post_Kategoria(NewKategoriaViewModel newkat);
 		Task<int> Post_Podkategoria(NewPodkategoriaViewModel newkat);
 		Task Delete_Kategoria(int id);
+		Task Delete_Podkategoria(int id);
 		Task<System.Collections.Generic.ICollection<TranskacjaViewModel>> Get_Transakcje();
 		Task<int> Post_Transakcja(NewTransakcjaViewModel newtr);
 		Task Delete_Transakcja(int id);

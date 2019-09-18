@@ -111,7 +111,26 @@ namespace WebApplication.Controllers
 				Items = newCurrentKategoriaItems
 			};
 
-			var tuple = new Tuple<NewTransakcjaVM, ListKategoriaViewModel>(new NewTransakcjaVM(), model);
+			ICollection<PodkategoriaViewModel> currentPodkategoriaItems = await _arkuszService.Get_Podkategorie();
+			ICollection<PodkategoriaViewModel> newCurrentPodkategoriaItems = new List<PodkategoriaViewModel>();
+
+			foreach (var item in currentPodkategoriaItems)
+			{
+				foreach (var x in newCurrentKategoriaItems)
+				{
+					if (item.IdKategorii == x.KatId)
+					{
+						newCurrentPodkategoriaItems.Add(item);
+					}
+				}
+			}
+
+			var model1 = new ListPodkategoriaViewModel()
+			{
+				Items = newCurrentPodkategoriaItems
+			};
+
+			var tuple = new Tuple<NewTransakcjaVM, ListKategoriaViewModel, ListPodkategoriaViewModel>(new NewTransakcjaVM(), model, model1);
 			return View(tuple);
 		}
 

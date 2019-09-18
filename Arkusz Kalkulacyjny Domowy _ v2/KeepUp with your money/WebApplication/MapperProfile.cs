@@ -14,6 +14,7 @@ namespace WebApplication
 		public MapperProfile()
 		{
 			CreateMap<KategoriaViewModel, Kategorie>().ReverseMap();
+			CreateMap<PodkategoriaViewModel, Podkategorie>().ReverseMap();
 			CreateMap<TranskacjaViewModel, Transakcje>().ReverseMap();
 			CreateMap<NewKategoriaViewModel, NowaKategoria>().ReverseMap();
 			CreateMap<NewUzytkownikViewModel, NowyUzytkownik>().ReverseMap();

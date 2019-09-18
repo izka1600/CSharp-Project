@@ -37,6 +37,95 @@ namespace WebApplication.Controllers
 			return View();
 		}
 
+		[Route("/WebApiKategoria/WylistujPodkategorie")]
+		public async Task<IActionResult> ListSubcategories()
+		{
+
+			var currentUser = await _userManager.GetUserAsync(User);
+			if (currentUser == null)
+			{
+				return RedirectToAction("ListSubcategories");
+			}
+
+			ICollection<KategoriaViewModel> currentKategoriaItems = await _arkuszService.Get_Kategorie();
+			ICollection<KategoriaViewModel> NewKategoriaItems = new List<KategoriaViewModel>();
+			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
+
+			ICollection<PodkategoriaViewModel> currentPodkategoriaItems = await _arkuszService.Get_Podkategorie();
+			ICollection<PodkategoriaViewModel> newCurrentPodkategoriaItems = new List<PodkategoriaViewModel>();
+			int UzId = 0;
+			foreach (var item in UsersList)
+			{
+				if (item.EMail.ToUpper() == currentUser.Email.ToUpper())
+				{
+					UzId = item.UzytId;
+				}
+			}
+
+			foreach (var item in currentKategoriaItems)
+			{
+				if (item.UzId == UzId || item.UzId == 0)
+				{
+					NewKategoriaItems.Add(item);
+				}
+			}
+
+			foreach (var item in currentPodkategoriaItems)
+			{
+				foreach (var x in NewKategoriaItems)
+				{
+					if (item.IdKategorii == x.KatId)
+					{
+						newCurrentPodkategoriaItems.Add(item);
+					}
+				}
+			}
+
+			var model = new ListPodkategoriaViewModel()
+			{
+				Items = newCurrentPodkategoriaItems
+			};
+			return View(model);
+
+		}
+
+		[Route("/WebApiKategoria/UsunWskazanaPodkategorie/{id}")]
+		public async Task<IActionResult> DeleteSubcategory(int id)
+		{
+			await _arkuszService.Delete_Podkategoria(id);
+			return RedirectToAction(nameof(ListSubcategories));
+		}
+
+		[Route("/WebApiKategoria/DodajNowaPodkategorie")]
+		public IActionResult AddNewSubcategory()
+		{
+			return View();
+		}
+		[Route("/WebApiKategoria/DodajNowaPodkategorie")]
+		[HttpPost]
+		public async Task<IActionResult> AddNewSubcategory(NewPodkategoriaViewModel newsubkat)
+		{
+			var currentUser = await _userManager.GetUserAsync(User);
+			if (currentUser == null)
+			{
+				RedirectToAction("ListSubcategories");
+			}
+			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
+			int UzId = 0;
+			foreach (var item in UsersList)
+			{
+				if (item.EMail.ToUpper() == currentUser.Email.ToUpper())
+				{
+					UzId = item.UzytId;
+				}
+			}
+			//newkat.IdUzytkownika = UzId;
+
+			int currentKategoriaId = await _arkuszService.Post_Podkategoria(newsubkat);
+			return RedirectToAction(nameof(ListSubcategories));
+		}
+
+
 		[Route("/WebApiKategoria/WylistujKategorie")]
 		public async Task<IActionResult> ListCategories()
 		{
