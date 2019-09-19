@@ -42,6 +42,34 @@
             </summary>
             <param name="id"></param>
         </member>
+        <member name="M:Web_Api.Controllers.WebApiPlanController.Get">
+            <summary>
+            Metoda wyświetlająca z bazy wszystkie plany
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiPlanController.Post(ArkuszDataBase.Class.NowyPlan)">
+            <summary>
+            Stwórz nowy plan
+            </summary>
+            <param name="plan"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiPlanController.Delete(System.Int32)">
+            <summary>
+            Usuń plan o danym ID
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Web_Api.Controllers.WebApiPlanController.Update(ArkuszDataBase.Class.UpdatePlan)">
+            <summary>
+            Zaktualizuj plan o danym ID
+            </summary>
+            <param name="Id"></param>
+            <param name="data"></param>
+            <param name="IdTr"></param>
+            <param name="zalKwota"></param>
+        </member>
         <member name="M:Web_Api.Controllers.WebApiTranskacjaController.Get">
             <summary>
             Metoda wyświetlająca z bazy wszystkie transakcje

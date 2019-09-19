@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@model Tuple<NewPodkategoriaViewModel, ListKategoriaViewModel>;
+
+@{
+    ViewData["Title"] = "AddNewSubcategory";
+}
+
+<h1>Dodaj nową podkategorię</h1>
+
+<form asp-action="AddSubcategory">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for=@Model.Item1.IdKategorii for="Podkategoria">Podkategoria</label>
+        <select asp-for=@Model.Item1.IdKategorii type="text" class="form-control" id="Podkategoria">
+            @foreach (var item in @Model.Item2.Items)
+            {
+                <option value=@item.KatId>@item.Kategoria</option>
+            }
+        </select>
+        <span asp-validation-for=@Model.Item1.IdKategorii class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Item1.Podkategoria" for="podkategoria">Nazwa podkategorii</label>
+        <input asp-for="@Model.Item1.Podkategoria" type="text" class="form-control" id="podkategoria" placeholder="Example subcategory">
+        <span asp-validation-for="@Model.Item1.Podkategoria" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Dodaj podkategorię" class="btn btn-success" style="margin-top:30px" />
+    </div>
+</form>

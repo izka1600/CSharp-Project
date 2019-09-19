@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\new1\ipi_pan_team_project\Biblioteka\AuthDatabase\AuthDatabase.csproj" />
+    <ProjectReference Include="..\ArkuszDataBase\ArkuszDataBase.csproj" />
   </ItemGroup>
 
 </Project>

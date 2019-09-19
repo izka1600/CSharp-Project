@@ -1,0 +1,59 @@
+﻿<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" />
+
+@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@model ListPlanViewModel;
+@{
+    ViewData["Title"] = "Lista dostępnych planów";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Lista dostępnych Planów</h1>
+
+
+<div style="margin-top: 50px">
+    <table id="myTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Miesiąc</th>
+                <th scope="col">Założona kwota</th>
+                <th scope="col">Faktyczna kwota</th>
+                <th scope="col">Id transakcji</th>
+                <th>Action</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+            <tr>
+                <th scope="row">@item.Miesiąc</th>
+                <td style="height: 50px;">@item.ZalozonaKwota</td>
+                <td style="height: 50px;">@item.FaktycznaKwota</td>
+                <td style="height: 50px;">@item.IdTransakcji</td>
+                <td style="height: 50px;"><a asp-action="DeleteCategory" asp-route-id="@item.PlanId">Delete</a></td>
+            </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<script>
+    $('#myTable').dataTable({
+        columnDefs: [{
+        orderable: false,
+        targets: 2
+        }],
+    });
+    $('#myTable_wrapper').removeClass( 'form-inline' )
+
+</script>
+
+

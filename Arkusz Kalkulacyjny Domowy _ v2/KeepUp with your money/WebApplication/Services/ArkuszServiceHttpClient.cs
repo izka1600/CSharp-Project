@@ -4,6 +4,8 @@
 // </auto-generated>
 //----------------------
 
+using ArkuszDataBase.Class;
+
 namespace WebApplication
 {
 #pragma warning disable
@@ -39,6 +41,304 @@ namespace WebApplication
 		partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
 		partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
 		partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
+
+		/// <summary>Metoda wyświetlająca z bazy wszystkie plany</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Plan>> Get15Async()
+		{
+			return Get15Async(System.Threading.CancellationToken.None);
+		}
+
+		/// <summary>Metoda wyświetlająca z bazy wszystkie plany</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+		public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Plan>> Get15Async(System.Threading.CancellationToken cancellationToken)
+		{
+			var urlBuilder_ = new System.Text.StringBuilder();
+			urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/WebApiPlan/WylistujPlany");
+
+			var client_ = _httpClient;
+			try
+			{
+				using (var request_ = new System.Net.Http.HttpRequestMessage())
+				{
+					request_.Method = new System.Net.Http.HttpMethod("GET");
+					request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+					PrepareRequest(client_, request_, urlBuilder_);
+					var url_ = urlBuilder_.ToString();
+					request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+					PrepareRequest(client_, request_, url_);
+
+					var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+					try
+					{
+						var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+						if (response_.Content != null && response_.Content.Headers != null)
+						{
+							foreach (var item_ in response_.Content.Headers)
+								headers_[item_.Key] = item_.Value;
+						}
+
+						ProcessResponse(client_, response_);
+
+						var status_ = ((int)response_.StatusCode).ToString();
+						if (status_ == "200")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							var result_ = default(System.Collections.Generic.ICollection<Plan>);
+							try
+							{
+								result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.ICollection<Plan>>(responseData_, _settings.Value);
+								return result_;
+							}
+							catch (System.Exception exception_)
+							{
+								throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+							}
+						}
+						else
+						if (status_ != "200" && status_ != "204")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+						}
+
+						return default(System.Collections.Generic.ICollection<Plan>);
+					}
+					finally
+					{
+						if (response_ != null)
+							response_.Dispose();
+					}
+				}
+			}
+			finally
+			{
+			}
+		}
+
+		/// <summary>Stwórz nowy plan</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		public System.Threading.Tasks.Task<int> Post2Async(NowyPlan plan)
+		{
+			return Post2Async(plan, System.Threading.CancellationToken.None);
+		}
+
+		/// <summary>Stwórz nowy plan</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+		public async System.Threading.Tasks.Task<int> Post2Async(NowyPlan plan, System.Threading.CancellationToken cancellationToken)
+		{
+			var urlBuilder_ = new System.Text.StringBuilder();
+			urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/WebApiPlan/DodajNowyPlan");
+
+			var client_ = _httpClient;
+			try
+			{
+				using (var request_ = new System.Net.Http.HttpRequestMessage())
+				{
+					var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(plan, _settings.Value));
+					content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+					request_.Content = content_;
+					request_.Method = new System.Net.Http.HttpMethod("POST");
+					request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+					PrepareRequest(client_, request_, urlBuilder_);
+					var url_ = urlBuilder_.ToString();
+					request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+					PrepareRequest(client_, request_, url_);
+
+					var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+					try
+					{
+						var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+						if (response_.Content != null && response_.Content.Headers != null)
+						{
+							foreach (var item_ in response_.Content.Headers)
+								headers_[item_.Key] = item_.Value;
+						}
+
+						ProcessResponse(client_, response_);
+
+						var status_ = ((int)response_.StatusCode).ToString();
+						if (status_ == "200")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							var result_ = default(int);
+							try
+							{
+								result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<int>(responseData_, _settings.Value);
+								return result_;
+							}
+							catch (System.Exception exception_)
+							{
+								throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+							}
+						}
+						else
+						if (status_ != "200" && status_ != "204")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+						}
+
+						return default(int);
+					}
+					finally
+					{
+						if (response_ != null)
+							response_.Dispose();
+					}
+				}
+			}
+			finally
+			{
+			}
+		}
+
+		/// <summary>Usuń plan o danym ID</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		public System.Threading.Tasks.Task Delete20Async(int? id)
+		{
+			return Delete20Async(id, System.Threading.CancellationToken.None);
+		}
+
+		/// <summary>Usuń plan o danym ID</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+		public async System.Threading.Tasks.Task Delete20Async(int? id, System.Threading.CancellationToken cancellationToken)
+		{
+			var urlBuilder_ = new System.Text.StringBuilder();
+			urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/WebApiPlan/UsunWskazanyPlan?");
+			if (id != null)
+			{
+				urlBuilder_.Append("id=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+			}
+			urlBuilder_.Length--;
+
+			var client_ = _httpClient;
+			try
+			{
+				using (var request_ = new System.Net.Http.HttpRequestMessage())
+				{
+					request_.Method = new System.Net.Http.HttpMethod("DELETE");
+
+					PrepareRequest(client_, request_, urlBuilder_);
+					var url_ = urlBuilder_.ToString();
+					request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+					PrepareRequest(client_, request_, url_);
+
+					var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+					try
+					{
+						var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+						if (response_.Content != null && response_.Content.Headers != null)
+						{
+							foreach (var item_ in response_.Content.Headers)
+								headers_[item_.Key] = item_.Value;
+						}
+
+						ProcessResponse(client_, response_);
+
+						var status_ = ((int)response_.StatusCode).ToString();
+						if (status_ == "200")
+						{
+							return;
+						}
+						else
+						if (status_ != "200" && status_ != "204")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+						}
+					}
+					finally
+					{
+						if (response_ != null)
+							response_.Dispose();
+					}
+				}
+			}
+			finally
+			{
+			}
+		}
+
+		/// <summary>Zaktualizuj plan o danym ID</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		public System.Threading.Tasks.Task UpdateAsync(UpdatePlan plan)
+		{
+			return UpdateAsync(plan, System.Threading.CancellationToken.None);
+		}
+
+		/// <summary>Zaktualizuj plan o danym ID</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+		public async System.Threading.Tasks.Task UpdateAsync(UpdatePlan plan, System.Threading.CancellationToken cancellationToken)
+		{
+			var urlBuilder_ = new System.Text.StringBuilder();
+			urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/WebApiPlan/ZaktualizujWskazanyPlan");
+
+			var client_ = _httpClient;
+			try
+			{
+				using (var request_ = new System.Net.Http.HttpRequestMessage())
+				{
+					var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(plan, _settings.Value));
+					content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+					request_.Content = content_;
+					request_.Method = new System.Net.Http.HttpMethod("POST");
+
+					PrepareRequest(client_, request_, urlBuilder_);
+					var url_ = urlBuilder_.ToString();
+					request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+					PrepareRequest(client_, request_, url_);
+
+					var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+					try
+					{
+						var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+						if (response_.Content != null && response_.Content.Headers != null)
+						{
+							foreach (var item_ in response_.Content.Headers)
+								headers_[item_.Key] = item_.Value;
+						}
+
+						ProcessResponse(client_, response_);
+
+						var status_ = ((int)response_.StatusCode).ToString();
+						if (status_ == "200")
+						{
+							return;
+						}
+						else
+						if (status_ != "200" && status_ != "204")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+						}
+					}
+					finally
+					{
+						if (response_ != null)
+							response_.Dispose();
+					}
+				}
+			}
+			finally
+			{
+			}
+		}
+
 
 		/// <summary>Usuń podkategorie o danym ID</summary>
 		/// <returns>Success</returns>
@@ -1451,6 +1751,65 @@ namespace WebApplication
 		}
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.14.1.0 (Newtonsoft.Json v11.0.0.0)")]
+	public partial class UpdatePlan
+	{
+		[Newtonsoft.Json.JsonProperty("planId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public int? PlanId { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("miesiąc", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public System.DateTimeOffset? Miesiąc { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("zalozonaKwota", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public double? ZalozonaKwota { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("idTransakcji", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public int? IdTransakcji { get; set; }
+
+		public string ToJson()
+		{
+			return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+		}
+
+		public static UpdatePlan FromJson(string data)
+		{
+			return Newtonsoft.Json.JsonConvert.DeserializeObject<UpdatePlan>(data);
+		}
+
+	}
+
+
+	[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.14.1.0 (Newtonsoft.Json v11.0.0.0)")]
+	public partial class NowyPlan
+	{
+		[Newtonsoft.Json.JsonProperty("miesiąc", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public System.DateTimeOffset? Miesiąc { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("zalozonaKwota", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public double? ZalozonaKwota { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("faktycznaKwota", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public double? FaktycznaKwota { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("idUzytkownika", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public int? IdUzytkownika { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("idTransakcji", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public int? IdTransakcji { get; set; }
+
+		public string ToJson()
+		{
+			return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+		}
+
+		public static NowyPlan FromJson(string data)
+		{
+			return Newtonsoft.Json.JsonConvert.DeserializeObject<NowyPlan>(data);
+		}
+
+	}
+
 
 	[System.CodeDom.Compiler.GeneratedCode("NSwag", "12.3.1.0 (NJsonSchema v9.14.1.0 (Newtonsoft.Json v11.0.0.0))")]
 	public partial class SwaggerException : System.Exception

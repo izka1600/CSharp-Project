@@ -20,6 +20,42 @@ namespace WebApplication.Services
 			_mapper = mapper;
 		}
 
+		//wyświetlam wszystkie plany
+		public async Task<System.Collections.Generic.ICollection<PlanViewModel>> Get_Plan()
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+			ICollection<Plan> dtoPlan = await todoServiceClient.Get15Async();
+
+			ICollection<PlanViewModel> returnValue = _mapper.Map<List<PlanViewModel>>(dtoPlan);
+
+			return returnValue;
+		}
+
+		//dodaję nowy plan
+		public async Task<int> Post_Plan(NewPlanViewModel newplan)
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+
+			int returnValue = await todoServiceClient.Post2Async(_mapper.Map<NowyPlan>(newplan));
+
+			return returnValue;
+		}
+
+		// kasuję plan o danym Id
+		public async Task Delete_Plan(int id)
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+			await todoServiceClient.Delete20Async(id);
+		}
+
+		//updatuje dany plan
+		public async Task Update_Plan(UpdatePlanViewModel plan)
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+			await todoServiceClient.UpdateAsync(_mapper.Map<UpdatePlan>(plan));
+		}
+
+
 		//wyświetlam wszystkie kategorie
 		public async Task<System.Collections.Generic.ICollection<KategoriaViewModel>> Get_Kategorie()
 		{

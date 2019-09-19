@@ -97,20 +97,14 @@ namespace WebApplication.Controllers
 		}
 
 		[Route("/WebApiKategoria/DodajNowaPodkategorie")]
-		public IActionResult AddNewSubcategory()
-		{
-			return View();
-		}
-		[Route("/WebApiKategoria/DodajNowaPodkategorie")]
-		[HttpPost]
-		public async Task<IActionResult> AddNewSubcategory(NewPodkategoriaViewModel newsubkat)
+		public async Task<IActionResult> AddNewSubcategory()
 		{
 			var currentUser = await _userManager.GetUserAsync(User);
+			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
 			if (currentUser == null)
 			{
-				RedirectToAction("ListSubcategories");
+				return RedirectToAction("ListSubcategories");
 			}
-			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
 			int UzId = 0;
 			foreach (var item in UsersList)
 			{
@@ -119,7 +113,35 @@ namespace WebApplication.Controllers
 					UzId = item.UzytId;
 				}
 			}
-			//newkat.IdUzytkownika = UzId;
+			ICollection<KategoriaViewModel> currentKategoriaItems = await _arkuszService.Get_Kategorie();
+			ICollection<KategoriaViewModel> NewKategoriaItems = new List<KategoriaViewModel>();
+			foreach (var item in currentKategoriaItems)
+			{
+				if (item.UzId == UzId || item.UzId == 0)
+				{
+					NewKategoriaItems.Add(item);
+				}
+			}
+
+			var model1 = new ListKategoriaViewModel()
+			{
+				Items = NewKategoriaItems
+			};
+
+			var tuple = new Tuple<NewPodkategoriaViewModel, ListKategoriaViewModel>(new NewPodkategoriaViewModel(), model1);
+			return View(tuple);
+
+		}
+
+		[Route("/WebApiKategoria/DodajNowaPodkategorie")]
+		[HttpPost]
+		public async Task<IActionResult> AddNewSubcategory([Bind(Prefix = "Item1")]NewPodkategoriaViewModel newsubkat)
+		{
+			var currentUser = await _userManager.GetUserAsync(User);
+			if (currentUser == null)
+			{
+				RedirectToAction("ListSubcategories");
+			}
 
 			int currentKategoriaId = await _arkuszService.Post_Podkategoria(newsubkat);
 			return RedirectToAction(nameof(ListSubcategories));
@@ -173,8 +195,13 @@ namespace WebApplication.Controllers
 		}
 
 		[Route("/WebApiKategoria/DodajNowaKategorie")]
-		public IActionResult AddNewCategory()
+		public async Task<IActionResult> AddNewCategory()
 		{
+			var currentUser = await _userManager.GetUserAsync(User);
+			if (currentUser == null)
+			{
+				RedirectToAction("ListCategories");
+			}
 			return View();
 		}
 

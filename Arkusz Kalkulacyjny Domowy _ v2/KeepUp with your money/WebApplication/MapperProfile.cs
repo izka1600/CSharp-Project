@@ -13,14 +13,23 @@ namespace WebApplication
 	{
 		public MapperProfile()
 		{
+			CreateMap<PlanViewModel, Plan>().ReverseMap();
+			CreateMap<NewPlanViewModel, NowyPlan>().ReverseMap();
+			CreateMap<UpdatePlanViewModel, UpdatePlan>().ReverseMap();
+
 			CreateMap<KategoriaViewModel, Kategorie>().ReverseMap();
-			CreateMap<PodkategoriaViewModel, Podkategorie>().ReverseMap();
-			CreateMap<TranskacjaViewModel, Transakcje>().ReverseMap();
 			CreateMap<NewKategoriaViewModel, NowaKategoria>().ReverseMap();
-			CreateMap<NewUzytkownikViewModel, NowyUzytkownik>().ReverseMap();
-			CreateMap<UzytkownikViewModel, Uzytkownik>().ReverseMap();
+
+			CreateMap<PodkategoriaViewModel, Podkategorie>().ReverseMap();
+			CreateMap<NewPodkategoriaViewModel, NowaPodkategoria>().ReverseMap();
+
+			CreateMap<TranskacjaViewModel, Transakcje>().ReverseMap();
 			CreateMap<NewTransakcjaViewModel, NowaTransakcja>().ReverseMap();
 			CreateMap<NewTransakcjaViewModel, NewTransakcjaVM>().ReverseMap();
+
+			CreateMap<NewUzytkownikViewModel, NowyUzytkownik>().ReverseMap();
+			CreateMap<UzytkownikViewModel, Uzytkownik>().ReverseMap();
+
 			CreateMap<DateTimeOffset, DateTime>();
 		}
 
