@@ -83,5 +83,42 @@ namespace WebApplication.Controllers
 			await _arkuszService.Delete_Plan(id);
 			return RedirectToAction(nameof(ListPlans));
 		}
+
+		[Route("/WebApiPlan/DodajNowyPlan")]
+		public async Task<IActionResult> AddNewPlan()
+		{
+			var currentUser = await _userManager.GetUserAsync(User);
+			if (currentUser == null)
+			{
+				return RedirectToAction("ListPlans");
+			}
+
+			return View();
+		}
+
+		[Route("/WebApiPlan/DodajNowyPlan")]
+		[HttpPost]
+		public async Task<IActionResult> AddNewPlan(NewPlanViewModel newplan)
+		{
+			var currentUser = await _userManager.GetUserAsync(User);
+			if (currentUser == null)
+			{
+				RedirectToAction("ListPlans");
+			}
+			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
+			int UzId = 0;
+			foreach (var item in UsersList)
+			{
+				if (item.EMail.ToUpper() == currentUser.Email.ToUpper())
+				{
+					UzId = item.UzytId;
+				}
+			}
+
+			newplan.IdUzytkownika = UzId;
+
+			int currentTransakcjaId = await _arkuszService.Post_Plan(newplan);
+			return RedirectToAction(nameof(ListPlans));
+		}
 	}
 }

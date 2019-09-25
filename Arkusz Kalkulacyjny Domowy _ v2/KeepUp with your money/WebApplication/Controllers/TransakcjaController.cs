@@ -72,7 +72,57 @@ namespace WebApplication.Controllers
 			{
 				Items = currentTransakcjaItems
 			};
-			return View(model);
+
+			ICollection<KategoriaViewModel> currentKategoriaItems = await _arkuszService.Get_Kategorie();
+			ICollection<KategoriaViewModel> newCurrentKategoriaItems = new List<KategoriaViewModel>();
+			foreach (var item in currentKategoriaItems)
+			{
+				if (item.UzId == UzId || item.UzId == 0)
+				{
+					newCurrentKategoriaItems.Add(item);
+				}
+			}
+			var model1 = new ListKategoriaViewModel()
+			{
+				Items = newCurrentKategoriaItems
+			};
+
+			ICollection<PodkategoriaViewModel> currentPodkategoriaItems = await _arkuszService.Get_Podkategorie();
+			ICollection<PodkategoriaViewModel> newCurrentPodkategoriaItems = new List<PodkategoriaViewModel>();
+
+			foreach (var item in currentPodkategoriaItems)
+			{
+				foreach (var x in newCurrentKategoriaItems)
+				{
+					if (item.IdKategorii == x.KatId)
+					{
+						newCurrentPodkategoriaItems.Add(item);
+					}
+				}
+			}
+
+			var model2 = new ListPodkategoriaViewModel()
+			{
+				Items = newCurrentPodkategoriaItems
+			};
+
+			ICollection<PlanViewModel> currentPlanItems = await _arkuszService.Get_Plan();
+			ICollection<PlanViewModel> newCurrenPlanItems = new List<PlanViewModel>();
+			foreach (var item in currentPlanItems)
+			{
+				if (item.IdUzytkownika == UzId)
+				{
+					newCurrenPlanItems.Add(item);
+				}
+			}
+
+			var model3 = new ListPlanViewModel()
+			{
+				Items = newCurrenPlanItems
+			};
+
+			var tuple = new Tuple<ListTransakcjaViewModel,ListKategoriaViewModel, ListPodkategoriaViewModel, ListPlanViewModel>(model, model1, model2, model3);
+			return View(tuple);
 
 		}
 
@@ -82,12 +132,12 @@ namespace WebApplication.Controllers
 			var currentUser = await _userManager.GetUserAsync(User);
 			if (currentUser == null)
 			{
-				return RedirectToAction("ListCategories");
+				return RedirectToAction("ListTransactions");
 			}
 
-			ICollection<KategoriaViewModel> currentKategoriaItems = await _arkuszService.Get_Kategorie();
 			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
 
+			ICollection<KategoriaViewModel> currentKategoriaItems = await _arkuszService.Get_Kategorie();
 			ICollection<KategoriaViewModel> newCurrentKategoriaItems = new List<KategoriaViewModel>();
 			int UzId = 0;
 			foreach (var item in UsersList)
@@ -130,7 +180,22 @@ namespace WebApplication.Controllers
 				Items = newCurrentPodkategoriaItems
 			};
 
-			var tuple = new Tuple<NewTransakcjaVM, ListKategoriaViewModel, ListPodkategoriaViewModel>(new NewTransakcjaVM(), model, model1);
+			ICollection<PlanViewModel> currentPlanItems = await _arkuszService.Get_Plan();
+			ICollection<PlanViewModel> newCurrenPlanItems = new List<PlanViewModel>();
+			foreach (var item in currentPlanItems)
+			{
+				if (item.IdUzytkownika == UzId )
+				{
+					newCurrenPlanItems.Add(item);
+				}
+			}
+
+			var model2 = new ListPlanViewModel()
+			{
+				Items = newCurrenPlanItems
+			};
+
+			var tuple = new Tuple<NewTransakcjaVM, ListKategoriaViewModel, ListPodkategoriaViewModel, ListPlanViewModel>(new NewTransakcjaVM(), model, model1, model2);
 			return View(tuple);
 		}
 
@@ -159,7 +224,8 @@ namespace WebApplication.Controllers
 				IdUzytkownika = UzId,
 				Kwota = newtrVM.Kwota,
 				IdPodkategorii = newtrVM.IdPodkategorii,
-				IdKategorii = newtrVM.IdKategorii
+				IdKategorii = newtrVM.IdKategorii,
+				PlanId = newtrVM.PlanId
 			};
 
 			int currentTransakcjaId = await _arkuszService.Post_Transakcja(newtr);

@@ -32,5 +32,8 @@ namespace WebApplication.Models
 		[Display(Name = "Kwota")]
 		public double? Kwota { get; set; }
 
+
+		[Display(Name = "NazwaPlanu")]
+		public int? PlanId { get; set; }
 	}
 }

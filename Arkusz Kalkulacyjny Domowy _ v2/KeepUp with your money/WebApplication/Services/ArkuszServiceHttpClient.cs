@@ -1544,6 +1544,9 @@ namespace WebApplication
 		[Newtonsoft.Json.JsonProperty("kwota", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 		public double? Kwota { get; set; }
 
+		[Newtonsoft.Json.JsonProperty("planId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public int? PlanId { get; set; }
+
 		[Newtonsoft.Json.JsonProperty("idKategoriiNavigation", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 		public Kategorie IdKategoriiNavigation { get; set; }
 
@@ -1554,7 +1557,7 @@ namespace WebApplication
 		public Uzytkownik IdUzytkownikaNavigation { get; set; }
 
 		[Newtonsoft.Json.JsonProperty("plan", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-		public System.Collections.Generic.ICollection<Plan> Plan { get; set; }
+		public Plan Plan { get; set; }
 
 		public string ToJson()
 		{
@@ -1565,6 +1568,7 @@ namespace WebApplication
 		{
 			return Newtonsoft.Json.JsonConvert.DeserializeObject<Transakcje>(data);
 		}
+
 
 	}
 
@@ -1631,14 +1635,11 @@ namespace WebApplication
 		[Newtonsoft.Json.JsonProperty("idUzytkownika", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 		public int? IdUzytkownika { get; set; }
 
-		[Newtonsoft.Json.JsonProperty("idTransakcji", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-		public int? IdTransakcji { get; set; }
-
-		[Newtonsoft.Json.JsonProperty("idTransakcjiNavigation", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-		public Transakcje IdTransakcjiNavigation { get; set; }
-
 		[Newtonsoft.Json.JsonProperty("idUzytkownikaNavigation", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 		public Uzytkownik IdUzytkownikaNavigation { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("transakcje", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public System.Collections.Generic.ICollection<Transakcje> Transakcje { get; set; }
 
 		public string ToJson()
 		{
@@ -1649,6 +1650,7 @@ namespace WebApplication
 		{
 			return Newtonsoft.Json.JsonConvert.DeserializeObject<Plan>(data);
 		}
+
 
 	}
 
@@ -1712,6 +1714,9 @@ namespace WebApplication
 
 		[Newtonsoft.Json.JsonProperty("kwota", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 		public double? Kwota { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("planId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public int? PlanId { get; set; }
 
 		public string ToJson()
 		{
@@ -1777,6 +1782,7 @@ namespace WebApplication
 			return Newtonsoft.Json.JsonConvert.DeserializeObject<UpdatePlan>(data);
 		}
 
+
 	}
 
 
@@ -1795,9 +1801,6 @@ namespace WebApplication
 		[Newtonsoft.Json.JsonProperty("idUzytkownika", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 		public int? IdUzytkownika { get; set; }
 
-		[Newtonsoft.Json.JsonProperty("idTransakcji", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-		public int? IdTransakcji { get; set; }
-
 		public string ToJson()
 		{
 			return Newtonsoft.Json.JsonConvert.SerializeObject(this);
@@ -1807,6 +1810,7 @@ namespace WebApplication
 		{
 			return Newtonsoft.Json.JsonConvert.DeserializeObject<NowyPlan>(data);
 		}
+
 
 	}
 

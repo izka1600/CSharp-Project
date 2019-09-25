@@ -57,7 +57,7 @@ namespace ArkuszDataBase.Models
 
             modelBuilder.Entity<Plan>(entity =>
             {
-                entity.HasIndex(e => new { e.Miesiąc, e.ZalozonaKwota, e.FaktycznaKwota, e.IdUzytkownika, e.IdTransakcji })
+                entity.HasIndex(e => new { e.Miesiąc, e.ZalozonaKwota, e.FaktycznaKwota, e.IdUzytkownika })
                     .HasName("PlanUnique")
                     .IsUnique();
 
@@ -70,12 +70,6 @@ namespace ArkuszDataBase.Models
                 entity.Property(e => e.Miesiąc).HasColumnType("date");
 
                 entity.Property(e => e.ZalozonaKwota).HasColumnType("decimal(18, 0)");
-
-                entity.HasOne(d => d.IdTransakcjiNavigation)
-                    .WithMany(p => p.Plan)
-                    .HasForeignKey(d => d.IdTransakcji)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FKTransakcja");
 
                 entity.HasOne(d => d.IdUzytkownikaNavigation)
                     .WithMany(p => p.Plan)
@@ -137,6 +131,11 @@ namespace ArkuszDataBase.Models
                     .HasForeignKey(d => d.IdUzytkownika)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FKUzytkownik");
+
+                entity.HasOne(d => d.Plan)
+                    .WithMany(p => p.Transakcje)
+                    .HasForeignKey(d => d.PlanId)
+                    .HasConstraintName("FKPlan");
             });
 
             modelBuilder.Entity<Uzytkownik>(entity =>

@@ -10,7 +10,7 @@
 
 <h1>Dodaj nową kategorię</h1>
 
-<form asp-action="AddCategory">
+<form asp-action="AddNewCategory">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Kategoria" for="Kategoria">Nazwa kategorii</label>
@@ -18,7 +18,7 @@
         <span asp-validation-for="Kategoria" class="text-danger"></span>
     </div>
     <div style = "display:none">
-        <input asp-for="IdUzytkownika" value="1">
+        <input asp-for="IdUzytkownika" value="0">
     </div>
     <div class="form-group">
         <input type="submit" value="Dodaj kategorię" class="btn btn-success" style="margin-top:30px" />

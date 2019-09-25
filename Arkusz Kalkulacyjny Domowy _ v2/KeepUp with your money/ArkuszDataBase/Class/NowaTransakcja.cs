@@ -11,6 +11,6 @@ namespace ArkuszDataBase.Class
 		public int IdKategorii { get; set; }
 		public int IdPodkategorii { get; set; }
 		public double? Kwota { get; set; }
-
+		public int? PlanId { get; set; }
 	}
 }

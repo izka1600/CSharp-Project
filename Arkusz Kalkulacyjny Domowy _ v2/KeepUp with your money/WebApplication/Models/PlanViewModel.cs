@@ -24,7 +24,5 @@ namespace WebApplication.Models
 		public decimal? FaktycznaKwota { get; set; }
 		public int IdUzytkownika { get; set; }
 
-		[Display(Name = "Id transakcji")]
-		public int IdTransakcji { get; set; }
 	}
 }

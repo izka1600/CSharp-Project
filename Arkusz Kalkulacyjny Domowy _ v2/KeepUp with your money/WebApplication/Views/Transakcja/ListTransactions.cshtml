@@ -7,7 +7,7 @@
 @using AuthDatabase.Entities;
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-@model ListTransakcjaViewModel;
+@model Tuple<ListTransakcjaViewModel, ListKategoriaViewModel, ListPodkategoriaViewModel,ListPlanViewModel>;
 
 
 @{
@@ -23,25 +23,43 @@
             <tr>
                 <th scope="col">Nr</th>
                 <th scope="col">Data</th>
-                <th scope="col">IdUzytkownika</th>
-                <th scope="col">IdKategorii</th>
-                <th scope="col">IdPodkategorii</th>
+                <th scope="col">Kategoria</th>
+                <th scope="col">Podkategoria</th>
                 <th scope="col">Kwota</th>
+                <th scope="col">Plan</th>
                 <th>Akcja</th>
 
 
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Items)
+            @foreach (var item in Model.Item1.Items)
             {
             <tr>
                 <th scope="row">@item.TransId</th>
                 <td style="height: 50px;">@item.Data</td>
-                <td style="height: 50px;">@item.IdUzytkownika</td>
-                <td style="height: 50px;">@item.IdKategorii</td>
-                <td style="height: 50px;">@item.IdPodkategorii</td>
+                @foreach (var item1 in Model.Item2.Items)
+                {
+                    if (item1.KatId == item.IdKategorii)
+                    {
+                        <td style="height: 50px;">@item1.Kategoria</td>
+                    }
+                }
+                @foreach (var item2 in Model.Item3.Items)
+                {
+                    if (item2.PodId == item.IdPodkategorii)
+                    {
+                        <td style="height: 50px;">@item2.Podkategoria</td>
+                    }
+                }
                 <td style="height: 50px;">@item.Kwota</td>
+                @foreach (var item3 in Model.Item4.Items)
+                {
+                    if (item3.PlanId == item.PlanId)
+                    {
+                        <td style="height: 50px;">@item3.Miesiąc</td>
+                    }
+                }
                 <td style="height: 50px;"><a asp-action="DeleteTransaction" asp-route-id="@item.TransId">Delete</a></td>
             </tr>
             }

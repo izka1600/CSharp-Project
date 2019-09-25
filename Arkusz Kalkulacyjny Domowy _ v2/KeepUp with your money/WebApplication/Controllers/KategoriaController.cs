@@ -80,12 +80,18 @@ namespace WebApplication.Controllers
 					}
 				}
 			}
+			var model0 = new ListKategoriaViewModel()
+			{
+				Items = NewKategoriaItems
+			};
 
 			var model = new ListPodkategoriaViewModel()
 			{
 				Items = newCurrentPodkategoriaItems
 			};
-			return View(model);
+
+			var tuple = new Tuple<ListKategoriaViewModel, ListPodkategoriaViewModel>( model0, model);
+			return View(tuple);
 
 		}
 

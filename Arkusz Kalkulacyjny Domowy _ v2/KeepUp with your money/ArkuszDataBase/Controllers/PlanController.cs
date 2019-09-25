@@ -15,7 +15,6 @@ namespace ArkuszDataBase.Controllers
 		{
 			var plan = new Plan();
 			plan.FaktycznaKwota = newPlan.FaktycznaKwota;
-			plan.IdTransakcji = newPlan.IdTransakcji;
 			plan.IdUzytkownika = newPlan.IdUzytkownika;
 			plan.Miesiąc = newPlan.Miesiąc;
 			plan.ZalozonaKwota = newPlan.ZalozonaKwota;
@@ -42,7 +41,6 @@ namespace ArkuszDataBase.Controllers
 		{
 			var upd = context.Plan.Find(plan.PlanId);
 			upd.Miesiąc = plan.Miesiąc;
-			upd.IdTransakcji = plan.IdTransakcji;
 			upd.ZalozonaKwota = plan.ZalozonaKwota;
 
 			context.SaveChanges();

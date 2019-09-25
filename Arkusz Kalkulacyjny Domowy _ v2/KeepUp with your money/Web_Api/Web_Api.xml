@@ -65,10 +65,7 @@
             <summary>
             Zaktualizuj plan o danym ID
             </summary>
-            <param name="Id"></param>
-            <param name="data"></param>
-            <param name="IdTr"></param>
-            <param name="zalKwota"></param>
+            <param name="plan"></param>
         </member>
         <member name="M:Web_Api.Controllers.WebApiTranskacjaController.Get">
             <summary>

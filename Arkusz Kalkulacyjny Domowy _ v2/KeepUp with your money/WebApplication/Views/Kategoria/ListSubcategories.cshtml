@@ -7,7 +7,7 @@
 @using AuthDatabase.Entities;
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-@model ListPodkategoriaViewModel;
+@model Tuple<ListKategoriaViewModel, ListPodkategoriaViewModel>;
 @{
     ViewData["Title"] = "Lista dostępnych podkategorii produktów";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,8 +20,8 @@
     <table id="myTable" class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Id kategorii</th>
                 <th scope="col">Id podkategorii</th>
+                <th scope="col">Kategoria</th>
                 <th scope="col">Nazwa podkategorii</th>
                 <th>Action</th>
 
@@ -29,11 +29,17 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Items)
+            @foreach (var item in Model.Item2.Items)
             {
             <tr>
-                <th scope="row">@item.IdKategorii</th>
                 <td style="height: 50px;">@item.PodId</td>
+                @foreach (var item1 in Model.Item1.Items)
+                {
+                    if (item1.KatId==item.IdKategorii)
+                    {
+                        <td style="height: 50px;">@item1.Kategoria</td>
+                    }
+                }
                 <td style="height: 50px;">@item.Podkategoria</td>
                 <td style="height: 50px;"><a asp-action="DeleteSubcategory" asp-route-id="@item.PodId">Delete</a></td>
             </tr>

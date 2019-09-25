@@ -13,8 +13,8 @@
 <form asp-action="AddSubcategory">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
-        <label asp-for=@Model.Item1.IdKategorii for="Podkategoria">Podkategoria</label>
-        <select asp-for=@Model.Item1.IdKategorii type="text" class="form-control" id="Podkategoria">
+        <label asp-for=@Model.Item1.IdKategorii for="Kategoria">Nazwa kategorii</label>
+        <select asp-for=@Model.Item1.IdKategorii type="text" class="form-control" id="Kategoria">
             @foreach (var item in @Model.Item2.Items)
             {
                 <option value=@item.KatId>@item.Kategoria</option>

@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190925175959_Help.cs" />
+    <Compile Remove="Migrations\20190925175959_Help.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Home\TestView.cshtml" />
   </ItemGroup>
 

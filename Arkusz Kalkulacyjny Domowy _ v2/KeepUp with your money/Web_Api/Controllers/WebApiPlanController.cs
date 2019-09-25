@@ -54,10 +54,7 @@ namespace Web_Api.Controllers
 		/// <summary>
 		/// Zaktualizuj plan o danym ID
 		/// </summary>
-		/// <param name="Id"></param>
-		/// <param name="data"></param>
-		/// <param name="IdTr"></param>
-		/// <param name="zalKwota"></param>
+		/// <param name="plan"></param>
 		[HttpPost("ZaktualizujWskazanyPlan")]
 		public void Update(UpdatePlan plan)
 		{

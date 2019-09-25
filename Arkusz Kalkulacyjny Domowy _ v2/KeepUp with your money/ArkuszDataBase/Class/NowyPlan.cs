@@ -10,6 +10,5 @@ namespace ArkuszDataBase.Class
 		public decimal? ZalozonaKwota { get; set; }
 		public decimal? FaktycznaKwota { get; set; }
 		public int IdUzytkownika { get; set; }
-		public int IdTransakcji { get; set; }
 	}
 }

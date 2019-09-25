@@ -13,6 +13,7 @@ namespace DataBaseTests
 			IdKategorii = 1,
 			IdPodkategorii = 2,
 			IdUzytkownika = 1,
+			PlanId=1,
 			Kwota = 12.7
 		};
 

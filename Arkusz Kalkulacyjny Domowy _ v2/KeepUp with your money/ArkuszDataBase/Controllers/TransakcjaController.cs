@@ -19,6 +19,7 @@ namespace ArkuszDataBase.Controllers
 			transakcja.IdPodkategorii = newTrans.IdPodkategorii;
 			transakcja.IdUzytkownika = newTrans.IdUzytkownika;
 			transakcja.Kwota = newTrans.Kwota;
+			transakcja.PlanId = newTrans.PlanId;
 			context.Transakcje.Add(transakcja);
 			context.SaveChanges();
 			int newId = transakcja.TransId;
@@ -54,7 +55,7 @@ namespace ArkuszDataBase.Controllers
 			return context.Transakcje.Find(id);
 		}
 
-		public void AdministratorZaktualizaujTransakcje(int Id, DateTime data, int IdUz, int IdKat, int IdPod, double kwota)
+		public void AdministratorZaktualizaujTransakcje(int Id, DateTime data, int IdUz, int IdKat, int IdPod, double kwota, int PlanID)
 		{
 			var upd = context.Transakcje.Find(Id);
 			upd.Data = data;
@@ -62,6 +63,7 @@ namespace ArkuszDataBase.Controllers
 			upd.IdKategorii = IdKat;
 			upd.IdPodkategorii = IdPod;
 			upd.Kwota = kwota;
+			upd.PlanId = PlanID;
 
 			context.SaveChanges();
 		}

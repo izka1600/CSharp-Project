@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@using WebApplication.ViewModels;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@model NewPlanViewModel;
+
+@{
+    ViewData["Title"] = "AddNewPlan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Dodaj nowy plan wydatków</h1>
+
+<form asp-action="AddCategory">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for=@Model.Miesiąc for="Miesiąc">Miesiąc planu</label>
+        <input asp-for=@Model.Miesiąc type="month" class="form-control" id="Miesiąc" placeholder="Example month">
+        <span asp-validation-for=@Model.Miesiąc a class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for=@Model.ZalozonaKwota for="kwota">Zakładana kwota</label>
+        <input asp-for=@Model.ZalozonaKwota type="text" class="form-control" id="kwota" placeholder="Example amount">
+        <span asp-validation-for=@Model.ZalozonaKwota class="text-danger"></span>
+    </div>
+    <div style="display:none">
+        <input asp-for=@Model.FaktycznaKwota value="0">
+    </div>
+    <div style="display:none">
+        <input asp-for=@Model.IdUzytkownika value="0">
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Dodaj nowy plan" class="btn btn-success" style="margin-top:30px" />
+    </div>
+</form>
+
+
