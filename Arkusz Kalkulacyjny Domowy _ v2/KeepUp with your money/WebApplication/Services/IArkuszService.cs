@@ -8,6 +8,9 @@ namespace WebApplication.Services
 {
 	public interface IArkuszService
 	{
+
+		Task UpdateAsync10(AddTransactionToPlan fplan);
+
 		Task<System.Collections.Generic.ICollection<PlanViewModel>> Get_Plan();
 		Task<int> Post_Plan(NewPlanViewModel newplan);
 		Task Delete_Plan(int id);

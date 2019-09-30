@@ -3,7 +3,7 @@
 @using WebApplication.ViewModels;
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-@model Tuple<NewTransakcjaVM,ListKategoriaViewModel,ListPodkategoriaViewModel,ListPlanViewModel> ;
+@model Tuple<NewTransakcjaVM, ListKategoriaViewModel, ListPodkategoriaViewModel, ListPlanViewModel> ;
 
 @{
     ViewData["Title"] = "AddNewTransaction";
@@ -15,45 +15,66 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for=@Model.Item1.Kwota for="Kwota">Kwota transakcji</label>
-        <input asp-for=@Model.Item1.Kwota type="text" class="form-control" id="Kwota" placeholder="Example amount">
-        <span asp-validation-for=@Model.Item1.Kwota class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for=@Model.Item1.Data for="Data">Data transakcji</label>
-        <input asp-for=@Model.Item1.Data type="date" class="form-control" id="Data" placeholder="Example date">
-        <span asp-validation-for=@Model.Item1.Data class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for=@Model.Item1.IdKategorii for="Kategoria">Kategoria</label>
-        <select asp-for=@Model.Item1.IdKategorii type="text" class="form-control" id="Kategoria">
-            @foreach (var item in @Model.Item2.Items)
-            {
-                <option value=@item.KatId>@item.Kategoria</option>
-            }
-        </select>
-        <span asp-validation-for=@Model.Item1.IdKategorii class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for=@Model.Item1.IdPodkategorii for="Podkategoria">Podkategoria</label>
-        <select asp-for=@Model.Item1.IdPodkategorii type="text" class="form-control" id="Podkategoria">
-            @foreach (var item in @Model.Item3.Items)
-            {
-                <option value=@item.PodId>@item.Podkategoria</option>
-            }
-        </select>
-        <span asp-validation-for=@Model.Item1.IdPodkategorii class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for=@Model.Item1.PlanId for="Plan">Plan</label>
-        <select asp-for=@Model.Item1.PlanId type="month" class="form-control" id="Plan">
-            @foreach (var item in @Model.Item4.Items)
-            {
-                <option value=@item.PlanId>@item.Miesiąc</option>
-            }
-        </select>
-        <span asp-validation-for=@Model.Item1.PlanId class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Dodaj transakcję" class="btn btn-success" style="margin-top:30px" />
-    </div>
+        <div id="kwotaOstrzezenie">
+            <input asp-for=@Model.Item1.Kwota type="text" class="form-control" id="Kwota" placeholder="Example amount">
+        </div>
+            <span asp-validation-for=@Model.Item1.Kwota class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for=@Model.Item1.Data for="Data">Data transakcji</label>
+            <input asp-for=@Model.Item1.Data type="date" class="form-control" id="Data" placeholder="Example date">
+            <span asp-validation-for=@Model.Item1.Data class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for=@Model.Item1.IdKategorii for="Kategoria">Kategoria</label>
+            <select asp-for=@Model.Item1.IdKategorii type="text" class="form-control" id="Kategoria">
+                @foreach (var item in @Model.Item2.Items)
+                {
+                    <option value=@item.KatId>@item.Kategoria</option>
+                }
+            </select>
+            <span asp-validation-for=@Model.Item1.IdKategorii class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for=@Model.Item1.IdPodkategorii for="Podkategoria">Podkategoria</label>
+            <select asp-for=@Model.Item1.IdPodkategorii type="text" class="form-control" id="Podkategoria">
+                @foreach (var item in @Model.Item3.Items)
+                {
+                    <option value=@item.PodId>@item.Podkategoria</option>
+                }
+            </select>
+            <span asp-validation-for=@Model.Item1.IdPodkategorii class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for=@Model.Item1.PlanId for="Plan">Plan</label>
+            <select asp-for=@Model.Item1.PlanId type="month" class="form-control" id="Plan">
+                @foreach (var item in @Model.Item4.Items)
+                {
+                    <option value=@item.PlanId>@item.Miesiąc</option>
+                }
+            </select>
+            <span asp-validation-for=@Model.Item1.PlanId class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Dodaj transakcję" class="btn btn-success" style="margin-top:30px" />
+        </div>
 </form>
+
+
+<script>
+    $('#Kwota').change(function () {
+        if ($('#Kwota').val() > 0) {
+            $('#kwotaOstrzezenie').removeAttr("data-tooltip");
+            $('#Kwota').css("border-color", "#d1cfcb");
+            $('#submit').prop("disabled", false);
+        }
+        else {
+            $('#kwotaOstrzezenie').attr("data-tooltip", "Kwota musi być większa niż 0 zł");
+            $('#Kwota').css("border-color", "red");
+            $('#submit').prop("disabled", true);
+        }
+    });
+
+
+
+</script>

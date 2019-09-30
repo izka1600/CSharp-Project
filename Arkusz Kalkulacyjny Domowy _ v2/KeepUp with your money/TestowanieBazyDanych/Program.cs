@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ArkuszDataBase.Class;
 using ArkuszDataBase.Controllers;
 using ArkuszDataBase.Models;
 
@@ -34,11 +35,28 @@ namespace TestowanieBazyDanych
 			//	Console.WriteLine(item.Kategoria);
 			//}
 
-			TransakcjaController trankontroler = new ArkuszDataBase.Controllers.TransakcjaController();
-			//trankontroler.DodajTransakcje(Convert.ToDateTime("2019-07-13"), 1, 1, 1, 12.30);
-			Console.WriteLine("Done");
-			Console.ReadKey();
+			//TransakcjaController trankontroler = new ArkuszDataBase.Controllers.TransakcjaController();
+			////trankontroler.DodajTransakcje(Convert.ToDateTime("2019-07-13"), 1, 1, 1, 12.30);
+			//Console.WriteLine("Done");
 
+			//PlanController planC = new ArkuszDataBase.Controllers.PlanController();
+			//NowyPlan plan = new NowyPlan
+			//{
+			//	Miesiąc = DateTime.Parse("2019-09-12"),
+			//	ZalozonaKwota = 1500,
+			//	FaktycznaKwota = 0,
+			//	IdUzytkownika = 1011
+			//};
+
+			//int x = planC.DodajPlan(plan);
+			//Console.WriteLine(x.ToString());
+
+
+			//AddTransactionToPlanController proced = new AddTransactionToPlanController();
+			//proced.AddTransactionToPlan(10000, 4);
+			//Console.WriteLine("Done");
+
+			Console.ReadKey();
 		}
 	}
 }

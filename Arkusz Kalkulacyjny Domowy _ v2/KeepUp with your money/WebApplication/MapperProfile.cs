@@ -13,6 +13,9 @@ namespace WebApplication
 	{
 		public MapperProfile()
 		{
+
+			CreateMap<AddTransactionToPlan, UpdateFaktycznyPlan>().ReverseMap();
+
 			CreateMap<PlanViewModel, Plan>().ReverseMap();
 			CreateMap<NewPlanViewModel, NowyPlan>().ReverseMap();
 			CreateMap<UpdatePlanViewModel, UpdatePlan>().ReverseMap();

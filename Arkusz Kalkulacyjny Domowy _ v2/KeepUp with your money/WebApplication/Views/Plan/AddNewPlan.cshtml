@@ -1,38 +1,81 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using AuthDatabase.Entities;
-@using WebApplication.ViewModels;
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-@model NewPlanViewModel;
+@model Tuple<ListPlanViewModel, NewPlanViewModel>;
 
 @{
     ViewData["Title"] = "AddNewPlan";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Dodaj nowy plan wydatków</h1>
 
-<form asp-action="AddCategory">
+<form asp-action="AddNewPlan">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for=@Model.Miesiąc for="Miesiąc">Miesiąc planu</label>
-        <input asp-for=@Model.Miesiąc type="month" class="form-control" id="Miesiąc" placeholder="Example month">
-        <span asp-validation-for=@Model.Miesiąc a class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for=@Model.ZalozonaKwota for="kwota">Zakładana kwota</label>
-        <input asp-for=@Model.ZalozonaKwota type="text" class="form-control" id="kwota" placeholder="Example amount">
-        <span asp-validation-for=@Model.ZalozonaKwota class="text-danger"></span>
-    </div>
-    <div style="display:none">
-        <input asp-for=@Model.FaktycznaKwota value="0">
-    </div>
-    <div style="display:none">
-        <input asp-for=@Model.IdUzytkownika value="0">
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Dodaj nowy plan" class="btn btn-success" style="margin-top:30px" />
-    </div>
+        <div class="form-group">
+        <label asp-for=@Model.Item2.Miesiąc for="Miesiac">Wskaż miesiąc</label>
+            <div id="miesiacOstrzezenie" >
+                <input asp-for=@Model.Item2.Miesiąc type="month" class="form-control" id="Miesiac" placeholder="Example month">
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for=@Model.Item2.ZalozonaKwota for="ZalozonaKwota">Zakładana kwota</label>
+            <div id="kwotaOstrzezenie">
+                <input asp-for=@Model.Item2.ZalozonaKwota type="text" class="form-control" id="ZalozonaKwota" placeholder="Example amount">
+            </div>
+        </div>
+        <div style="display:none">
+            <input asp-for=@Model.Item2.FaktycznaKwota value="0">
+        </div>
+        <div style="display:none">
+            <input asp-for=@Model.Item2.IdUzytkownika value="0">
+        </div>
+        <div class="form-group">
+            <input id="submit" type="submit" value="Dodaj nowy plan" class="btn btn-success" style="margin-top:30px" />
+        </div>
 </form>
+
+<script>
+
+    let listaMiesiac = [];
+   $.ajax({
+    url: 'https://localhost:44382/WebApiPlan/WylistujPlany',
+    type: 'GET',
+    }).done(function (data) {
+        for (let el of data) {
+            listaMiesiac.push(el.miesiąc.substring(0,7));
+        }
+    }).fail(function (data) {
+        console.log("Failed");
+    })
+
+    $('#ZalozonaKwota').change(function () {
+        if ($('#ZalozonaKwota').val() > 0) {
+             $('#kwotaOstrzezenie').removeAttr("data-tooltip");
+             $('#ZalozonaKwota').css("border-color", "#d1cfcb");
+             $('#submit').prop("disabled", false);    
+        }
+        else {
+            $('#kwotaOstrzezenie').attr("data-tooltip", "Kwota musi być większa niż 0 zł");
+            $('#ZalozonaKwota').css("border-color", "red");
+            $('#submit').prop("disabled", true);
+        }
+    });
+
+    $('#Miesiac').change(function () {
+        if (listaMiesiac.includes($('#Miesiac').val())) {
+            $('miesiacOstrzezenie').attr("data-tooltip", "Ten miesiąc już istnieje");
+            $('#Miesiac').css("border-color", "red");
+            $('#submit').prop("disabled", true);
+        }
+        else {
+            $('#miesiacOstrzezenie').removeAttr("data-tooltip");
+            $('#Miesiac').css("border-color", "#d1cfcb");
+            $('#submit').prop("disabled", false);
+        }
+    });
+        
+
+</script>
 
 

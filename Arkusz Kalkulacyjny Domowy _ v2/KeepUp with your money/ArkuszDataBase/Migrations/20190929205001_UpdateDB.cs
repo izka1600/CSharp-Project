@@ -1,16 +1,17 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ArkuszDataBase.Migrations
 {
-    public partial class DodajkolumnedoUzytkownika : Migration
+    public partial class UpdateDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+
         }
     }
 }

@@ -6,10 +6,7 @@ namespace ArkuszDataBase.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-			migrationBuilder.AddColumn<int> (
-				name: "UzId",
-				table: "Kategorie",
-				nullable: true);
+
 		}
 
         protected override void Down(MigrationBuilder migrationBuilder)

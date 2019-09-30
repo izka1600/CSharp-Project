@@ -5,42 +5,140 @@
 
 <h2 style="text-align: center;">@ViewData["Title"]</h2>
 
-<div class="row">
-    <div class="col-md-4" style="margin-left: auto; margin-right: auto;">
-        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-            <h4>Tworzenie nowego konta</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FirstName"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-default">Zarejestruj</button>
-        </form>
-    </div>
-</div>
+@*<div class="row">
+        <div class="col-md-4" style="margin-left: auto; margin-right: auto;">
+            <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                <h4>Tworzenie nowego konta</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-default">Zarejestruj</button>
+            </form>
+        </div>
+    </div>*@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
+
+<form class="ui form " style="width: 60%; position: relative; left: 20%; top: 30px;" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+    <hr />
+    <div class="ui error message"></div>
+    <div class="field">
+        <label asp-for="FirstName">Imię</label>
+        <input asp-for="FirstName" type="text" name="FirstName" placeholder="Imię">
+    </div>
+    <div class="field">
+        <label asp-for="LastName">Nazwisko</label>
+        <input asp-for="LastName" type="text" name="LastName" placeholder="Nazwisko">
+    </div>
+    <div class="field">
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" type="text" name="Email" placeholder="Email">
+    </div>
+    <div class="field">
+        <label asp-for="Password">Hasło</label>
+        <input asp-for="Password" type="password" name="Password" placeholder="Hasło">
+    </div>
+    <div class="field">
+        <label asp-for="ConfirmPassword">Powtórz hasło</label>
+        <input asp-for="ConfirmPassword" type="password" name="ConfirmPassword" placeholder="Powtórz hasło">
+    </div>
+    <button class="ui primary button" type="submit">Zarejestruj</button>
+    <div style="height: 50px"></div>
+</form>
+
+
+<script>
+    $('.ui.form')
+        .form({
+            fields: {
+                FirstName: {
+                    identifier: 'FirstName',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Wprowadź imię'
+                        },
+                    ]
+                },
+                LastName: {
+                    identifier: 'LastName',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Wprowadź nazwisko'
+                        },
+                    ]
+                },
+                Email: {
+                    identifier: 'Email',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Wprowadź login'
+                        },
+                        {
+                            type: 'regExp',
+                            value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                            prompt: 'Wprowadź poprawny e-mail'
+                        },
+
+                    ]
+                },
+                Password: {
+                    identifier: 'Password',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Wprowadź hasło'
+                        },
+                        {
+                            type: 'regExp',
+                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@@$!%*?&])[A-Za-z\d@@$!%*?&]{8,}$/,
+                            prompt: 'Wprowadź hasło zawierające 8 znaków, małą literę, dużą literę, cyfrę i znak specjalny '
+                        },
+
+                    ]
+                },
+                ConfirmPassword: {
+                    identifier: 'ConfirmPassword',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Powtórz hasło'
+                        },
+                        {
+                            type: 'match[Password]',
+                            prompt: 'Hasła muszą być identyczne'
+                        },
+
+                    ]
+                },
+            },
+        });
+</script>

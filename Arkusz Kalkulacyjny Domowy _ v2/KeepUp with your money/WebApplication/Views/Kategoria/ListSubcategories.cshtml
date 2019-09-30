@@ -1,7 +1,7 @@
-﻿<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+﻿<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 
 @using Microsoft.AspNetCore.Identity
 @using AuthDatabase.Entities;
@@ -20,7 +20,7 @@
     <table id="myTable" class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Id podkategorii</th>
+                <th scope="col">Nr</th>
                 <th scope="col">Kategoria</th>
                 <th scope="col">Nazwa podkategorii</th>
                 <th>Action</th>
@@ -31,32 +31,40 @@
         <tbody>
             @foreach (var item in Model.Item2.Items)
             {
-            <tr>
-                <td style="height: 50px;">@item.PodId</td>
-                @foreach (var item1 in Model.Item1.Items)
-                {
-                    if (item1.KatId==item.IdKategorii)
+                <tr>
+                    <td style="height: 50px;"></td>
+                    @foreach (var item1 in Model.Item1.Items)
                     {
-                        <td style="height: 50px;">@item1.Kategoria</td>
+                        if (item1.KatId == item.IdKategorii)
+                        {
+                            <td style="height: 50px;">@item1.Kategoria</td>
+                        }
                     }
-                }
-                <td style="height: 50px;">@item.Podkategoria</td>
-                <td style="height: 50px;"><a asp-action="DeleteSubcategory" asp-route-id="@item.PodId">Delete</a></td>
-            </tr>
+                    <td style="height: 50px;">@item.Podkategoria</td>
+                    <td style="height: 50px;"><a asp-action="DeleteSubcategory" asp-route-id="@item.PodId">Delete</a></td>
+                </tr>
             }
         </tbody>
 
     </table>
 </div>
-
+<a style="position: relative; top: 30px;" asp-area="" asp-controller="Kategoria" asp-action="AddNewSubcategory"><button class="ui primary button" type="submit">Dodaj nową podkategorię</button></a>
 <script>
-    $('#myTable').dataTable({
+
+    let table = $('#myTable').DataTable({
         columnDefs: [{
-        orderable: false,
-        targets: 2
+            orderable: false,
+            targets: [0,3]
         }],
+        "order": [[2, 'asc']]
     });
-    $('#myTable_wrapper').removeClass( 'form-inline' )
+    $('#myTable_wrapper').removeClass('form-inline')
+
+    table.on( 'order.dt search.dt', function () {
+        table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
 
 </script>
 

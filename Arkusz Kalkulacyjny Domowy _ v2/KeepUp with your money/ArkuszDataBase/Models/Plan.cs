@@ -5,11 +5,6 @@ namespace ArkuszDataBase.Models
 {
     public partial class Plan
     {
-        public Plan()
-        {
-            Transakcje = new HashSet<Transakcje>();
-        }
-
         public int PlanId { get; set; }
         public DateTime? Miesiąc { get; set; }
         public decimal? ZalozonaKwota { get; set; }
@@ -17,6 +12,5 @@ namespace ArkuszDataBase.Models
         public int IdUzytkownika { get; set; }
 
         public virtual Uzytkownik IdUzytkownikaNavigation { get; set; }
-        public virtual ICollection<Transakcje> Transakcje { get; set; }
     }
 }

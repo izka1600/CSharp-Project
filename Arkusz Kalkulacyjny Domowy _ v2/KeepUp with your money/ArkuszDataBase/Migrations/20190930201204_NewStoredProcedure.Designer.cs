@@ -4,14 +4,16 @@ using ArkuszDataBase.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArkuszDataBase.Migrations
 {
     [DbContext(typeof(Arkusz_WydatkiContext))]
-    partial class Arkusz_WydatkiContextModelSnapshot : ModelSnapshot
+    [Migration("20190930201204_NewStoredProcedure")]
+    partial class NewStoredProcedure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

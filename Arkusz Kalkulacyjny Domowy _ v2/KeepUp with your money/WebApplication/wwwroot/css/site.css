@@ -37,31 +37,35 @@ button.accept-policy {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+	position: relative;
+	min-height: 100%;
+	font-family: 'Lato';
 }
 
 body {
 	/* Margin bottom by footer height */
-	background-image: url('../img/rice-paper-3 .png');
-	background-color: #a4c4db;
+	
 	margin-bottom: 60px;
 }
 
 .money {
-	position: fixed;
-	width: 250px;
-	height: 250px;
-	bottom: 50px;
-	left: 5%;
+	position: sticky;
+	top: calc(100vh - 200px);
+	width: 150px;
+	height: 150px;
+	left: calc(100vw - 50px);
 	background-image: url('../img/money.png');
 	background-repeat: no-repeat;
-	background-size: 250px 250px;
-	opacity: 0.3;
+	background-size: 150px 150px;
+	opacity: 0.2;
 }
 
 .navbar {
 	background-color: #47a5d1 !important;
+}
+
+.button {
+	color: white !important;
 }
 
 

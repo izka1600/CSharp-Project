@@ -1,7 +1,7 @@
-﻿<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+﻿<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 
 @using Microsoft.AspNetCore.Identity
 @using AuthDatabase.Entities;
@@ -36,7 +36,7 @@
             @foreach (var item in Model.Item1.Items)
             {
             <tr>
-                <th scope="row">@item.TransId</th>
+                <td style="height: 50px;"></td>
                 <td style="height: 50px;">@item.Data</td>
                 @foreach (var item1 in Model.Item2.Items)
                 {
@@ -53,6 +53,7 @@
                     }
                 }
                 <td style="height: 50px;">@item.Kwota</td>
+              @*  <td style="height: 50px;">@item.PlanId</td>*@
                 @foreach (var item3 in Model.Item4.Items)
                 {
                     if (item3.PlanId == item.PlanId)
@@ -67,14 +68,21 @@
 
     </table>
 </div>
-
+<a style="position: relative; top: 30px;" asp-area="" asp-controller="Transakcja" asp-action="AddNewTransaction"><button class="ui primary button" type="submit">Dodaj nową transakcję</button></a>
 <script>
-    $('#myTable').dataTable({
+    let table = $('#myTable').DataTable({
         columnDefs: [{
             orderable: false,
-            targets: 2
+            targets: [0,6]
         }],
+        "order": [[1, 'asc']]
     });
     $('#myTable_wrapper').removeClass('form-inline')
+
+    table.on( 'order.dt search.dt', function () {
+        table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
 
 </script>

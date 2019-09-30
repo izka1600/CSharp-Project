@@ -20,12 +20,10 @@ namespace ArkuszDataBase.Models
         public virtual DbSet<Podkategorie> Podkategorie { get; set; }
         public virtual DbSet<Transakcje> Transakcje { get; set; }
         public virtual DbSet<Uzytkownik> Uzytkownik { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS01;Database=Arkusz_Wydatki;Trusted_Connection=True;");
             }
         }
@@ -61,9 +59,7 @@ namespace ArkuszDataBase.Models
                     .HasName("PlanUnique")
                     .IsUnique();
 
-                entity.Property(e => e.PlanId)
-                    .HasColumnName("Plan_ID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.PlanId).HasColumnName("Plan_ID");
 
                 entity.Property(e => e.FaktycznaKwota).HasColumnType("decimal(18, 0)");
 
@@ -131,11 +127,6 @@ namespace ArkuszDataBase.Models
                     .HasForeignKey(d => d.IdUzytkownika)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FKUzytkownik");
-
-                entity.HasOne(d => d.Plan)
-                    .WithMany(p => p.Transakcje)
-                    .HasForeignKey(d => d.PlanId)
-                    .HasConstraintName("FKPlan");
             });
 
             modelBuilder.Entity<Uzytkownik>(entity =>

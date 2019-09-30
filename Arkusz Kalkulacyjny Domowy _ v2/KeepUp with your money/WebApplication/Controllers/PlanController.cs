@@ -92,13 +92,20 @@ namespace WebApplication.Controllers
 			{
 				return RedirectToAction("ListPlans");
 			}
+			ICollection<PlanViewModel> currentPlanItems = await _arkuszService.Get_Plan();
+			var model = new ListPlanViewModel()
+			{
+				Items = currentPlanItems
+			};
+			NewPlanViewModel newPlan = new NewPlanViewModel();
 
-			return View();
+			var tuple = new Tuple<ListPlanViewModel, NewPlanViewModel>(model, newPlan);
+			return View(tuple);
 		}
 
 		[Route("/WebApiPlan/DodajNowyPlan")]
 		[HttpPost]
-		public async Task<IActionResult> AddNewPlan(NewPlanViewModel newplan)
+		public async Task<IActionResult> AddNewPlan([Bind(Prefix = "Item2")]NewPlanViewModel newplan)
 		{
 			var currentUser = await _userManager.GetUserAsync(User);
 			if (currentUser == null)

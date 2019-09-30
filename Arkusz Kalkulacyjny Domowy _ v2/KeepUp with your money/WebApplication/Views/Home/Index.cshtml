@@ -1,8 +1,83 @@
-﻿@{
-    ViewData["Title"] = "Strona główna";
-}
+﻿@*@{
+        ViewData["Title"] = "Strona główna";
+    }*@
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+@using Microsoft.AspNetCore.Identity;
+@using AuthDatabase.Entities;
+
+@inject SignInManager<AppUser> SignInManager
+
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="text-center">
+        <h1 class="display-4">Witaj</h1>
+        <div style="display: flex; justify-content: space-around; position: relative; top: 50px;">
+            <div class="ui steps">
+                <div class="step" style="width: 25%;">
+                    <i class="user icon"></i>
+                    <div class="content" style="width: 60%;">
+                        <div class="title">Rejestracja</div>
+                        <div class="description">Załóż konto, aby móc korzystać z dobrodziejstw aplikacji</div>
+                    </div>
+                </div>
+                <div class="step" style="width: 25%;">
+                    <i class="clipboard list icon"></i>
+                    <div class="content" style="width: 60%;">
+                        <div class="title">Plan wydatków</div>
+                        <div class="description">Stwórz własny plan wydatków na najbliższy miesiąc</div>
+                    </div>
+                </div>
+                <div class=" step" style="width: 25%;">
+                    <i class="file icon"></i>
+                    <div class="content" style="width: 60%;">
+                        <div class="title">Kategoria</div>
+                        <div class="description">Dodaj kategorie wydatków odpowiadające Twoim potrzebom życiowym</div>
+                    </div>
+                </div>
+                <div class=" step" style="width: 25%;">
+                    <i class="pencil alternate icon"></i>
+                    <div class="content" style="width: 60%;">
+                        <div class="title">Transakcje</div>
+                        <div class="description">Zapisuj swoje transakcje</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Witaj</h1>
+        <div style="display: flex; justify-content: space-around; position: relative; top: 50px;">
+            <div class="ui steps">
+                <div class="step" style="width: 33%;">
+                        <i class="sticky note icon"></i>
+                        <div class="content" style="width: 60%;">
+                            <div class="title">Plan wydatków</div>
+                            <div class="description">Stwórz własny plan wydatków na najbliższy miesiąc</div>
+                            <a asp-area="" asp-controller="Plan" asp-action="ListPlans"><button class="ui primary button" style="margin-top: 10px;">Idź</button></a>
+                        </div>
+                </div>
+                <div class=" step" style="width: 33%;">
+                    <i class="file icon"></i>
+                    <div class="content" style="width: 60%;">
+                        <div class="title">Kategoria</div>
+                        <div class="description">Dodaj kategorie wydatków odpowiadające Twoim potrzebom życiowym</div>
+                        <a asp-area="" asp-controller="Kategoria" asp-action="ListCategories"><button class="ui primary button" style="margin-top: 10px;">Idź</button></a>
+                    </div>
+                </div>
+                <div class=" step" style="width: 33%;">
+                    <i class="info icon"></i>
+                    <div class="content" style="width: 60%;">
+                        <div class="title">Transakcje</div>
+                        <div class="description">Zapisuj swoje transakcje</div>
+                        <a asp-area="" asp-controller="Transakcja" asp-action="ListTransactions"><button class="ui primary button" style="margin-top: 10px;">Idź</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

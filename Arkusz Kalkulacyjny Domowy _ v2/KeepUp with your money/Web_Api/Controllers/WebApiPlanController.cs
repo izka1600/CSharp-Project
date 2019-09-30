@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 
 namespace Web_Api.Controllers
 {
@@ -18,6 +19,7 @@ namespace Web_Api.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet("WylistujPlany")]
+		[EnableCors]
 		public ActionResult<IEnumerable<Plan>> Get()
 		{
 			var data = new PlanController().WylistujPlany();

@@ -23,5 +23,6 @@ namespace DataBaseTests
 		{
 			Assert.Equal(2,newTrans.IdPodkategorii);
 		}
+
 	}
 }

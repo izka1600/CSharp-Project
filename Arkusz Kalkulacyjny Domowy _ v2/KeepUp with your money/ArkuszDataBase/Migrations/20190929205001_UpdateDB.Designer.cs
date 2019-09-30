@@ -4,14 +4,16 @@ using ArkuszDataBase.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArkuszDataBase.Migrations
 {
     [DbContext(typeof(Arkusz_WydatkiContext))]
-    partial class Arkusz_WydatkiContextModelSnapshot : ModelSnapshot
+    [Migration("20190929205001_UpdateDB")]
+    partial class UpdateDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,9 +50,7 @@ namespace ArkuszDataBase.Migrations
             modelBuilder.Entity("ArkuszDataBase.Models.Plan", b =>
                 {
                     b.Property<int>("PlanId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Plan_ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("Plan_ID");
 
                     b.Property<decimal?>("FaktycznaKwota")
                         .HasColumnType("decimal(18, 0)");
@@ -131,6 +131,8 @@ namespace ArkuszDataBase.Migrations
                     b.HasIndex("IdPodkategorii");
 
                     b.HasIndex("IdUzytkownika");
+
+                    b.HasIndex("PlanId");
 
                     b.HasIndex("Data", "IdUzytkownika", "IdKategorii", "IdPodkategorii", "Kwota")
                         .IsUnique()
@@ -221,6 +223,11 @@ namespace ArkuszDataBase.Migrations
                         .WithMany("Transakcje")
                         .HasForeignKey("IdUzytkownika")
                         .HasConstraintName("FKUzytkownik");
+
+                    b.HasOne("ArkuszDataBase.Models.Plan", "Plan")
+                        .WithMany("Transakcje")
+                        .HasForeignKey("PlanId")
+                        .HasConstraintName("FKPlan");
                 });
 #pragma warning restore 612, 618
         }

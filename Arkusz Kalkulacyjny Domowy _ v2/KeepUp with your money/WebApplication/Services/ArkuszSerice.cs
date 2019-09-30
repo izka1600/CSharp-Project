@@ -20,6 +20,14 @@ namespace WebApplication.Services
 			_mapper = mapper;
 		}
 
+		//updatuje faktyczna kwote planu
+		public async Task UpdateAsync10(AddTransactionToPlan fplan)
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+			await todoServiceClient.UpdateAsync10(_mapper.Map<UpdateFaktycznyPlan>(fplan));
+		}
+
+
 		//wyświetlam wszystkie plany
 		public async Task<System.Collections.Generic.ICollection<PlanViewModel>> Get_Plan()
 		{
@@ -36,7 +44,7 @@ namespace WebApplication.Services
 		{
 			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
 
-			int returnValue = await todoServiceClient.Post2Async(_mapper.Map<NowyPlan>(newplan));
+			int returnValue = await todoServiceClient.Post22Async(_mapper.Map<NowyPlan>(newplan));
 
 			return returnValue;
 		}

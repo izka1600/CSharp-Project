@@ -2,6 +2,7 @@
 using ArkuszDataBase.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
@@ -13,6 +14,7 @@ namespace ArkuszDataBase.Controllers
 
 		public int DodajPlan(NowyPlan newPlan)
 		{
+			
 			var plan = new Plan();
 			plan.FaktycznaKwota = newPlan.FaktycznaKwota;
 			plan.IdUzytkownika = newPlan.IdUzytkownika;

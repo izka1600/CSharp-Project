@@ -16,6 +16,5 @@ namespace ArkuszDataBase.Models
         public virtual Kategorie IdKategoriiNavigation { get; set; }
         public virtual Podkategorie IdPodkategoriiNavigation { get; set; }
         public virtual Uzytkownik IdUzytkownikaNavigation { get; set; }
-        public virtual Plan Plan { get; set; }
     }
 }

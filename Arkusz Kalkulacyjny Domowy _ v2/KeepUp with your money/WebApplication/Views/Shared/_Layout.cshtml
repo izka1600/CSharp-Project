@@ -1,4 +1,4 @@
-﻿+@using Microsoft.AspNetCore.Identity;
+﻿@using Microsoft.AspNetCore.Identity;
 @using AuthDatabase.Entities;
 
 @inject SignInManager<AppUser> SignInManager
@@ -10,7 +10,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Kalkulator wydatków domowych</title>
-    <link rel="stylesheet" href="../css/style.css" />   
+    <link rel="stylesheet" href="../css/style.css" />
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -23,62 +23,58 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" defer></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a style="color: white;" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul style="display: flex; align-items: center;" class="navbar-nav flex-grow-1">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item dropdown">
-                                <a style="cursor: pointer; color: white;" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button">Menu</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Plan" asp-action="ListPlans">Menadżer planów</a> <br />
-                                    <a class="dropdown-item" asp-area="" asp-controller="Plan" asp-action="AddNewPlan">Dodaj nowy plan</a> <br />
-                                    <a class="dropdown-item" asp-area="" asp-controller="Kategoria" asp-action="ListCategories">Menadżer kategorii</a> <br />
-                                    <a class="dropdown-item" asp-area="" asp-controller="Kategoria" asp-action="ListSubcategories">Menadżer podkategorii</a> <br />
-                                    <a class="dropdown-item" asp-area="" asp-controller="Kategoria" asp-action="AddNewCategory">Dodaj nową kategorię</a> <br />
-                                    <a class="dropdown-item" asp-area="" asp-controller="Kategoria" asp-action="AddNewSubcategory">Dodaj nową podkategorię</a> <br />
-                                    <a class="dropdown-item" asp-area="" asp-controller="Transakcja" asp-action="ListTransactions">Menadżer transakcji</a> <br />
-                                    <a class="dropdown-item" asp-area="" asp-controller="Transakcja" asp-action="AddNewTransaction">Dodaj nową transakcję</a> <br />
-                                </div>
-                            </li>
-                        }
-                        @if (!SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <a style="color: white;" class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Zaloguj</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a style="color: white;" class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Zarejestruj</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <!--<a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Witaj @UserManager.GetUserName(User) !</a>-->
-                                <form  asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-                                    <button style="color: white;" type="submit" class="btn btn-link navbar-btn navbar-link">Witaj @UserManager.GetUserName(User) !</button>
-                                </form>
-                            </li>
-                            <li class="nav-item">
-                                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-                                    <button style="color: white;" type="submit" class="btn btn-link navbar-btn navbar-link">Wyloguj</button>
-                                </form>
-                            </li>
-                        }
-                    </ul>
+        <nav class="navbar">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div style="display: flex; justify-content: space-between; width: 100%;">
+                    <div>
+                        <a class="ui primary button" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="ui primary button" data-toggle="dropdown" role="button">Menu</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-area="" asp-controller="Plan" asp-action="ListPlans">Menadżer planów</a> <br />
+                            @*<a class="dropdown-item" asp-area="" asp-controller="Plan" asp-action="AddNewPlan">Dodaj nowy plan</a> <br />*@
+                            <a class="dropdown-item" asp-area="" asp-controller="Kategoria" asp-action="ListCategories">Menadżer kategorii</a> <br />
+                            <a class="dropdown-item" asp-area="" asp-controller="Kategoria" asp-action="ListSubcategories">Menadżer podkategorii</a> <br />
+                            @*<a class="dropdown-item" asp-area="" asp-controller="Kategoria" asp-action="AddNewCategory">Dodaj nową kategorię</a> <br />*@
+                            @*<a class="dropdown-item" asp-area="" asp-controller="Kategoria" asp-action="AddNewSubcategory">Dodaj nową podkategorię</a> <br />*@
+                            <a class="dropdown-item" asp-area="" asp-controller="Transakcja" asp-action="ListTransactions">Menadżer transakcji</a> <br />
+                            @*<a class="dropdown-item" asp-area="" asp-controller="Transakcja" asp-action="AddNewTransaction">Dodaj nową transakcję</a> <br />*@
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <!--<a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Witaj @UserManager.GetUserName(User) !</a>-->
+                        <div style="margin-right: 20px; color: white;">Witaj @UserManager.GetUserName(User) !</div>
+                        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+                            <button type="submit" class="ui primary button">Wyloguj</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </nav>
+                }
+                @if (!SignInManager.IsSignedIn(User))
+                {
+                    <div style="display: flex; justify-content: space-between; width: 100%;">
+                        <div>
+                            <a class="ui primary button" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </div>
+                        <div>
+                            <a class="ui primary button" asp-area="" asp-controller="Account" asp-action="Login">Zaloguj</a>
+                            <a class="ui primary button" asp-area="" asp-controller="Account" asp-action="Register">Zarejestruj</a>
+                        </div>
+                    </div>
+                }
+
+            </nav>
     </header>
     <div class="container">
         <partial name="_CookieConsentPartial" />
@@ -87,9 +83,9 @@
         </main>
     </div>
     <figure class="money"></figure>
-    <footer class="border-top footer text-muted">
+    <footer class="border-top text-muted" style="height: 30px; position: sticky; top: calc(100vh - 30px);">
         <div class="container">
-            &copy; 2019 - WebApplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2019 - IKPK - <a asp-area="" asp-controller="Home" asp-action="Privacy">Polityka prywatności</a>
         </div>
     </footer>
 
