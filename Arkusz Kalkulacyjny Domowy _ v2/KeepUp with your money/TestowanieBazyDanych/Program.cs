@@ -52,9 +52,13 @@ namespace TestowanieBazyDanych
 			//Console.WriteLine(x.ToString());
 
 
-			//AddTransactionToPlanController proced = new AddTransactionToPlanController();
-			//proced.AddTransactionToPlan(10000, 4);
-			//Console.WriteLine("Done");
+			RaportFromSomeMonthsController proced = new RaportFromSomeMonthsController();
+			List<RaportFromMonths> list=  proced.RaportFromSomeMonths( new ReportFromMonthsParametres { Plan_Id = "3", UserId = 1011 });
+			foreach (var item in list)
+			{
+				Console.WriteLine(item.Kategoria);
+			}
+			
 
 			Console.ReadKey();
 		}

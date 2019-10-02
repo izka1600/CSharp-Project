@@ -20,6 +20,15 @@ namespace WebApplication.Services
 			_mapper = mapper;
 		}
 
+		//wyświetlam raport 
+		public async Task<System.Collections.Generic.ICollection<ReportFromMonthsViewModel>> GetRaportAsync(ReportFromMonthsParametersViewModel rap)
+		{
+			ArkuszServiceHttpClient todoServiceClient = new ArkuszServiceHttpClient(url, httpClient);
+			ICollection<RaportFromMonths> dtoPlan = await todoServiceClient.GetRaportAsync(_mapper.Map<ReportFromMonthsParametres>(rap));
+			ICollection<ReportFromMonthsViewModel> dtoRaport = _mapper.Map<List<ReportFromMonthsViewModel>>(dtoPlan);
+			return dtoRaport;
+		}
+
 		//updatuje faktyczna kwote planu
 		public async Task UpdateAsync10(AddTransactionToPlan fplan)
 		{

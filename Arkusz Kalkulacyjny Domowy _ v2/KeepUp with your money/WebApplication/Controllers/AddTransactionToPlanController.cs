@@ -37,10 +37,9 @@ namespace WebApplication.Controllers
 		}
 
 		[Route("/WebApiAddTransactionToPlan/ZaktualizujFaktycznyPlan")]
-		public async Task<IActionResult> UpdateFaktycznyPlan(AddTransactionToPlan plan)
+		public async Task UpdateFaktycznyPlan(AddTransactionToPlan plan)
 		{
-			await _arkuszService.Delete_Podkategoria(id);
-			return RedirectToAction(nameof(ListSubcategories));
+			await _arkuszService.UpdateAsync10(plan);
 		}
 
 	}

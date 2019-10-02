@@ -229,6 +229,12 @@ namespace WebApplication.Controllers
 			};
 
 			int currentTransakcjaId = await _arkuszService.Post_Transakcja(newtr);
+			AddTransactionToPlan FaktycznyPlan = new AddTransactionToPlan
+			{
+				PlanId = newtrVM.PlanId ?? default(int),
+				Amount = (decimal)newtrVM.Kwota
+			};
+			await _arkuszService.UpdateAsync10(FaktycznyPlan);
 			return RedirectToAction(nameof(ListTransactions));
 		}
 

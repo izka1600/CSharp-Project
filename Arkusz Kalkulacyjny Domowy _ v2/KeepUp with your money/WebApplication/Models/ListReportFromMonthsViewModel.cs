@@ -5,12 +5,8 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Models
 {
-	public class AddTransactionToPlan
+	public class ListReportFromMonthsViewModel
 	{
-
-		public int PlanId { get; set; }
-
-		public decimal Amount;
-
+		public ICollection<ReportFromMonthsViewModel> Items { get; set; }
 	}
 }

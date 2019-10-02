@@ -67,6 +67,11 @@
             </summary>
             <param name="plan"></param>
         </member>
+        <member name="M:Web_Api.Controllers.WebApiRaportFromSomeMonthsController.GetRaport(ArkuszDataBase.Models.ReportFromMonthsParametres)">
+            <summary>
+            Pokaż raport transakcji z danych miesięcy
+            </summary>
+        </member>
         <member name="M:Web_Api.Controllers.WebApiTranskacjaController.Get">
             <summary>
             Metoda wyświetlająca z bazy wszystkie transakcje

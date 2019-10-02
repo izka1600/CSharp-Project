@@ -13,6 +13,8 @@ namespace WebApplication
 	{
 		public MapperProfile()
 		{
+			CreateMap<ReportFromMonthsViewModel, RaportFromMonths>().ReverseMap();
+			CreateMap<ReportFromMonthsParametersViewModel, ReportFromMonthsParametres>().ReverseMap();
 
 			CreateMap<AddTransactionToPlan, UpdateFaktycznyPlan>().ReverseMap();
 

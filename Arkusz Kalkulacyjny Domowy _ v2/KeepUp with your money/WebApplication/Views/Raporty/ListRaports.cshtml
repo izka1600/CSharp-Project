@@ -1,0 +1,48 @@
+﻿<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
+@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@model ListReportFromMonthsViewModel;
+
+@{
+    ViewData["Title"] = "Raporty z ostatnich miesięcy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Raporty z ostatnich miesięcy</h1>
+
+
+<div style="margin-top: 50px">
+    <table id="myTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nr</th>
+                <th scope="col">Data transakcji</th>
+                <th scope="col">Kategoria</th>
+                <th scope="col">Podkategoria</th>
+                <th scope="col">Kwota</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+            <tr>
+                <th scope="row"></th>
+                <td style="height: 50px;">@item.DateOfTransaction</td>
+                <td style="height: 50px;">@item.Kategoria</td>
+                <td style="height: 50px;">@item.Podkategoria</td>
+                <td style="height: 50px;">@item.Kwota</td>
+
+            </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

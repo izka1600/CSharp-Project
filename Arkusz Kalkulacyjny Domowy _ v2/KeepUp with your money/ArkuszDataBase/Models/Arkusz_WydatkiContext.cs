@@ -20,6 +20,9 @@ namespace ArkuszDataBase.Models
         public virtual DbSet<Podkategorie> Podkategorie { get; set; }
         public virtual DbSet<Transakcje> Transakcje { get; set; }
         public virtual DbSet<Uzytkownik> Uzytkownik { get; set; }
+		public virtual DbSet<RaportFromMonths> RaportFromMonths { get; set; }
+
+		public virtual DbSet<ReportFromMonthsParametres> ReportFromMonthsParametres { get; set; }
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

@@ -42,6 +42,89 @@ namespace WebApplication
 		partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
 		partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
+
+		/// <summary>Pokaż raport transakcji z danych miesięcy</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<RaportFromMonths>> GetRaportAsync(ReportFromMonthsParametres id)
+		{
+			return GetRaportAsync(id, System.Threading.CancellationToken.None);
+		}
+
+		/// <summary>Pokaż raport transakcji z danych miesięcy</summary>
+		/// <returns>Success</returns>
+		/// <exception cref="SwaggerException">A server side error occurred.</exception>
+		/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+		public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<RaportFromMonths>> GetRaportAsync(ReportFromMonthsParametres id, System.Threading.CancellationToken cancellationToken)
+		{
+			var urlBuilder_ = new System.Text.StringBuilder();
+			urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/WebApiRaportFromSomeMonths/PokazRaportZDanychMiesiecy");
+
+			var client_ = _httpClient;
+			try
+			{
+				using (var request_ = new System.Net.Http.HttpRequestMessage())
+				{
+					var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(id, _settings.Value));
+					content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+					request_.Content = content_;
+					request_.Method = new System.Net.Http.HttpMethod("GET");
+					request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+					PrepareRequest(client_, request_, urlBuilder_);
+					var url_ = urlBuilder_.ToString();
+					request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+					PrepareRequest(client_, request_, url_);
+
+					var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+					try
+					{
+						var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+						if (response_.Content != null && response_.Content.Headers != null)
+						{
+							foreach (var item_ in response_.Content.Headers)
+								headers_[item_.Key] = item_.Value;
+						}
+
+						ProcessResponse(client_, response_);
+
+						var status_ = ((int)response_.StatusCode).ToString();
+						if (status_ == "200")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							var result_ = default(System.Collections.Generic.ICollection<RaportFromMonths>);
+							try
+							{
+								result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.ICollection<RaportFromMonths>>(responseData_, _settings.Value);
+								return result_;
+							}
+							catch (System.Exception exception_)
+							{
+								throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+							}
+						}
+						else
+						if (status_ != "200" && status_ != "204")
+						{
+							var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+							throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+						}
+
+						return default(System.Collections.Generic.ICollection<RaportFromMonths>);
+					}
+					finally
+					{
+						if (response_ != null)
+							response_.Dispose();
+					}
+				}
+			}
+			finally
+			{
+			}
+		}
+
+
 		/// <summary>Metoda wyświetlająca z bazy wszystkie plany</summary>
 		/// <returns>Success</returns>
 		/// <exception cref="SwaggerException">A server side error occurred.</exception>
@@ -1681,6 +1764,56 @@ namespace WebApplication
 		}
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.14.1.0 (Newtonsoft.Json v11.0.0.0)")]
+	public partial class ReportFromMonthsParametres
+	{
+		[Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public int? UserId { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("plan_Id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public string Plan_Id { get; set; }
+
+		public string ToJson()
+		{
+			return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+		}
+
+		public static ReportFromMonthsParametres FromJson(string data)
+		{
+			return Newtonsoft.Json.JsonConvert.DeserializeObject<ReportFromMonthsParametres>(data);
+		}
+
+	}
+
+	[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.14.1.0 (Newtonsoft.Json v11.0.0.0)")]
+	public partial class RaportFromMonths
+	{
+		[Newtonsoft.Json.JsonProperty("dateOfTransaction", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public System.DateTimeOffset? DateOfTransaction { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("kategoria", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public string Kategoria { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("podkategoria", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public string Podkategoria { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("kwota", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public double? Kwota { get; set; }
+
+		public string ToJson()
+		{
+			return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+		}
+
+		public static RaportFromMonths FromJson(string data)
+		{
+			return Newtonsoft.Json.JsonConvert.DeserializeObject<RaportFromMonths>(data);
+		}
+
+	}
+
+
 
 	[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.14.1.0 (Newtonsoft.Json v11.0.0.0)")]
 	public partial class Plan

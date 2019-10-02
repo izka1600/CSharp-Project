@@ -8,6 +8,8 @@ namespace WebApplication.Services
 {
 	public interface IArkuszService
 	{
+		Task<System.Collections.Generic.ICollection<ReportFromMonthsViewModel>> GetRaportAsync(ReportFromMonthsParametersViewModel rap);
+
 
 		Task UpdateAsync10(AddTransactionToPlan fplan);
 
