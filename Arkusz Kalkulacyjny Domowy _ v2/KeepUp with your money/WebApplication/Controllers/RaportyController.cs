@@ -21,6 +21,8 @@ namespace WebApplication.Controllers
 		public RaportyController(
 			IArkuszService arkuszService,
 			UserManager<AppUser> userManager)
+
+
 		{
 			_arkuszService = arkuszService;
 			_userManager = userManager;
@@ -38,7 +40,7 @@ namespace WebApplication.Controllers
 		}
 
 		[Route("/WebApiRaportFromSomeMonths/PokazRaportZDanychMiesiecy")]
-		public async Task<IActionResult> ListRaports()
+		public async Task<IActionResult> ListRaports([Bind(Prefix = "Item1")] ReportFromMonthsParametersViewModel trolololo)
 		{
 
 			var currentUser = await _userManager.GetUserAsync(User);
@@ -55,11 +57,38 @@ namespace WebApplication.Controllers
 					UzId = item.UzytId;
 				}
 			}
-			ReportFromMonthsParametersViewModel rap = new ReportFromMonthsParametersViewModel
+
+			ICollection<PlanViewModel> currentPlanItems = await _arkuszService.Get_Plan();
+			ICollection<PlanViewModel> NewPlanItems = new List<PlanViewModel>();
+			foreach (var item in currentPlanItems)
 			{
-				UserId = UzId,
-				Plan_Id = "3"
+				if (item.IdUzytkownika == UzId || item.IdUzytkownika == 0)
+				{
+					NewPlanItems.Add(item);
+				}
+			}
+
+			var model1 = new ListPlanViewModel()
+			{
+				Items = NewPlanItems
 			};
+
+			ReportFromMonthsParametersViewModel rap = new ReportFromMonthsParametersViewModel();
+
+			if (String.IsNullOrEmpty(trolololo.Plan_Id))
+			{
+				
+				int x = 0;
+				foreach (var item in NewPlanItems)
+				{
+					if (item.PlanId>x)
+					{
+						x = item.PlanId;
+					}
+				}
+				rap.UserId = UzId;
+				rap.Plan_Id = x.ToString();
+			}
 
 			ICollection<ReportFromMonthsViewModel> currentRaportItems = await _arkuszService.GetRaportAsync(rap);
 
@@ -67,7 +96,10 @@ namespace WebApplication.Controllers
 			{
 				Items = currentRaportItems
 			};
-			return View(model);
+
+			var tuple = new Tuple<ReportFromMonthsParametersViewModel, ListReportFromMonthsViewModel, ListPlanViewModel>(rap, model, model1);
+
+			return View(tuple);
 
 
 		}
