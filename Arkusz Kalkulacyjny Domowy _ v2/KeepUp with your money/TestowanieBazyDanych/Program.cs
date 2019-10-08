@@ -53,10 +53,10 @@ namespace TestowanieBazyDanych
 
 
 			RaportFromSomeMonthsController proced = new RaportFromSomeMonthsController();
-			List<RaportFromMonths> list=  proced.RaportFromSomeMonths( new ReportFromMonthsParametres { Plan_Id = "3", UserId = 1011 });
+			List<RaportFromMonths> list=  proced.RaportFromSomeMonths( new ReportFromMonthsParametres { Plan_Id = "8", UserId = 1011 });
 			foreach (var item in list)
 			{
-				Console.WriteLine(item.Kategoria);
+				Console.WriteLine(item.Kwota);
 			}
 			
 

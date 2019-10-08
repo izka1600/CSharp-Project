@@ -1,7 +1,4 @@
-﻿<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+﻿
 
 @using Microsoft.AspNetCore.Identity
 @using AuthDatabase.Entities;
@@ -33,29 +30,46 @@
         <tbody>
             @foreach (var item in Model.Item2.Items)
             {
-            <tr>
-                <th scope="row"></th>
-                <td style="height: 50px;">@item.DateOfTransaction</td>
-                <td style="height: 50px;">@item.Kategoria</td>
-                <td style="height: 50px;">@item.Podkategoria</td>
-                <td style="height: 50px;">@item.Kwota</td>
+                <tr>
+                    <th scope="row"></th>
+                    <td style="height: 50px;">@item.DateOfTransaction</td>
+                    <td style="height: 50px;">@item.Kategoria</td>
+                    <td style="height: 50px;">@item.Podkategoria</td>
+                    <td style="height: 50px;">@item.Kwota</td>
 
-            </tr>
+                </tr>
             }
         </tbody>
 
     </table>
 </div>
 
-<script>
+<select name="skills" multiple="" class="ui fluid dropdown">
+    <option value="">Wybierz miesiące</option>
+    @foreach (var item in Model.Item3.Items)
+    {
+        <option class="substring" value="@item.PlanId">@item.Miesiąc.ToString().Substring(0, 7)</option>
+    }
 
-     $.ajax({
-    url: 'https://localhost:44382/WebApiRaportFromSomeMonths/PokazRaportZDanychMiesiecy',
-    type: 'GET',
-    }).done(function (data) {
-        console.log('Success', data);
-    }).fail(function (data) {
-        console.log("Failed", data);
+</select>
+
+
+<form asp-action="ListRaports">
+    <input style="display:none" asp-for=@Model.Item1.UserId value="0" />
+    <input style="display:none" id="hidden" asp-for=@Model.Item1.Plan_Id />
+    <div class="form-group">
+        <input id="submit" type="submit" value="Zatwierdź" class="btn btn-success" style="margin-top:30px" />
+    </div>
+</form>
+
+
+<script>
+    let stringWithId = '';
+    $('.ui.dropdown').dropdown();
+    $('select').change(() => {
+        stringWithId = $('select').val().join(',');
+        $('#hidden').val(stringWithId);
     })
+
 
 </script>

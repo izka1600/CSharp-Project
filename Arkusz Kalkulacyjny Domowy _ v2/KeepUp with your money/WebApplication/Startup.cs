@@ -15,6 +15,8 @@ using AuthDatabase.Entities;
 using Microsoft.AspNetCore.Identity;
 using WebApplication.Services;
 using AutoMapper;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace WebApplication
 {
@@ -78,6 +80,26 @@ namespace WebApplication
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
+			});
+
+			var defaultDateCulture = "fr-FR";
+			var modified = new CultureInfo(defaultDateCulture);
+			modified.NumberFormat.CurrencySymbol = "RM";
+			modified.NumberFormat.CurrencyDecimalDigits = 2;
+			modified.NumberFormat.CurrencyDecimalSeparator = ".";
+			modified.NumberFormat.NumberDecimalSeparator = ".";
+			modified.NumberFormat.CurrencyGroupSeparator = ",";
+			app.UseRequestLocalization(new RequestLocalizationOptions
+			{
+				DefaultRequestCulture = new RequestCulture(modified),
+				SupportedCultures = new List<CultureInfo>
+				{
+					modified,
+				},
+				SupportedUICultures = new List<CultureInfo>
+				{
+					modified,
+				}
 			});
 		}
 	}

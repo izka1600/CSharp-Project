@@ -89,6 +89,11 @@ namespace WebApplication.Controllers
 				rap.UserId = UzId;
 				rap.Plan_Id = x.ToString();
 			}
+			else
+			{
+				rap.UserId = UzId;
+				rap.Plan_Id = trolololo.Plan_Id;
+			}
 
 			ICollection<ReportFromMonthsViewModel> currentRaportItems = await _arkuszService.GetRaportAsync(rap);
 

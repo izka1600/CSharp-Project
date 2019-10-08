@@ -16,7 +16,7 @@
     <div class="form-group">
         <label asp-for=@Model.Item1.Kwota for="Kwota">Kwota transakcji</label>
         <div id="kwotaOstrzezenie">
-            <input asp-for=@Model.Item1.Kwota type="text" class="form-control" id="Kwota" placeholder="Example amount">
+            <input asp-for=@Model.Item1.Kwota type="text" step="any" class="form-control" id="Kwota" placeholder="Example amount">
         </div>
             <span asp-validation-for=@Model.Item1.Kwota class="text-danger"></span>
         </div>
@@ -56,24 +56,32 @@
             <span asp-validation-for=@Model.Item1.PlanId class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="submit" value="Dodaj transakcję" class="btn btn-success" style="margin-top:30px" />
+            <input id="submit" type="submit" value="Dodaj transakcję" class="btn btn-success" style="margin-top:30px" />
         </div>
 </form>
 
 
 <script>
-    $('#Kwota').change(function () {
-        if ($('#Kwota').val() > 0) {
+    $('#Kwota').keyup(function () {
+        let kwota = $('#Kwota').val();
+        if (kwota.indexOf('.') !== -1){
+            $('#kwotaOstrzezenie').attr("data-tooltip", "Kwota nie może zawierać kropki");
+            $('#Kwota').css("border-color", "red");
+            $('#submit').prop("disabled", true);
+        }
+        else if (parseFloat(kwota) <= 0) {
+            $('#kwotaOstrzezenie').attr("data-tooltip", "Kwota musi być większa niż 0 zł");
+            $('#Kwota').css("border-color", "red");
+            $('#submit').prop("disabled", true);
+            
+        }
+        else {
             $('#kwotaOstrzezenie').removeAttr("data-tooltip");
             $('#Kwota').css("border-color", "#d1cfcb");
             $('#submit').prop("disabled", false);
         }
-        else {
-            $('#kwotaOstrzezenie').attr("data-tooltip", "Kwota musi być większa niż 0 zł");
-            $('#Kwota').css("border-color", "red");
-            $('#submit').prop("disabled", true);
-        }
     });
+
 
 
 

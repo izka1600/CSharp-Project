@@ -222,10 +222,11 @@ namespace WebApplication.Controllers
 			NewTransakcjaViewModel newtr = new NewTransakcjaViewModel
 			{
 				IdUzytkownika = UzId,
-				Kwota = newtrVM.Kwota,
+				Kwota =newtrVM.Kwota,
 				IdPodkategorii = newtrVM.IdPodkategorii,
 				IdKategorii = newtrVM.IdKategorii,
-				PlanId = newtrVM.PlanId
+				PlanId = newtrVM.PlanId,
+				Data = newtrVM.Data
 			};
 
 			int currentTransakcjaId = await _arkuszService.Post_Transakcja(newtr);
@@ -242,7 +243,7 @@ namespace WebApplication.Controllers
 		[Route("/WebApiTranskacja/UsunWskazanaTransakcje/{id}")]
 		public async Task<IActionResult> DeleteTransaction(int id)
 		{
-			await _arkuszService.Delete_Kategoria(id);
+			await _arkuszService.Delete_Transakcja(id);
 			return RedirectToAction(nameof(ListTransactions));
 		}
 	}
