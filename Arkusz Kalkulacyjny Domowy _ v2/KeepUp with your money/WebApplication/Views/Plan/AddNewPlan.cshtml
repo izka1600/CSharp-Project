@@ -15,13 +15,13 @@
         <div class="form-group">
         <label asp-for=@Model.Item2.Miesiąc for="Miesiac">Wskaż miesiąc</label>
             <div id="miesiacOstrzezenie" >
-                <input asp-for=@Model.Item2.Miesiąc type="month" class="form-control" id="Miesiac" placeholder="Example month">
+                <input asp-for=@Model.Item2.Miesiąc type="month" class="form-control" id="Miesiac" placeholder="Miesiąc planu">
             </div>
         </div>
         <div class="form-group">
             <label asp-for=@Model.Item2.ZalozonaKwota for="ZalozonaKwota">Zakładana kwota</label>
             <div id="kwotaOstrzezenie">
-                <input asp-for=@Model.Item2.ZalozonaKwota type="text" class="form-control" id="ZalozonaKwota" placeholder="Example amount">
+                <input asp-for=@Model.Item2.ZalozonaKwota type="text" class="form-control" id="ZalozonaKwota" placeholder="Założona kwota">
             </div>
         </div>
         <div style="display:none">
@@ -30,6 +30,7 @@
         <div style="display:none">
             <input asp-for=@Model.Item2.IdUzytkownika value="0">
         </div>
+
         <div class="form-group">
             <input id="submit" type="submit" value="Dodaj nowy plan" class="btn btn-success" style="margin-top:30px" />
         </div>

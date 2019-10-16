@@ -7,7 +7,7 @@
 @using AuthDatabase.Entities;
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-@model ListPlanViewModel;
+@model Tuple<ListPlanViewModel, UpdatePlanViewModel>;
 @{
     ViewData["Title"] = "Lista dostępnych planów";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -24,43 +24,103 @@
                 <th scope="col">Miesiąc</th>
                 <th scope="col">Założona kwota</th>
                 <th scope="col">Faktyczna kwota</th>
+                <th scope="col">Czy plan jest aktywny?</th>
+                <th scope="col">Poziom ostrzegania [%]</th>
                 <th>Action</th>
 
 
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Items)
+            @foreach (var item in @Model.Item1.Items)
             {
-            <tr>
-                <td style="height: 50px;"></td>
-                <td style="height: 50px;">@item.Miesiąc</td>
-                <td style="height: 50px;">@item.ZalozonaKwota</td>
-                <td style="height: 50px;">@item.FaktycznaKwota</td>
-                <td style="height: 50px;"><a asp-action="DeletePlan" asp-route-id="@item.PlanId">Delete</a></td>
-            </tr>
+                <tr>
+                    <td style="height: 50px;"></td>
+                    <td style="height: 50px;"><span data-plan="@item.PlanId">@item.Miesiąc.ToString().Substring(0, 7)</span></td>
+                    <td style="height: 50px;"><input type="text" step="any" class="ui small icon input change" data-plan="@item.PlanId" placeholder="Example amount" value="@item.ZalozonaKwota"></td>
+                    <td style="height: 50px;"><span data-plan="@item.PlanId">@item.FaktycznaKwota</span></td>
+                    <td style="height: 50px;"><input type="radio" name="isActive" data-active="@item.Active" class="change" value="@item.PlanId"></td>
+                    <td style="height: 50px;"><input type="text" step="any" class="ui small icon input change" data-plan="@item.PlanId" placeholder="Example amount" value="@item.Warning"></td>
+                    <td style="height: 50px;"><a class="ui primary basic button" asp-action="DeletePlan" asp-route-id="@item.PlanId">Delete</a><a class="ui primary basic button submit" data-plan="@item.PlanId">Zaktualizuj</a></td>
+                </tr>
             }
         </tbody>
-
     </table>
 </div>
+
+<form asp-action="UpdatePlan" style="display: none;" id='myForm' name='myForm'>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div>
+        <input id='miesiac' asp-for=Item2.Miesiąc type="datetime" value="2019-01-01">
+    </div>
+    <div>
+        <input id='plan' asp-for=Item2.PlanId value="1">
+    </div>
+    <div>
+        <input id='zalozonakwota' asp-for=Item2.ZalozonaKwota value="50">
+    </div>
+    <div>
+        <input id='warning' asp-for=Item2.Warning value="30">
+    </div>
+    <div>
+        <input id='active'  asp-for=Item2.Active type="radio"  value="true">
+    </div>1
+</form>
+
+
 <a style="position: relative; top: 30px;" asp-area="" asp-controller="Plan" asp-action="AddNewPlan"><button class="ui primary button" type="submit">Dodaj nowy plan</button></a>
 
 <script>
+
+    $('.submit').click( function() {
+        let choosenPlan = $(this).data('plan');
+        
+        let changesText = $(`[data-plan=${choosenPlan}]`).map(function () {
+            return $.trim($(this).text());
+        }).get();
+        let changesValue = $(`[data-plan=${choosenPlan}]`).map(function () {
+            return $.trim($(this).val());
+        }).get();
+        let changes = {
+            miesiac: changesText[0].substring(0,10),
+            planId: choosenPlan,
+            zalozonaKwota: changesValue[1],
+            warning: changesValue[4],
+        };
+        
+        $("#miesiac").val(changes.miesiac);
+        $("#plan").val(changes.planId);
+        $("#zalozonakwota").val(changes.zalozonaKwota);
+        $("#warning").val(changes.warning);
+        if ($('input[type=radio]:checked').val() == choosenPlan) {
+            $("#active").attr('checked','checked');
+        }
+
+        $("#myForm").submit();
+
+    });
+
+    // set active plan
+    let costs = $("input:radio").map(function () {
+        return $.trim($(this).data("active"));
+    }).get();
+    $("[data-active=True]").attr("checked", "checked");
+
+    // table
     let table = $('#myTable').DataTable({
         columnDefs: [{
             orderable: false,
-            targets: [0,4]
+            targets: [0, 4]
         }],
         "order": [[1, 'asc']]
     });
     $('#myTable_wrapper').removeClass('form-inline')
 
-    table.on( 'order.dt search.dt', function () {
-        table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-            cell.innerHTML = i+1;
-        } );
-    } ).draw();
+    table.on('order.dt search.dt', function () {
+        table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+        });
+    }).draw();
 
 </script>
 

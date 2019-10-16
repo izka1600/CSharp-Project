@@ -20,6 +20,8 @@ namespace ArkuszDataBase.Controllers
 			plan.IdUzytkownika = newPlan.IdUzytkownika;
 			plan.Miesiąc = newPlan.Miesiąc;
 			plan.ZalozonaKwota = newPlan.ZalozonaKwota;
+			plan.Warning = newPlan.Warning;
+			plan.Active = newPlan.Active;
 			context.Plan.Add(plan);
 			context.SaveChanges();
 			int newId = plan.PlanId;
@@ -44,6 +46,8 @@ namespace ArkuszDataBase.Controllers
 			var upd = context.Plan.Find(plan.PlanId);
 			upd.Miesiąc = plan.Miesiąc;
 			upd.ZalozonaKwota = plan.ZalozonaKwota;
+			upd.Warning = plan.Warning;
+			upd.Active = plan.Active;
 
 			context.SaveChanges();
 		}

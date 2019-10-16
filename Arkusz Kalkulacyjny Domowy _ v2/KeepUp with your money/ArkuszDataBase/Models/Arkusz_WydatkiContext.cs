@@ -22,11 +22,11 @@ namespace ArkuszDataBase.Models
         public virtual DbSet<Uzytkownik> Uzytkownik { get; set; }
 		public virtual DbSet<RaportFromMonths> RaportFromMonths { get; set; }
 
-		public virtual DbSet<ReportFromMonthsParametres> ReportFromMonthsParametres { get; set; }
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS01;Database=Arkusz_Wydatki;Trusted_Connection=True;");
             }
         }
@@ -64,9 +64,13 @@ namespace ArkuszDataBase.Models
 
                 entity.Property(e => e.PlanId).HasColumnName("Plan_ID");
 
+                entity.Property(e => e.Active).HasDefaultValueSql("((0))");
+
                 entity.Property(e => e.FaktycznaKwota).HasColumnType("decimal(18, 0)");
 
                 entity.Property(e => e.Miesiąc).HasColumnType("date");
+
+                entity.Property(e => e.Warning).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.ZalozonaKwota).HasColumnType("decimal(18, 0)");
 

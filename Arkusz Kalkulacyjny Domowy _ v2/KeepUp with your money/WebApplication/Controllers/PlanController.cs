@@ -73,7 +73,8 @@ namespace WebApplication.Controllers
 			{
 				Items = NewPlanItems
 			};
-			return View(model);
+			var tuple = new Tuple<ListPlanViewModel, UpdatePlanViewModel>(model, new UpdatePlanViewModel());
+			return View(tuple);
 
 		}
 
@@ -127,5 +128,41 @@ namespace WebApplication.Controllers
 			int currentTransakcjaId = await _arkuszService.Post_Plan(newplan);
 			return RedirectToAction(nameof(ListPlans));
 		}
+
+		[Route("/WebApiPlan/ZaktualizujWskazanyPlan")]
+		[HttpPost]
+		public async Task<IActionResult> UpdatePlan([Bind(Prefix = "Item2")]UpdatePlanViewModel newplan)
+		{
+			var currentUser = await _userManager.GetUserAsync(User);
+			if (currentUser == null)
+			{
+				RedirectToAction("ListPlans");
+			}
+
+			if (newplan.Active==true)
+			{
+				ICollection<PlanViewModel> currentPlanItems = await _arkuszService.Get_Plan();
+				foreach (var item in currentPlanItems)
+				{
+					if (item.PlanId != newplan.PlanId)
+					{
+						int x = item.PlanId;
+						UpdatePlanViewModel up = new UpdatePlanViewModel();
+						{
+							up.PlanId = item.PlanId;
+							up.Miesiąc = item.Miesiąc;
+							up.Warning = item.Warning;
+							up.ZalozonaKwota = item.ZalozonaKwota;
+							up.Active = false;
+						}
+						await _arkuszService.Update_Plan(up);
+					}
+				}
+			}
+
+			await _arkuszService.Update_Plan(newplan);
+			return RedirectToAction(nameof(ListPlans));
+		}
+
 	}
 }

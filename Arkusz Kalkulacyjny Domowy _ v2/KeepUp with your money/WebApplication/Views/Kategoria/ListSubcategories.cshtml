@@ -30,19 +30,20 @@
         </thead>
         <tbody>
             @foreach (var item in Model.Item2.Items)
-            {
-                <tr>
-                    <td style="height: 50px;"></td>
-                    @foreach (var item1 in Model.Item1.Items)
+            {                int UzId = 0;
+            <tr>
+                <th scope="row"></th>
+                @foreach (var item1 in Model.Item1.Items)
+                {
+                    if (item1.KatId == item.IdKategorii)
                     {
-                        if (item1.KatId == item.IdKategorii)
-                        {
-                            <td style="height: 50px;">@item1.Kategoria</td>
-                        }
+                        <td style="height: 50px;">@item1.Kategoria</td>
+                        UzId = item1.UzId;
                     }
-                    <td style="height: 50px;">@item.Podkategoria</td>
+                }
+                <td style="height: 50px;">@item.Podkategoria</td>
                     <td style="height: 50px;"><a asp-action="DeleteSubcategory" asp-route-id="@item.PodId">Delete</a></td>
-                </tr>
+            </tr>
             }
         </tbody>
 

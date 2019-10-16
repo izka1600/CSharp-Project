@@ -18,5 +18,7 @@ namespace WebApplication.Models
 		[Display(Name = "Faktyczna kwota wydatków na dany miesiąc")]
 		public decimal? FaktycznaKwota { get; set; }
 		public int IdUzytkownika { get; set; }
+		public bool Active { get; set; }
+		public int Warning { get; set; }
 	}
 }

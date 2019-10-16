@@ -1839,6 +1839,13 @@ namespace WebApplication
 		[Newtonsoft.Json.JsonProperty("transakcje", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 		public System.Collections.Generic.ICollection<Transakcje> Transakcje { get; set; }
 
+		[Newtonsoft.Json.JsonProperty("active", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public bool? Active { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("warning", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public int? Warning { get; set; }
+
+
 		public string ToJson()
 		{
 			return Newtonsoft.Json.JsonConvert.SerializeObject(this);
@@ -1967,8 +1974,13 @@ namespace WebApplication
 		[Newtonsoft.Json.JsonProperty("zalozonaKwota", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 		public double? ZalozonaKwota { get; set; }
 
-		[Newtonsoft.Json.JsonProperty("idTransakcji", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-		public int? IdTransakcji { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("active", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public bool? Active { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("warning", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public int? Warning { get; set; }
+
 
 		public string ToJson()
 		{
@@ -2019,6 +2031,13 @@ namespace WebApplication
 
 		[Newtonsoft.Json.JsonProperty("idUzytkownika", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 		public int? IdUzytkownika { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("active", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public bool? Active { get; set; }
+
+		[Newtonsoft.Json.JsonProperty("warning", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+		public int? Warning { get; set; }
+
 
 		public string ToJson()
 		{

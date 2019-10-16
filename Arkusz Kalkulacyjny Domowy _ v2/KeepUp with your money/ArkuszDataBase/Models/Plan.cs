@@ -10,6 +10,8 @@ namespace ArkuszDataBase.Models
         public decimal? ZalozonaKwota { get; set; }
         public decimal? FaktycznaKwota { get; set; }
         public int IdUzytkownika { get; set; }
+        public bool? Active { get; set; }
+        public int? Warning { get; set; }
 
         public virtual Uzytkownik IdUzytkownikaNavigation { get; set; }
     }

@@ -29,12 +29,19 @@
         </thead>
         <tbody>
             @foreach (var item in Model.Items)
-            {
-                <tr>
-                    <th scope="row"></th>
-                    <td style="height: 50px;">@item.Kategoria</td>
+            { int UzId = item.UzId;
+            <tr>
+                <th scope="row"></th>
+                <td style="height: 50px;">@item.Kategoria</td>
+                @if (UzId>0)
+                {
                     <td style="height: 50px;"><a asp-action="DeleteCategory" asp-route-id="@item.KatId">Delete</a></td>
-                </tr>
+                }
+                else
+                {
+                    <th scope="row"></th>
+                }
+            </tr>
             }
         </tbody>
 

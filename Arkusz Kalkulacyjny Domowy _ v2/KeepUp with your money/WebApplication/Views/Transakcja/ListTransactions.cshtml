@@ -37,7 +37,7 @@
             {
             <tr>
                 <td style="height: 50px;"></td>
-                <td style="height: 50px;">@item.Data</td>
+                <td style="height: 50px;">@item.Data.ToString().Substring(0, 10)</td>
                 @foreach (var item1 in Model.Item2.Items)
                 {
                     if (item1.KatId == item.IdKategorii)
@@ -58,7 +58,7 @@
                 {
                     if (item3.PlanId == item.PlanId)
                     {
-                        <td style="height: 50px;">@item3.Miesiąc</td>
+                        <td style="height: 50px;">@item3.Miesiąc.ToString().Substring(0, 7)</td>
                     }
                 }
                 <td style="height: 50px;"><a asp-action="DeleteTransaction" asp-route-id="@item.TransId">Delete</a></td>
