@@ -34,7 +34,6 @@
                 @foreach (var item in @Model.Item2.Items)
                 {
                     <option value=@item.KatId>@item.Kategoria</option>
-                    x = item.KatId;
                 }
             </select>
             <span asp-validation-for=@Model.Item1.IdKategorii class="text-danger"></span>
@@ -44,14 +43,7 @@
             <select asp-for=@Model.Item1.IdPodkategorii type="text" class="form-control" id="Podkategoria">
                 @foreach (var item in @Model.Item3.Items)
                 {
-                    if (item.IdKategorii == x)
-                    {
-                        <option value=@item.PodId>@item.Podkategoria</option>
-                    }
-                    else
-                    {
-                        <th scope="row"></th>
-                    }
+                        <option class="podkategoriaOpcja" data-kategoria=@item.IdKategorii value=@item.PodId>@item.Podkategoria</option>
                 }
             </select>
             <span asp-validation-for=@Model.Item1.IdPodkategorii class="text-danger"></span>
@@ -76,6 +68,19 @@
 
 
 <script>
+
+    // initial
+    let category = $('#Kategoria').val();
+    $('.podkategoriaOpcja').not(`[data-kategoria=${category}]`).css('display', 'none');
+    $(`[data-kategoria=${category}]`).css('display', 'block');
+    // on change
+    $('#Kategoria').change(function () {
+        $(`#Podkategoria`).val('');
+        let category = $('#Kategoria').val();
+        $('.podkategoriaOpcja').not(`[data-kategoria=${category}]`).css('display', 'none');
+        $(`[data-kategoria=${category}]`).css('display', 'block');
+    })
+
     $('#Kwota').keyup(function () {
         let kwota = $('#Kwota').val();
         if (kwota.indexOf('.') !== -1){

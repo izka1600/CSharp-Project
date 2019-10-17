@@ -60,6 +60,10 @@
                     {
                         <td style="height: 50px;">@item3.Miesiąc.ToString().Substring(0, 7)</td>
                     }
+                    else
+                    {
+                        <td style="height: 50px;"></td>
+                    }
                 }
                 <td style="height: 50px;"><a asp-action="DeleteTransaction" asp-route-id="@item.TransId">Delete</a></td>
             </tr>
