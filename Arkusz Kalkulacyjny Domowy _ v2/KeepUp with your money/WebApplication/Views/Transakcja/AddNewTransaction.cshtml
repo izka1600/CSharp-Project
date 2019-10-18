@@ -50,15 +50,17 @@
         </div>
         <div class="form-group">
             <label asp-for=@Model.Item1.PlanId for="Plan">Plan</label>
-            <select asp-for=@Model.Item1.PlanId type="month" class="form-control" id="Plan">
-                @foreach (var item in @Model.Item4.Items)
-                {
-                    if (@item.Active == true)
+            <div id="PlanIformacja">
+                <select asp-for=@Model.Item1.PlanId type="month" class="form-control" id="Plan">
+                    @foreach (var item in @Model.Item4.Items)
                     {
-                        <option value=@item.Miesiąc> @item.Miesiąc.ToString().Substring(0, 7)</option>
+                        if (@item.Active == true)
+                        {
+                            <option value=@item.Miesiąc> @item.Miesiąc.ToString().Substring(0, 7)</option>
+                        }
                     }
-                }
-            </select>
+                </select>
+            </div>
             <span asp-validation-for=@Model.Item1.PlanId class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -113,7 +115,10 @@
             $('#Data').css("border-color", "#d1cfcb");
             $('#submit').prop("disabled", false);
         }
-    });
+        });
+    $('#Plan').mouseenter(function () {
+          $('#PlanIformacja').attr("data-tooltip", "Aby móc wybrać plan, do którego chcesz dodać transakcję, musisz go aktywować w Menadżerze Planów. ");
+          $('#Plan').css("border-color", "#d1cfcb");
 
 
 
