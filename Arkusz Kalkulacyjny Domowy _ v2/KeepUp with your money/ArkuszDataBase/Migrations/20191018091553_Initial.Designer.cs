@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArkuszDataBase.Migrations
 {
     [DbContext(typeof(Arkusz_WydatkiContext))]
-    [Migration("20190903175055_v3")]
-    partial class v3
+    [Migration("20191018091553_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,8 +32,17 @@ namespace ArkuszDataBase.Migrations
                         .HasMaxLength(100)
                         .IsUnicode(false);
 
+                    b.Property<int?>("UzId");
+
                     b.HasKey("KatId")
                         .HasName("PK__Kategori__87B3726890867C4A");
+
+                    b.HasIndex("Kategoria")
+                        .IsUnique()
+                        .HasName("KatName")
+                        .HasFilter("[Kategoria] IS NOT NULL");
+
+                    b.HasIndex("UzId");
 
                     b.ToTable("Kategorie");
                 });
@@ -41,26 +50,37 @@ namespace ArkuszDataBase.Migrations
             modelBuilder.Entity("ArkuszDataBase.Models.Plan", b =>
                 {
                     b.Property<int>("PlanId")
-                        .HasColumnName("Plan_ID");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Plan_ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool?>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("((0))");
 
                     b.Property<decimal?>("FaktycznaKwota")
                         .HasColumnType("decimal(18, 0)");
-
-                    b.Property<int>("IdTransakcji");
 
                     b.Property<int>("IdUzytkownika");
 
                     b.Property<DateTime?>("Miesiąc")
                         .HasColumnType("date");
 
+                    b.Property<int?>("Warning")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("((0))");
+
                     b.Property<decimal?>("ZalozonaKwota")
                         .HasColumnType("decimal(18, 0)");
 
                     b.HasKey("PlanId");
 
-                    b.HasIndex("IdTransakcji");
-
                     b.HasIndex("IdUzytkownika");
+
+                    b.HasIndex("Miesiąc", "ZalozonaKwota", "FaktycznaKwota", "IdUzytkownika")
+                        .IsUnique()
+                        .HasName("PlanUnique")
+                        .HasFilter("[Miesiąc] IS NOT NULL AND [ZalozonaKwota] IS NOT NULL AND [FaktycznaKwota] IS NOT NULL");
 
                     b.ToTable("Plan");
                 });
@@ -83,7 +103,27 @@ namespace ArkuszDataBase.Migrations
 
                     b.HasIndex("IdKategorii");
 
+                    b.HasIndex("Podkategoria")
+                        .IsUnique()
+                        .HasName("PodName")
+                        .HasFilter("[Podkategoria] IS NOT NULL");
+
                     b.ToTable("Podkategorie");
+                });
+
+            modelBuilder.Entity("ArkuszDataBase.Models.RaportFromMonths", b =>
+                {
+                    b.Property<DateTime>("DateOfTransaction");
+
+                    b.Property<string>("Kategoria");
+
+                    b.Property<double>("Kwota");
+
+                    b.Property<string>("Podkategoria");
+
+                    b.HasKey("DateOfTransaction");
+
+                    b.ToTable("RaportFromMonths");
                 });
 
             modelBuilder.Entity("ArkuszDataBase.Models.Transakcje", b =>
@@ -106,6 +146,8 @@ namespace ArkuszDataBase.Migrations
 
                     b.Property<double?>("Kwota");
 
+                    b.Property<int?>("PlanId");
+
                     b.HasKey("TransId")
                         .HasName("PK__Transakc__7B615C8D012D977A");
 
@@ -114,6 +156,11 @@ namespace ArkuszDataBase.Migrations
                     b.HasIndex("IdPodkategorii");
 
                     b.HasIndex("IdUzytkownika");
+
+                    b.HasIndex("Data", "IdUzytkownika", "IdKategorii", "IdPodkategorii", "Kwota")
+                        .IsUnique()
+                        .HasName("TranUnique")
+                        .HasFilter("[Data] IS NOT NULL AND [Kwota] IS NOT NULL");
 
                     b.ToTable("Transakcje");
                 });
@@ -151,16 +198,24 @@ namespace ArkuszDataBase.Migrations
                     b.HasKey("UzytId")
                         .HasName("PK__Uzytkown__866806738B051B36");
 
+                    b.HasIndex("EMail")
+                        .IsUnique()
+                        .HasName("U_Email")
+                        .HasFilter("[e_mail] IS NOT NULL");
+
                     b.ToTable("Uzytkownik");
+                });
+
+            modelBuilder.Entity("ArkuszDataBase.Models.Kategorie", b =>
+                {
+                    b.HasOne("ArkuszDataBase.Models.Uzytkownik", "Uz")
+                        .WithMany("Kategorie")
+                        .HasForeignKey("UzId")
+                        .HasConstraintName("FKUzytkownik_K");
                 });
 
             modelBuilder.Entity("ArkuszDataBase.Models.Plan", b =>
                 {
-                    b.HasOne("ArkuszDataBase.Models.Transakcje", "IdTransakcjiNavigation")
-                        .WithMany("Plan")
-                        .HasForeignKey("IdTransakcji")
-                        .HasConstraintName("FKTransakcja");
-
                     b.HasOne("ArkuszDataBase.Models.Uzytkownik", "IdUzytkownikaNavigation")
                         .WithMany("Plan")
                         .HasForeignKey("IdUzytkownika")

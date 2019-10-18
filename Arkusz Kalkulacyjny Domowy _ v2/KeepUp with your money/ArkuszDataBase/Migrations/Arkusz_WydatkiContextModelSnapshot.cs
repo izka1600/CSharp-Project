@@ -52,6 +52,10 @@ namespace ArkuszDataBase.Migrations
                         .HasColumnName("Plan_ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool?>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("((0))");
+
                     b.Property<decimal?>("FaktycznaKwota")
                         .HasColumnType("decimal(18, 0)");
 
@@ -59,6 +63,10 @@ namespace ArkuszDataBase.Migrations
 
                     b.Property<DateTime?>("Miesiąc")
                         .HasColumnType("date");
+
+                    b.Property<int?>("Warning")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("((0))");
 
                     b.Property<decimal?>("ZalozonaKwota")
                         .HasColumnType("decimal(18, 0)");
@@ -99,6 +107,21 @@ namespace ArkuszDataBase.Migrations
                         .HasFilter("[Podkategoria] IS NOT NULL");
 
                     b.ToTable("Podkategorie");
+                });
+
+            modelBuilder.Entity("ArkuszDataBase.Models.RaportFromMonths", b =>
+                {
+                    b.Property<DateTime>("DateOfTransaction");
+
+                    b.Property<string>("Kategoria");
+
+                    b.Property<double>("Kwota");
+
+                    b.Property<string>("Podkategoria");
+
+                    b.HasKey("DateOfTransaction");
+
+                    b.ToTable("RaportFromMonths");
                 });
 
             modelBuilder.Entity("ArkuszDataBase.Models.Transakcje", b =>

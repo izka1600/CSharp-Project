@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ArkuszDataBase.Migrations
+namespace AuthDatabase.Migrations
 {
-    public partial class v3 : Migration
+    public partial class Init_1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

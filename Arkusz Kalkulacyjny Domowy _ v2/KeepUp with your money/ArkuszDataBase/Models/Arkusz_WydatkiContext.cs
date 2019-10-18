@@ -27,7 +27,7 @@ namespace ArkuszDataBase.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS01;Database=Arkusz_Wydatki;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\DEV2017;Database=Arkusz_Wydatki;Trusted_Connection=True;");
             }
         }
 
