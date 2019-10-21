@@ -3,7 +3,7 @@
 @using WebApplication.ViewModels;
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-@model Tuple<NewTransakcjaVM, ListKategoriaViewModel, ListPodkategoriaViewModel, ListPlanViewModel> ;
+@model Tuple<NewTransakcjaVM_Month, ListKategoriaViewModel, ListPodkategoriaViewModel, ListPlanViewModel> ;
 
 @{
     ViewData["Title"] = "AddNewTransaction";
@@ -49,9 +49,9 @@
             <span asp-validation-for=@Model.Item1.IdPodkategorii class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for=@Model.Item1.PlanId for="Plan">Plan</label>
-            <div id="PlanIformacja">
-                <select asp-for=@Model.Item1.PlanId type="month" class="form-control" id="Plan">
+            <label asp-for=@Model.Item1.Month for="Plan">Plan</label>
+            <div id="PlanInformacja">
+                <select asp-for=@Model.Item1.Month type="month" class="form-control" id="Plan">
                     @foreach (var item in @Model.Item4.Items)
                     {
                         if (@item.Active == true)
@@ -116,9 +116,9 @@
             $('#submit').prop("disabled", false);
         }
         });
-    $('#Plan').mouseenter(function () {
-          $('#PlanIformacja').attr("data-tooltip", "Aby móc wybrać plan, do którego chcesz dodać transakcję, musisz go aktywować w Menadżerze Planów. ");
-          $('#Plan').css("border-color", "#d1cfcb");
+    $('#Plan').mouseover(function () {
+        $('#PlanInformacja').attr("data-tooltip", "Aby móc wybrać plan, do którego chcesz dodać transakcję, musisz go aktywować w Menadżerze Planów. ");
+    });
 
 
 

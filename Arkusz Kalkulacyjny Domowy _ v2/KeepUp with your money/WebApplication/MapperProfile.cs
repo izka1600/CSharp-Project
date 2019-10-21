@@ -30,7 +30,7 @@ namespace WebApplication
 
 			CreateMap<TranskacjaViewModel, Transakcje>().ReverseMap();
 			CreateMap<NewTransakcjaViewModel, NowaTransakcja>().ReverseMap();
-			CreateMap<NewTransakcjaViewModel, NewTransakcjaVM>().ReverseMap();
+			CreateMap<NewTransakcjaViewModel, NewTransakcjaVM_Month>().ReverseMap();
 
 			CreateMap<NewUzytkownikViewModel, NowyUzytkownik>().ReverseMap();
 			CreateMap<UzytkownikViewModel, Uzytkownik>().ReverseMap();

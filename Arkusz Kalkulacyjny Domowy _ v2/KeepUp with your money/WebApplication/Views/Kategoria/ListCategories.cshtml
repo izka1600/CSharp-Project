@@ -1,5 +1,4 @@
-﻿<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="../../js/datatables.js"></script>
+﻿<script src="../../js/datatables.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 
@@ -33,9 +32,13 @@
             <tr>
                 <th scope="row"></th>
                 <td style="height: 50px;">@item.Kategoria</td>
-                @if (UzId>0)
+                @if (UzId > 0)
                 {
-                    <td style="height: 50px;"><a asp-action="DeleteCategory" asp-route-id="@item.KatId">Delete</a></td>
+            <td style="height: 50px;">
+                <a asp-action="DeleteCategory" asp-route-id="@item.KatId">Delete</a>
+                <a class="ui primary basic button delete" data-kategoria="@item.KatId">Usuń</a>
+
+            </td>
                 }
                 else
                 {
@@ -48,7 +51,31 @@
     </table>
 </div>
 <a style="position: relative; top: 30px;" asp-area="" asp-controller="Kategoria" asp-action="AddNewCategory"><button class="ui primary button" type="submit">Dodaj nową kategorie</button></a>
+
+<div class="ui modal" style="position: relative; left: 0px; width: 50%; height: 250px;">
+    <i class="close icon"></i>
+    <div class="header">
+        Przed usunięciem
+    </div>
+    <div class="image content">
+        <div class="description">
+            <div class="ui header">Czy na pewno chcesz usunąć ?</div>
+            <p>To spowoduje usunięcie również innych danych związanych z tym planem.</p>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button">
+            Nie
+        </div>
+        <div class="ui positive right labeled icon button">
+           Tak
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+
 <script>
+    //$('.ui.modal').modal('show');
     let table = $('#myTable').DataTable({
         columnDefs: [{
             orderable: false,
@@ -62,7 +89,11 @@
         table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );
-    } ).draw();
+    }).draw();
+
+    // usuwanie
+    $('.delete').click(function () {
+    })
 
 
 </script>

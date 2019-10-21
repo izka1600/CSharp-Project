@@ -1,4 +1,4 @@
-﻿<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+﻿
 <script src="../../js/datatables.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
@@ -40,7 +40,7 @@
                     <td style="height: 50px;"><input type="text" step="any" class="ui small icon input change" data-plan="@item.PlanId" placeholder="Example amount" value="@item.ZalozonaKwota"></td>
                     <td style="height: 50px;"><span data-plan="@item.PlanId">@item.FaktycznaKwota</span></td>
                     <td style="height: 50px;"><input type="radio" name="isActive" data-active="@item.Active" class="change" value="@item.PlanId"></td>
-                    <td style="height: 50px;"><input type="text" step="any" class="ui small icon input change" data-plan="@item.PlanId" placeholder="Example amount" value="@item.Warning"></td>
+                    <td style="height: 50px;"><input type="text" step="any" class="ui small icon input change" data-plan="@item.PlanId" placeholder="Example warning" value="@item.Warning"></td>
                     <td style="height: 50px;"><a class="ui primary basic button" asp-action="DeletePlan" asp-route-id="@item.PlanId">Delete</a><a class="ui primary basic button submit" data-plan="@item.PlanId">Zaktualizuj</a></td>
                 </tr>
             }
@@ -71,8 +71,8 @@
 <a style="position: relative; top: 30px;" asp-area="" asp-controller="Plan" asp-action="AddNewPlan"><button class="ui primary button" type="submit">Dodaj nowy plan</button></a>
 
 <script>
-
-    $('.submit').click( function() {
+    $('.submit').click(function () {
+        $('.ui.modal').modal('show');
         let choosenPlan = $(this).data('plan');
         
         let changesText = $(`[data-plan=${choosenPlan}]`).map(function () {

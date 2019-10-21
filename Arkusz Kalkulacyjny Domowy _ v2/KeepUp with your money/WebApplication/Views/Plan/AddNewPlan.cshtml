@@ -40,7 +40,7 @@
 
     let listaMiesiac = [];
    $.ajax({
-    url: 'https://localhost:44382/WebApiPlan/WylistujPlany',
+    url: 'https://localhost:44382/WebApiPlan/WylistujPlanyUzytkownika',
     type: 'GET',
     }).done(function (data) {
         for (let el of data) {
@@ -49,6 +49,8 @@
     }).fail(function (data) {
         console.log("Failed");
     })
+
+
 
     $('#ZalozonaKwota').change(function () {
         if ($('#ZalozonaKwota').val() > 0) {
@@ -64,8 +66,9 @@
     });
 
     $('#Miesiac').change(function () {
-        if (listaMiesiac.includes($('#Miesiac').val())) {
-            $('miesiacOstrzezenie').attr("data-tooltip", "Ten miesiąc już istnieje");
+        const wybranyMiesiac = $('#Miesiac').val();
+        if (listaMiesiac.includes(wybranyMiesiac)) {
+            $('#miesiacOstrzezenie').attr("data-tooltip", "Ten miesiąc już istnieje");
             $('#Miesiac').css("border-color", "red");
             $('#submit').prop("disabled", true);
         }

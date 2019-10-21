@@ -195,13 +195,13 @@ namespace WebApplication.Controllers
 				Items = newCurrenPlanItems
 			};
 
-			var tuple = new Tuple<NewTransakcjaVM, ListKategoriaViewModel, ListPodkategoriaViewModel, ListPlanViewModel>(new NewTransakcjaVM(), model, model1, model2);
+			var tuple = new Tuple<NewTransakcjaVM_Month, ListKategoriaViewModel, ListPodkategoriaViewModel, ListPlanViewModel>(new NewTransakcjaVM_Month(), model, model1, model2);
 			return View(tuple);
 		}
 
 		[Route("/WebApiTranskacja/DodajNowaTransakcje")]
 		[HttpPost]
-		public async Task<IActionResult> AddNewTransaction([Bind(Prefix = "Item1")] NewTransakcjaVM newtrVM)
+		public async Task<IActionResult> AddNewTransaction([Bind(Prefix = "Item1")] NewTransakcjaVM_Month newtrVM)
 		{
 			var currentUser = await _userManager.GetUserAsync(User);
 			if (currentUser == null)
@@ -218,6 +218,16 @@ namespace WebApplication.Controllers
 				}
 			}
 
+			ICollection<PlanViewModel> currentPlanItems = await _arkuszService.Get_Plan();
+			int x = 0;
+			foreach (var item in currentPlanItems)
+			{
+				if (item.IdUzytkownika == UzId && item.Miesiąc.ToString().Substring(0,7) == newtrVM.Month.ToString().Substring(0,7))
+				{
+					x = item.PlanId;
+				}
+			}
+
 
 			NewTransakcjaViewModel newtr = new NewTransakcjaViewModel
 			{
@@ -225,14 +235,14 @@ namespace WebApplication.Controllers
 				Kwota =newtrVM.Kwota,
 				IdPodkategorii = newtrVM.IdPodkategorii,
 				IdKategorii = newtrVM.IdKategorii,
-				PlanId = newtrVM.PlanId,
+				PlanId = x,
 				Data = newtrVM.Data
 			};
 
 			int currentTransakcjaId = await _arkuszService.Post_Transakcja(newtr);
 			AddTransactionToPlan FaktycznyPlan = new AddTransactionToPlan
 			{
-				PlanId = newtrVM.PlanId ?? default(int),
+				PlanId = x,
 				Amount = (decimal)newtrVM.Kwota
 			};
 			await _arkuszService.UpdateAsync10(FaktycznyPlan);

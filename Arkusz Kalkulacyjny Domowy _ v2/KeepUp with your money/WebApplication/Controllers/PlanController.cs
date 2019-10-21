@@ -78,6 +78,46 @@ namespace WebApplication.Controllers
 
 		}
 
+		[Route("/WebApiPlan/WylistujPlanyUzytkownika")]
+		public async Task<IActionResult> ListUserPlans()
+		{
+
+			var currentUser = await _userManager.GetUserAsync(User);
+			if (currentUser == null)
+			{
+				return RedirectToAction("ListPlans");
+			}
+
+			ICollection<PlanViewModel> currentPlanItems = await _arkuszService.Get_Plan();
+			ICollection<PlanViewModel> NewPlanItems = new List<PlanViewModel>();
+			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
+
+			int UzId = 0;
+			foreach (var item in UsersList)
+			{
+				if (item.EMail.ToUpper() == currentUser.Email.ToUpper())
+				{
+					UzId = item.UzytId;
+				}
+			}
+
+			foreach (var item in currentPlanItems)
+			{
+				if (item.IdUzytkownika == UzId || item.IdUzytkownika == 0)
+				{
+					NewPlanItems.Add(item);
+				}
+			}
+
+
+			var model = new ListPlanViewModel()
+			{
+				Items = NewPlanItems
+			};
+			return View(model);
+
+		}
+
 		[Route("/WebApiPlan/UsunWskazanyPlan/{id}")]
 		public async Task<IActionResult> DeletePlan(int id)
 		{

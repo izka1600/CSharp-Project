@@ -7,7 +7,7 @@ using WebApplication.Models;
 
 namespace WebApplication.ViewModels
 {
-	public class NewTransakcjaVM: NewTransakcjaViewModel
+	public class NewTransakcjaVM_Month: NewTransakcjaViewModel
 	{
 
 
@@ -18,6 +18,8 @@ namespace WebApplication.ViewModels
 		[Display(Name = "Nazwa podkategorii")]
 		[Required(ErrorMessage = "Uzupełnienie podkategorii jest wymagane")]
 		public string Podkategoria { get; set; }
+
+		public DateTime? Month { get; set; }
 
 
 	}
