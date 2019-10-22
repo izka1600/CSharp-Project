@@ -81,11 +81,12 @@
         let changesValue = $(`[data-plan=${choosenPlan}]`).map(function () {
             return $.trim($(this).val());
         }).get();
+        console.info(changesValue);
         let changes = {
             miesiac: changesText[0].substring(0,10),
             planId: choosenPlan,
             zalozonaKwota: changesValue[1],
-            warning: changesValue[4],
+            warning: changesValue[3],
         };
         
         $("#miesiac").val(changes.miesiac);

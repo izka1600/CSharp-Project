@@ -38,11 +38,13 @@
 
 <script>
 
+
     let listaMiesiac = [];
    $.ajax({
-    url: 'https://localhost:44382/WebApiPlan/WylistujPlanyUzytkownika',
+    url: 'https://localhost:44382/WebApiPlan/WylistujPlany',
     type: 'GET',
-    }).done(function (data) {
+   }).done(function (data) {
+       console.log(data);
         for (let el of data) {
             listaMiesiac.push(el.miesiąc.substring(0,7));
         }
@@ -67,6 +69,7 @@
 
     $('#Miesiac').change(function () {
         const wybranyMiesiac = $('#Miesiac').val();
+        console.info(wybranyMiesiac);
         if (listaMiesiac.includes(wybranyMiesiac)) {
             $('#miesiacOstrzezenie').attr("data-tooltip", "Ten miesiąc już istnieje");
             $('#Miesiac').css("border-color", "red");

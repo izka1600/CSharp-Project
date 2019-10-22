@@ -11,117 +11,118 @@
 
 <h1>Dodaj nową transakcję</h1>
 
-<form asp-action="AddNewTransaction">
-    @{int x = 0;}
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for=@Model.Item1.Kwota for="Kwota">Kwota transakcji</label>
-        <div id="kwotaOstrzezenie">
-            <input asp-for=@Model.Item1.Kwota type="text" step="any" class="form-control" id="Kwota" placeholder="Kwota transakcji">
-        </div>
-            <span asp-validation-for=@Model.Item1.Kwota class="text-danger"></span>
-        </div>
-    <div class="form-group">
-        <label asp-for=@Model.Item1.Data for="Data">Data transakcji</label>
-        <div id="dataOstrzezenie">
-            <input asp-for=@Model.Item1.Data type="date" class="form-control" id="Data" placeholder="Data transakcji">
-        </div>
-            <span asp-validation-for=@Model.Item1.Data class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for=@Model.Item1.IdKategorii for="Kategoria">Kategoria</label>
-            <select asp-for=@Model.Item1.IdKategorii type="text" class="form-control" id="Kategoria">
-                @foreach (var item in @Model.Item2.Items)
-                {
-                    <option value=@item.KatId>@item.Kategoria</option>
-                }
-            </select>
-            <span asp-validation-for=@Model.Item1.IdKategorii class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for=@Model.Item1.IdPodkategorii for="Podkategoria">Podkategoria</label>
-            <select asp-for=@Model.Item1.IdPodkategorii type="text" class="form-control" id="Podkategoria">
-                @foreach (var item in @Model.Item3.Items)
-                {
-                        <option class="podkategoriaOpcja" data-kategoria=@item.IdKategorii value=@item.PodId>@item.Podkategoria</option>
-                }
-            </select>
-            <span asp-validation-for=@Model.Item1.IdPodkategorii class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for=@Model.Item1.Month for="Plan">Plan</label>
-            <div id="PlanInformacja">
-                <select asp-for=@Model.Item1.Month type="month" class="form-control" id="Plan">
-                    @foreach (var item in @Model.Item4.Items)
+
+
+        <form asp-action="AddNewTransaction">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for=@Model.Item1.Kwota for="Kwota">Kwota transakcji</label>
+                <div id="kwotaOstrzezenie">
+                    <input asp-for=@Model.Item1.Kwota type="text" step="any" class="form-control" id="Kwota" placeholder="Kwota transakcji">
+                </div>
+                <span asp-validation-for=@Model.Item1.Kwota class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for=@Model.Item1.Data for="Data">Data transakcji</label>
+                <div id="dataOstrzezenie">
+                    <input asp-for=@Model.Item1.Data type="date" class="form-control" id="Data" placeholder="Data transakcji">
+                </div>
+                <span asp-validation-for=@Model.Item1.Data class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for=@Model.Item1.IdKategorii for="Kategoria">Kategoria</label>
+                <select asp-for=@Model.Item1.IdKategorii type="text" class="form-control" id="Kategoria">
+                    @foreach (var item in @Model.Item2.Items)
                     {
-                        if (@item.Active == true)
-                        {
-                            <option value=@item.Miesiąc> @item.Miesiąc.ToString().Substring(0, 7)</option>
-                        }
+                        <option value=@item.KatId>@item.Kategoria</option>
                     }
                 </select>
+                <span asp-validation-for=@Model.Item1.IdKategorii class="text-danger"></span>
             </div>
-            <span asp-validation-for=@Model.Item1.PlanId class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <input id="submit" type="submit" value="Dodaj transakcję" class="btn btn-success" style="margin-top:30px" />
-        </div>
-</form>
+            <div class="form-group">
+                <label asp-for=@Model.Item1.IdPodkategorii for="Podkategoria">Podkategoria</label>
+                <select asp-for=@Model.Item1.IdPodkategorii type="text" class="form-control" id="Podkategoria">
+                    @foreach (var item in @Model.Item3.Items)
+                    {
+                        <option class="podkategoriaOpcja" data-kategoria=@item.IdKategorii value=@item.PodId>@item.Podkategoria</option>
+                    }
+                </select>
+                <span asp-validation-for=@Model.Item1.IdPodkategorii class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for=@Model.Item1.Month for="Plan">Plan</label>
+                <div id="PlanInformacja">
+                    <select asp-for=@Model.Item1.Month type="month" class="form-control" id="Plan">
+                        @foreach (var item in @Model.Item4.Items)
+                        {
+                            if (@item.Active == true)
+                            {
+                                <option value=@item.Miesiąc> @item.Miesiąc.ToString().Substring(0, 7)</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <span asp-validation-for=@Model.Item1.PlanId class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input id="submit" type="submit" value="Dodaj transakcję" class="btn btn-success" style="margin-top:30px" />
+            </div>
+        </form>
 
 
-<script>
+        <script>
 
-    // initial
-    let category = $('#Kategoria').val();
-    $('.podkategoriaOpcja').not(`[data-kategoria=${category}]`).css('display', 'none');
-    $(`[data-kategoria=${category}]`).css('display', 'block');
-    // on change
-    $('#Kategoria').change(function () {
-        $(`#Podkategoria`).val('');
-        let category = $('#Kategoria').val();
-        $('.podkategoriaOpcja').not(`[data-kategoria=${category}]`).css('display', 'none');
-        $(`[data-kategoria=${category}]`).css('display', 'block');
-    })
+            // initial
+            let category = $('#Kategoria').val();
+            $('.podkategoriaOpcja').not(`[data-kategoria=${category}]`).css('display', 'none');
+            $(`[data-kategoria=${category}]`).css('display', 'block');
+            // on change
+            $('#Kategoria').change(function () {
+                $(`#Podkategoria`).val('');
+                let category = $('#Kategoria').val();
+                $('.podkategoriaOpcja').not(`[data-kategoria=${category}]`).css('display', 'none');
+                $(`[data-kategoria=${category}]`).css('display', 'block');
+            })
 
-    $('#Kwota').keyup(function () {
-        let kwota = $('#Kwota').val();
-        if (kwota.indexOf('.') !== -1){
-            $('#kwotaOstrzezenie').attr("data-tooltip", "Kwota nie może zawierać kropki");
-            $('#Kwota').css("border-color", "red");
-            $('#submit').prop("disabled", true);
-        }
-        else if (parseFloat(kwota) <= 0) {
-            $('#kwotaOstrzezenie').attr("data-tooltip", "Kwota musi być większa niż 0 zł");
-            $('#Kwota').css("border-color", "red");
-            $('#submit').prop("disabled", true);
-            
-        }
-        else {
-            $('#kwotaOstrzezenie').removeAttr("data-tooltip");
-            $('#Kwota').css("border-color", "#d1cfcb");
-            $('#submit').prop("disabled", false);
-        }
-    });
-        $('#Data').change(function () {
-            let data = $('#Data').val();
-            let dataPlanu = $('#Plan').val();
-        if (data.substring(0,7) != dataPlanu.substring(0,7)){
-            $('#dataOstrzezenie').attr("data-tooltip", "Data transakcji musi należeć do miesiąca aktywnego planu. Aby aktywować inny plan przejdź do Menadżera planów. ");
-            $('#Data').css("border-color", "red");
-            $('#submit').prop("disabled", true);
-        }
-        else {
-            $('#dataOstrzezenie').removeAttr("data-tooltip");
-            $('#Data').css("border-color", "#d1cfcb");
-            $('#submit').prop("disabled", false);
-        }
-        });
-    $('#Plan').mouseover(function () {
-        $('#PlanInformacja').attr("data-tooltip", "Aby móc wybrać plan, do którego chcesz dodać transakcję, musisz go aktywować w Menadżerze Planów. ");
-    });
+            $('#Kwota').keyup(function () {
+                let kwota = $('#Kwota').val();
+                if (kwota.indexOf('.') !== -1) {
+                    $('#kwotaOstrzezenie').attr("data-tooltip", "Kwota nie może zawierać kropki");
+                    $('#Kwota').css("border-color", "red");
+                    $('#submit').prop("disabled", true);
+                }
+                else if (parseFloat(kwota) <= 0) {
+                    $('#kwotaOstrzezenie').attr("data-tooltip", "Kwota musi być większa niż 0 zł");
+                    $('#Kwota').css("border-color", "red");
+                    $('#submit').prop("disabled", true);
 
-
+                }
+                else {
+                    $('#kwotaOstrzezenie').removeAttr("data-tooltip");
+                    $('#Kwota').css("border-color", "#d1cfcb");
+                    $('#submit').prop("disabled", false);
+                }
+            });
+            $('#Data').change(function () {
+                let data = $('#Data').val();
+                let dataPlanu = $('#Plan').val();
+                if (data.substring(0, 7) != dataPlanu.substring(0, 7)) {
+                    $('#dataOstrzezenie').attr("data-tooltip", "Data transakcji musi należeć do miesiąca aktywnego planu. Aby aktywować inny plan przejdź do Menadżera planów. ");
+                    $('#Data').css("border-color", "red");
+                    $('#submit').prop("disabled", true);
+                }
+                else {
+                    $('#dataOstrzezenie').removeAttr("data-tooltip");
+                    $('#Data').css("border-color", "#d1cfcb");
+                    $('#submit').prop("disabled", false);
+                }
+            });
+            $('#Plan').mouseover(function () {
+                $('#PlanInformacja').attr("data-tooltip", "Aby móc wybrać plan, do którego chcesz dodać transakcję, musisz go aktywować w Menadżerze Planów. ");
+            });
 
 
 
-</script>
+
+
+        </script>
