@@ -10,7 +10,6 @@ namespace WebApplication.Services
 {
 	public class ArkuszSerice : IArkuszService
 	{
-		//string url = "https://localhost:44382/";
 		string url = "https://webapikuwym.azurewebsites.net/";
 		HttpClient httpClient = new HttpClient();
 

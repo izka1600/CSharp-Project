@@ -57,7 +57,7 @@
                         {
                             if (@item.Active == true)
                             {
-                                <option value=@item.Miesiąc> @item.Miesiąc.ToString().Substring(0, 7)</option>
+                                <option value=@item.Miesiąc> @item.Miesiąc.Value.ToString("yyyy-MM-dd").Substring(0, 7)</option>
                             }
                         }
                     </select>

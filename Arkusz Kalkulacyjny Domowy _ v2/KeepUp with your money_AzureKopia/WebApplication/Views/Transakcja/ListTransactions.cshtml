@@ -67,7 +67,7 @@
                     {
                         if (item3.PlanId == item.PlanId)
                         {
-                            <td style="height: 50px;">@item3.Miesiąc.ToString().Substring(0, 7)</td>
+                            <td style="height: 50px;">@item3.Miesiąc.Value.ToString("yyyy-MM-dd").Substring(0, 7)</td>
                         }
                         else
                         {

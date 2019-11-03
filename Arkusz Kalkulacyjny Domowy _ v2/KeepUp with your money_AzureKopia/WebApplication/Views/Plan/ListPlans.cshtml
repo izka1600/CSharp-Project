@@ -36,7 +36,7 @@
             {
                 <tr>
                     <td style="height: 50px;"></td>
-                    <td style="height: 50px;"><span data-plan="@item.PlanId">@item.Miesiąc.ToString().Substring(0, 7)</span></td>
+                    <td style="height: 50px;"><span data-plan="@item.PlanId">@item.Miesiąc.Value.ToString("yyyy-MM-dd").Substring(0, 7)</span></td>
                     <td style="height: 50px;"><input type="text" step="any" class="ui small icon input change" data-plan="@item.PlanId" placeholder="Example amount" value="@item.ZalozonaKwota"></td>
                     <td style="height: 50px;"><span data-plan="@item.PlanId">@item.FaktycznaKwota</span></td>
                     <td style="height: 50px;"><input type="radio" name="isActive" data-active="@item.Active" class="change" value="@item.PlanId"></td>
