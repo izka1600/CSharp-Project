@@ -1,0 +1,105 @@
+﻿<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="../../js/datatables.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
+@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@model Tuple<ListTransakcjaViewModel, ListKategoriaViewModel, ListPodkategoriaViewModel, ListPlanViewModel>;
+
+
+@{
+    ViewData["Title"] = "Lista Twoich Transakcji";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Lista Twoich Transakcji</h1>   
+
+@foreach (var item in @Model.Item4.Items)
+{
+    if (@item.Active == true && item.FaktycznaKwota > ((Convert.ToDecimal(item.Warning) / 100) * item.ZalozonaKwota))
+    {
+<h3 style=”font-weight: bold;">Uwaga! </h3>
+<h4 style=”font-weight: bold;"> Twój próg ostrzegawczy  @item.Warning.ToString()% w aktualnym planie wydatków został przekroczony! Twoja przewidywana kwota wydatków to @item.ZalozonaKwota.ToString() złotych, podczas gdy faktyczna kwota wynosi @item.FaktycznaKwota złotych.</h4>
+}
+}
+
+<div style="margin-top: 50px">
+    <table id="myTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nr</th>
+                <th scope="col">Data</th>
+                <th scope="col">Kategoria</th>
+                <th scope="col">Podkategoria</th>
+                <th scope="col">Kwota</th>
+                <th scope="col">Plan</th>
+                <th>Akcja</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Item1.Items)
+            {
+                <tr>
+                    <td style="height: 50px;"></td>
+                    <td style="height: 50px;">@item.Data.ToString().Substring(0, 10)</td>
+                    @foreach (var item1 in Model.Item2.Items)
+                    {
+                        if (item1.KatId == item.IdKategorii)
+                        {
+                            <td style="height: 50px;">@item1.Kategoria</td>
+                        }
+                    }
+                    @foreach (var item2 in Model.Item3.Items)
+                    {
+                        if (item2.PodId == item.IdPodkategorii)
+                        {
+                            <td style="height: 50px;">@item2.Podkategoria</td>
+                        }
+                    }
+                    <td style="height: 50px;">@item.Kwota</td>
+                    @*  <td style="height: 50px;">@item.PlanId</td>*@
+                    @foreach (var item3 in Model.Item4.Items)
+                    {
+                        if (item3.PlanId == item.PlanId)
+                        {
+                            <td style="height: 50px;">@item3.Miesiąc.ToString().Substring(0, 7)</td>
+                        }
+                        else
+                        {
+                            <td style="height: 50px;"></td>
+                        }
+                    }
+                    <td style="height: 50px;"><a asp-action="DeleteTransaction" asp-route-id="@item.TransId">Delete</a></td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+<a style="position: relative; top: 30px;" asp-area="" asp-controller="Transakcja" asp-action="AddNewTransaction"><button class="ui primary button" type="submit">Dodaj nową transakcję</button></a>
+<script>
+
+    $('h3').css('color', 'red');
+    $('h4').css('color', 'red');
+
+    let table = $('#myTable').DataTable({
+        columnDefs: [{
+            orderable: false,
+            targets: [0, 6]
+        }],
+        "order": [[1, 'asc']]
+    });
+    $('#myTable_wrapper').removeClass('form-inline')
+
+    table.on('order.dt search.dt', function () {
+        table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+        });
+    }).draw();
+
+</script>
