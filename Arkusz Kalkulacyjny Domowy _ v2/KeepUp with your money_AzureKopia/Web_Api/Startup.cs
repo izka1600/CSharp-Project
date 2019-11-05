@@ -25,8 +25,7 @@ namespace Web_Api
 				options.AddDefaultPolicy(
 					builder =>
 					{
-
-						builder.WithOrigins("https://localhost:44398");
+						builder.WithOrigins("https://webappkuwym.azurewebsites.net");
 					});
 
 				options.AddPolicy("AnotherPolicy",

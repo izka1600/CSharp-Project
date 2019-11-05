@@ -94,6 +94,16 @@ namespace WebApplication.Controllers
 			{
 				return RedirectToAction("ListPlans");
 			}
+			ICollection<UzytkownikViewModel> UsersList = await _arkuszService.Get_Uzytkownicy();
+			int UzId = 0;
+			foreach (var item in UsersList)
+			{
+				if (item.EMail.ToUpper() == currentUser.Email.ToUpper())
+				{
+					UzId = item.UzytId;
+				}
+			}
+
 			ICollection<PlanViewModel> currentPlanItems = await _arkuszService.Get_Plan();
 			var model = new ListPlanViewModel()
 			{
@@ -101,7 +111,7 @@ namespace WebApplication.Controllers
 			};
 			NewPlanViewModel newPlan = new NewPlanViewModel();
 
-			var tuple = new Tuple<ListPlanViewModel, NewPlanViewModel>(model, newPlan);
+			var tuple = new Tuple<ListPlanViewModel, NewPlanViewModel, int>(model, newPlan, UzId);
 			return View(tuple);
 		}
 

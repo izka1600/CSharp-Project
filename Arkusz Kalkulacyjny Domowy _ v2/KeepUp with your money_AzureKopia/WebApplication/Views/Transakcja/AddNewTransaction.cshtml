@@ -104,9 +104,13 @@
                 }
             });
             $('#Data').change(function () {
-                let data = $('#Data').val();
-                let dataPlanu = $('#Plan').val();
-                if (data.substring(0, 7) != dataPlanu.substring(0, 7)) {
+                let data = new Date($('#Data').val());
+                //20.12.2019
+                //data = new Date('12/1/2019');
+                let newData = `${data.getFullYear()}-${data.getMonth()}`;
+                let dataPlanu = new Date($('#Plan').val());
+                let newDataPlan = `${dataPlanu.getFullYear()}-${dataPlanu.getMonth()}`;
+                if (newData !== newDataPlan) {
                     $('#dataOstrzezenie').attr("data-tooltip", "Data transakcji musi należeć do miesiąca aktywnego planu. Aby aktywować inny plan przejdź do Menadżera planów. ");
                     $('#Data').css("border-color", "red");
                     $('#submit').prop("disabled", true);

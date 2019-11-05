@@ -88,6 +88,7 @@
     $('h4').css('color', 'red');
 
     let table = $('#myTable').DataTable({
+        "pageLength": 100,
         columnDefs: [{
             orderable: false,
             targets: [0, 6]

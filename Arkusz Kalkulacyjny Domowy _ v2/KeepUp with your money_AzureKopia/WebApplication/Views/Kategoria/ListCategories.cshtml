@@ -35,9 +35,29 @@
                 @if (UzId > 0)
                 {
             <td style="height: 50px;">
-                <a asp-action="DeleteCategory" asp-route-id="@item.KatId">Delete</a>
-                <a class="ui primary basic button delete" data-kategoria="@item.KatId">Usuń</a>
-
+                <a class="ui primary basic button delete" data-cat='@item.KatId'>Usuń</a>
+                <div class="modal" style="display: none; z-index: 10; position: fixed; height: 100vh; width: 100vw; background-color: black; opacity: 0.5" data-category='@item.KatId'></div>
+                <div class="ui modal" style="display: none; z-index: 11; width: 60vw; position: fixed; left: 20vw; top: 100px; height: auto;" data-category='@item.KatId'>
+                    <i class="close icon"></i>
+                    <div class="header">
+                        Przed usunięciem
+                    </div>
+                    <div class="image content">
+                        <div class="description">
+                            <div class="ui header">Czy na pewno chcesz usunąć ?</div>
+                            <p>To spowoduje usunięcie również innych danych związanych z tą kategorią</p>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div class="ui black deny button">
+                            Nie
+                        </div>
+                        <a class="ui positive right labeled icon button confirmDelete" asp-action="DeleteCategory" asp-route-id="@item.KatId">
+                            Tak
+                            <i class="checkmark icon"></i>
+                        </a>
+                    </div>
+                </div>
             </td>
                 }
                 else
@@ -52,31 +72,11 @@
 </div>
 <a style="position: relative; top: 30px;" asp-area="" asp-controller="Kategoria" asp-action="AddNewCategory"><button class="ui primary button" type="submit">Dodaj nową kategorie</button></a>
 
-<div class="ui modal" style="position: relative; left: 0px; width: 50%; height: 250px;">
-    <i class="close icon"></i>
-    <div class="header">
-        Przed usunięciem
-    </div>
-    <div class="image content">
-        <div class="description">
-            <div class="ui header">Czy na pewno chcesz usunąć ?</div>
-            <p>To spowoduje usunięcie również innych danych związanych z tym planem.</p>
-        </div>
-    </div>
-    <div class="actions">
-        <div class="ui black deny button">
-            Nie
-        </div>
-        <div class="ui positive right labeled icon button">
-           Tak
-            <i class="checkmark icon"></i>
-        </div>
-    </div>
-</div>
 
 <script>
     //$('.ui.modal').modal('show');
     let table = $('#myTable').DataTable({
+        "pageLength": 100,
         columnDefs: [{
             orderable: false,
             targets: [0,2]
@@ -93,6 +93,18 @@
 
     // usuwanie
     $('.delete').click(function () {
+        let choosenId = $(this).data('cat');
+        $(`[data-category=${choosenId}]`).css('display', 'block');
+    })
+
+    $('.close').click(function () {
+        $('.modal').css('display','none')
+        ;
+    })
+
+    $('.deny').click(function () {
+        $('.modal').css('display','none')
+        ;
     })
 
 

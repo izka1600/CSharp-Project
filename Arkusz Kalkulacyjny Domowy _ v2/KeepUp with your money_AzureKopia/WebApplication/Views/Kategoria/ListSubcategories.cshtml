@@ -42,7 +42,31 @@
                     }
                 }
                 <td style="height: 50px;">@item.Podkategoria</td>
-                    <td style="height: 50px;"><a asp-action="DeleteSubcategory" asp-route-id="@item.PodId">Delete</a></td>
+                <td style="height: 50px;">
+                    <a class="ui primary basic button delete" data-subcategory='@item.PodId'>Usuń</a>
+                    <div class="modal" style="display: none; z-index: 10; position: fixed; height: 100vh; width: 100vw; background-color: black; opacity: 0.5" data-subcategoryButton='@item.PodId'></div>
+                    <div class="ui modal" style="display: none; z-index: 11; width: 60vw; position: fixed; left: 20vw; top: 100px; height: auto;" data-subcategoryButton='@item.PodId'>
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Przed usunięciem
+                        </div>
+                        <div class="image content">
+                            <div class="description">
+                                <div class="ui header">Czy na pewno chcesz usunąć ?</div>
+                                <p>To spowoduje usunięcie również innych danych związanych z tą podkategorią</p>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <div class="ui black deny button">
+                                Nie
+                            </div>
+                            <a class="ui positive right labeled icon button confirmDelete" asp-action="DeleteSubcategory" asp-route-id="@item.PodId">
+                                Tak
+                                <i class="checkmark icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                </td>
             </tr>
             }
         </tbody>
@@ -53,6 +77,7 @@
 <script>
 
     let table = $('#myTable').DataTable({
+        "pageLength": 100,
         columnDefs: [{
             orderable: false,
             targets: [0,3]
@@ -65,7 +90,23 @@
         table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );
-    } ).draw();
+    }).draw();
+
+    // usuwanie
+    $('.delete').click(function () {
+        let choosenId = $(this).data('subcategory');
+        $(`[data-subcategoryButton=${choosenId}]`).css('display', 'block');
+    })
+
+    $('.close').click(function () {
+        $('.modal').css('display','none')
+        ;
+    })
+
+    $('.deny').click(function () {
+        $('.modal').css('display','none')
+        ;
+    })
 
 </script>
 

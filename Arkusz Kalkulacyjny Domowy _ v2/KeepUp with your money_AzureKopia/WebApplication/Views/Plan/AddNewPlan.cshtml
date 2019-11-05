@@ -2,14 +2,14 @@
 @using AuthDatabase.Entities;
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-@model Tuple<ListPlanViewModel, NewPlanViewModel>;
+@model Tuple<ListPlanViewModel, NewPlanViewModel, int>;
 
 @{
     ViewData["Title"] = "AddNewPlan";
 }
 
-<h1>Dodaj nowy plan wydatków</h1>
-
+    <h1>Dodaj nowy plan wydatków</h1>
+<div style="display: none;" data-user="@Model.Item3" id="userId"></div>
 <form asp-action="AddNewPlan">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
@@ -23,7 +23,7 @@
             <div id="kwotaOstrzezenie">
                 <input asp-for=@Model.Item2.ZalozonaKwota type="text" class="form-control" id="ZalozonaKwota" placeholder="Założona kwota">
             </div>
-        </div>
+        </div> 
         <div style="display:none">
             <input asp-for=@Model.Item2.FaktycznaKwota value="0">
         </div>
@@ -39,26 +39,30 @@
 <script>
 
 
-    let listaMiesiac = [];
+   let listaMiesiac = [];
    $.ajax({
     url: 'https://webapikuwym.azurewebsites.net/WebApiPlan/WylistujPlany',
     type: 'GET',
    }).done(function (data) {
        console.log(data);
-        for (let el of data) {
-            listaMiesiac.push(el.miesiąc.substring(0,7));
+       let userId = $('#userId').data('user');
+       for (let el of data) {
+            if (el.idUzytkownika == userId) listaMiesiac.push(el.miesiąc.substring(0,7));
         }
     }).fail(function (data) {
         console.log("Failed");
     })
+    
 
-
-
+    $('#submit').prop("disabled", true);
+    let kwota;
+    let miesiac;
     $('#ZalozonaKwota').change(function () {
-        if ($('#ZalozonaKwota').val() > 0) {
+        kwota = $('#ZalozonaKwota').val();
+        if (kwota > 0) {
              $('#kwotaOstrzezenie').removeAttr("data-tooltip");
-             $('#ZalozonaKwota').css("border-color", "#d1cfcb");
-             $('#submit').prop("disabled", false);    
+            $('#ZalozonaKwota').css("border-color", "#d1cfcb");
+            if (!listaMiesiac.includes(miesiac)) $('#submit').prop("disabled", false);    
         }
         else {
             $('#kwotaOstrzezenie').attr("data-tooltip", "Kwota musi być większa niż 0 zł");
@@ -68,9 +72,8 @@
     });
 
     $('#Miesiac').change(function () {
-        const wybranyMiesiac = $('#Miesiac').val();
-        console.info(wybranyMiesiac);
-        if (listaMiesiac.includes(wybranyMiesiac)) {
+        miesiac = $('#Miesiac').val();
+        if (listaMiesiac.includes(miesiac)) {
             $('#miesiacOstrzezenie').attr("data-tooltip", "Ten miesiąc już istnieje");
             $('#Miesiac').css("border-color", "red");
             $('#submit').prop("disabled", true);
@@ -78,7 +81,7 @@
         else {
             $('#miesiacOstrzezenie').removeAttr("data-tooltip");
             $('#Miesiac').css("border-color", "#d1cfcb");
-            $('#submit').prop("disabled", false);
+            if (kwota > 0) $('#submit').prop("disabled", false);
         }
     });
         
