@@ -19,7 +19,7 @@
 
 @foreach (var item in @Model.Item4.Items)
 {
-    if (@item.Active == true && item.FaktycznaKwota > ((Convert.ToDecimal(item.Warning) / 100) * item.ZalozonaKwota))
+    if (@item.Active == true && item.FaktycznaKwota > ((Convert.ToDecimal(item.Warning) / 100) * item.ZalozonaKwota) && item.Warning>0)
     {
 <h3 style=”font-weight: bold;">Uwaga! </h3>
 <h4 style=”font-weight: bold;"> Twój próg ostrzegawczy  @item.Warning.ToString()% w aktualnym planie wydatków został przekroczony! Twoja przewidywana kwota wydatków to @item.ZalozonaKwota.ToString() złotych, podczas gdy faktyczna kwota wynosi @item.FaktycznaKwota złotych.</h4>
