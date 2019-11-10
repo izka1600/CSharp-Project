@@ -16,7 +16,7 @@
 
 <h1>Raporty z ostatnich miesięcy</h1>
 
-<select name="skills" multiple="" class="ui fluid dropdown">
+<select name="skills" class="ui fluid dropdown">
     <option value="">Wybierz miesiące</option>
     @foreach (var item in Model.Item3.Items)
     {
@@ -70,7 +70,7 @@
     let stringWithId = '';
     $('.ui.dropdown').dropdown();
     $('select').change(() => {
-        stringWithId = $('select').val().join(',');
+        stringWithId = $('select').val();
         $('#hidden').val(stringWithId);
     })
 
