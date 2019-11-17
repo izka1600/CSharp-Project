@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@using WebApplication.ViewModels;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@model AddNewCategoryViewModel;
+
+@{
+    ViewData["Title"] = "AddNewCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Dodaj nową kategorię</h1>
+
+<form  enctype ="multipart/form-data" asp-action="AddNewCategory">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Kategoria" for="Kategoria">Nazwa kategorii</label>
+        <input asp-for="Kategoria" type="text" class="form-control" id="Kategoria" placeholder="Nazwa Kategorii">
+        <span asp-validation-for="Kategoria" class="text-danger"></span>
+    </div>
+    <div style = "display:none">
+        <input asp-for="IdUzytkownika" value="0">
+    </div> 
+
+    <div class="form-group">
+        <label asp-for="Photo" class="cols-sm-2 col-form-label">Zdjęcie</label>
+        <div class="col-sm-0">
+            <div class="custom-file">
+                <input asp-for="Photo" class="form-control custom-file-input">
+                <label class="custom-file-label">Wybierz zdjęcie obrazujące kategorię</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Dodaj kategorię" class="btn btn-success" style="margin-top:30px" />
+    </div>
+
+    @section Scripts{ 
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        });
+    </script>
+    }
+</form>

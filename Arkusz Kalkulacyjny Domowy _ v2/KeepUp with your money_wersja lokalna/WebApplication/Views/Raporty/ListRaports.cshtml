@@ -1,0 +1,173 @@
+﻿<script src="../../js/datatables.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@model Tuple<ReportFromMonthsParametersViewModel, ListReportFromMonthsViewModel, ListPlanViewModel>;
+
+@{
+    ViewData["Title"] = "Raporty z ostatnich miesięcy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Raporty z ostatnich miesięcy</h1>
+
+<select name="skills" class="ui fluid dropdown">
+    <option value="">Wybierz miesiące</option>
+    @foreach (var item in Model.Item3.Items)
+    {
+<option class="substring" value="@item.PlanId">@item.Miesiąc.Value.ToString("yyyy-MM-dd").Substring(0, 7)</option>
+    }
+</select>
+<form asp-action="ListRaports">
+    <input style="display:none" asp-for=@Model.Item1.UserId value="0" />
+    <input style="display:none" id="hidden" asp-for=@Model.Item1.Plan_Id />
+    <div class="form-group">
+        <input id="submit" type="submit" value="Zatwierdź" class="btn btn-success" style="margin-top:30px" />
+    </div>
+</form>
+
+
+<div style="margin-top: 50px">
+    <table id="myTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nr</th>
+                <th scope="col">Data transakcji</th>
+                <th scope="col">Kategoria</th>
+                <th scope="col">Podkategoria</th>
+                <th scope="col">Kwota</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Item2.Items)
+            {
+                <tr>
+                    <th scope="row"></th>
+                    <td class="date" style="height: 50px;">@item.DateOfTransaction.ToString("yyyy-MM-dd")</td>
+                    <td class="category" style="height: 50px;">@item.Kategoria</td>
+                    <td style="height: 50px;">@item.Podkategoria</td>
+                    <td class="cost" style="height: 50px;">@item.Kwota</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<canvas id="chart" style="margin-top: 50px;"></canvas>
+
+
+
+<script>
+
+    // select with plans
+    let stringWithId = '';
+    $('.ui.dropdown').dropdown();
+    $('select').change(() => {
+        stringWithId = $('select').val();
+        $('#hidden').val(stringWithId);
+    })
+
+    //table
+    let table = $('#myTable').DataTable({
+        columnDefs: [{
+            orderable: false,
+            targets: [0, 4]
+        }],
+        "order": [[1, 'asc']]
+    });
+    $('#myTable_wrapper').removeClass('form-inline')
+
+    table.on('order.dt search.dt', function () {
+        table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+        });
+    }).draw();
+
+    //graph
+    function randomColor() {
+            const deg = Math.random() * 360;
+            return `hsl(${deg}, 60%, 50%)`;
+    }
+
+    let costs = $('.cost').map(function(){
+               return $.trim($(this).text());
+    }).get();
+    let dateOfTransaction = $('.date').map(function(){
+               return $.trim($(this).text());
+    }).get();
+    let categories =  $('.category').map(function(){
+               return $.trim($(this).text());
+    }).get();
+    let myObjects = [];
+    categories.forEach((el, key) => {
+        myObjects.push({
+            cost: costs[key],
+            day: parseInt(dateOfTransaction[key].substr(8, 10)),
+            category: el,
+        })
+    });
+
+    let uniqueCategories = [...new Set(categories)]
+
+    if (myObjects.length > 0) {
+
+        let date = new Date(dateOfTransaction[0]);
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let days = new Date(year, month, 0).getDate();
+        let timeArray = [...Array(days).keys()]
+        timeArray.splice(0, 1);
+        //let newTimeArray = timeArray.map((el) => { return el + 1 });
+        let costArray = new Array(days).fill(null);
+        let categoryDate = [];
+        uniqueCategories.forEach((category, keyCategory) => {
+            let costX = [...costArray];
+            myObjects.map((el, key) => {
+                if (el.category === category) {
+                    costX.splice(el.day, 1, el.cost);
+                }
+            })
+            costX.splice(0, 1);
+            categoryDate.push(costX);
+        })
+
+        let myDatasets = uniqueCategories.map((el, key) => {
+                        return {
+                            label: el,
+                            borderColor: randomColor(),
+                            fill: false,
+                            data: categoryDate[key]
+                        }
+        })
+
+        var ctx = document.getElementById('chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: timeArray,
+                datasets: myDatasets
+            },
+
+            // Configuration options go here
+            options: {
+                spanGaps: true
+            }
+        });
+    }
+
+   
+
+   
+
+
+</script>
