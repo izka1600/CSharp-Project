@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Błąd aplikacji</h1>
+<h2>Mamy problem ze stroną. Spróbuj później</h2>
+<hr/>
+<h3> Szczegóły błędu: </h3>
+<div class="alert alert-danger">
+    <h5>Ścieżka błędu</h5>
+    <hr/>
+    <p>@ViewBag.ExceptionPath</p>
+</div>
+
+<div class="alert alert-danger">
+    <h5>Szczegóły błędu</h5>
+    <hr />
+    <p>@ViewBag.ExceptionMessage</p>
+</div>
+
+<div class="alert alert-danger">
+    <h5>Szczegóły do śledzenia błędu</h5>
+    <hr />
+    <p>@ViewBag.StackTrace</p>
+</div>
