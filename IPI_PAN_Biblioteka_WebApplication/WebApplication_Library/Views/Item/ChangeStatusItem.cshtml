@@ -1,0 +1,58 @@
+﻿<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" />
+
+
+<div style="margin-top: 50px">
+    <table id="example" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nr</th>
+                <th scope="col">Book name</th>
+                <th scope="col">CoverName</th>
+                <th scope="col">FirstName</th>
+                <th scope="col">LastName</th>
+                <th scope="col">DataCarrierName</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.BookId</th>
+                    <td style="height: 80px;">@item.BookName</td>
+                    <td style="height: 80px;">@item.CoverName</td>
+                    <td style="height: 80px;">@item.FirstName</td>
+                    <td style="height: 80px;">@item.LastName</td>
+                    <td style="height: 80px;">@item.DataCarrierName</td>
+                    <td style="height: 80px;">
+                        <span><a asp-action="ChangeStatusItem" asp-route-id="@item.BookId" asp-route-comment="">Rent</a></span>
+                        <button data-id="@item.BookId" class="addComment">Add comment</button>
+                        <textarea data-id="@item.BookId" style='display: none;' rows="3" cols="20" class="comment"></textarea>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+
+    $('#example').DataTable();
+
+    $('.addComment').click(function () {
+        let id = $(this).data('id');
+        $(this).next().toggle();
+        $(this).next().keyup(function () {
+            let tekst = $(this).val();
+            let nowyElement = '<a href="/Item/ChangeStatusItem/' + id + '?comment=' + tekst+'" >Rent</a>';
+            $(this).prev().prev().html(nowyElement);
+            //$(this).prev().prev().attr("asp-route-comment", tekst);
+            //console.log($(this).prev().prev().attr("asp-route-id"));
+        })
+    });
+
+
+
+</script>

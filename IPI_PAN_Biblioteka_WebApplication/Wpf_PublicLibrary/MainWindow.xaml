@@ -1,0 +1,98 @@
+﻿<Window x:Class="Wpf_PublicLibrary.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_PublicLibrary"
+        mc:Ignorable="d"
+         Title="" Height="650" Width="700" Background="Black">
+    <Grid>
+        <StackPanel>
+            <Border Margin="10" Background="Transparent">
+                <Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+                <StackPanel  Visibility="Visible">
+                    <Grid>
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width ="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock 
+                            Grid.Column="1" 
+                            FontStyle="Italic" 
+                            FontWeight="Black" 
+                            Text="Biblioteka - test działania WebAPi" 
+                            Foreground="#ffff" 
+                            FontSize="30">
+
+                        </TextBlock>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <Border Margin="10" 
+                    BorderBrush="LightBlue" 
+                    BorderThickness="0.6" 
+                    CornerRadius="4" 
+                    Background="Transparent">
+                <Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+                <StackPanel  Visibility="Visible">
+                    <Grid Background="Gray">
+
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width ="*"/>
+                            <ColumnDefinition Width ="*"/>
+                            <ColumnDefinition Width ="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="btnBook" 
+                                Click="BtnBook_Click"
+                                FontSize="18" 
+                                BorderBrush="Transparent" 
+                                Grid.Column="0" 
+                                Content="Ksiązki" 
+                                Background="Transparent" 
+                                FontWeight= "Bold" 
+                                Foreground="#ffff"></Button>
+                        <Button x:Name="btnBookRental" 
+                                Click="BtnBookRental_Click"
+                                FontSize="18" 
+                                BorderBrush="Transparent" 
+                                Grid.Column="1" 
+                                Content="Wypożyczenie" 
+                                Background="Transparent" 
+                                FontWeight= "Bold" 
+                                Foreground="#ffff"></Button>
+                        <Button x:Name="btnReader" 
+                                Click="BtnReader_Click"
+                                FontSize="18" 
+                                BorderBrush="Transparent" 
+                                Grid.Column="2" 
+                                Content="Czytelnik" 
+                                Background="Transparent" 
+                                FontWeight= "Bold" 
+                                Foreground="#ffff"></Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <StackPanel Margin="5" 
+                        Visibility="Visible">
+                <Grid>
+                    <TextBox Height="450" 
+                             Width="auto" 
+                             x:Name="txb"
+                             TextWrapping="Wrap"></TextBox>
+                </Grid>
+            </StackPanel>
+            <Grid Margin="10 0 0 0 ">
+                <TextBlock FontStyle="Italic" 
+                           FontWeight="Black" 
+                           Text="Designed by : ŁD" 
+                           Foreground="#ffff" 
+                           FontSize="7"></TextBlock>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
+

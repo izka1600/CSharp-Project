@@ -1,0 +1,69 @@
+﻿@using WebApplication_Library.ViewModels;
+
+@model BookDetailsVM
+@{
+    ViewData["Title"] = "DetailsItem";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BookName"></label>
+                <input asp-for="BookName" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DataCarrierName"></label>
+                <input asp-for="DataCarrierName" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PublicationDate"></label>
+                <input asp-for="PublicationDate" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                <img src="@Model.CoverName" class="img-thumbnail">
+            </div>
+
+            @if (Model.RentalId != 0)
+            {
+                <div class="form-group">
+                    <label asp-for="RentDateTime"></label>
+                    <input asp-for="RentDateTime" readonly class="form-control" />
+                </div>
+                @if (Model.ReturnDateTime > Model.RentDateTime)
+                {
+                    <div class="form-group">
+                        <label asp-for="ReturnDateTime"></label>
+                        <input asp-for="ReturnDateTime" readonly class="form-control" />
+                    </div>
+                }
+                <div class="form-group">
+                    <label asp-for="RentalFirstName"></label>
+                    <input asp-for="RentalFirstName" readonly class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="RentalLastName"></label>
+                    <input asp-for="RentalLastName" readonly class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="RentalEmail"></label>
+                    <input asp-for="RentalEmail" readonly class="form-control" />
+                </div>
+            }
+
+            <button type="submit" class="btn btn-default">OK</button>
+        </form>
+    </div>
+</div>

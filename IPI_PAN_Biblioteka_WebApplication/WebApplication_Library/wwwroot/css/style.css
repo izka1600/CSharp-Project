@@ -1,0 +1,26 @@
+﻿/* IZA */
+
+#allContent {
+	position: relative;
+	top: 20px;
+}
+
+.elem{
+	width: 100%;
+}
+
+	.elem a {
+		color: white;
+		background-color: #66a3ff;
+		transition: background-color ease 1s;
+		transition: color ease 1s;
+	}
+
+	.elem a:hover {
+		color: #66a3ff;
+		background-color: white;
+	}
+
+.body-content{
+	padding: 0px 40px !important;
+}

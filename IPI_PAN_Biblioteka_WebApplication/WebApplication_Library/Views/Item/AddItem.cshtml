@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "AddItem";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+@model DB_Model_EFCore.Class.NewBook ;
+
+
+<form asp-action="AddItem">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="BookName" for="BookName">Book name</label>
+        <input asp-for="BookName" type="text" class="form-control" id="BookName" placeholder="Example book">
+        <span asp-validation-for="BookName" class="text-danger"></span>
+    </div>
+    <!--
+    <div class="form-group">
+        <label asp-for="CoverName" for="CoverName">Cover Name</label>
+        <input asp-for="CoverName" type="text" class="form-control" id="CoverName" placeholder="Example cover name">
+        <span asp-validation-for="CoverName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CoverName" for="CoverName">Cover Name</label>
+        <input asp-for="CoverName" class="file-path validate" type="text" placeholder="Upload your file">
+        <span asp-validation-for="CoverName" class="text-danger"></span>
+    </div>
+        -->
+    <div class="form-group">
+        <label asp-for="CoverName" for="CoverName">Cover Name (select file)</label>
+        <input asp-for="CoverName" type="file" class="custom-file-input" id="customFileLang" lang="en-us">
+        <span asp-validation-for="CoverName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FirstName" for="FirstName">First Name</label>
+        <input asp-for="FirstName" type="text" class="form-control" id="FirstName" placeholder="Your first name">
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName" for="LastName">Last Name</label>
+        <input asp-for="LastName" type="text" class="form-control" id="LastName" placeholder="Your last name">
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataCarrierName" for="DataCarrier">Data Carrier Name</label>
+        <select asp-for="DataCarrierName" class="form-control" id="DataCarrier">
+            <option>Ksiazka</option>
+            <option>DVD</option>
+            <option>CD</option>
+        </select>
+        <span asp-validation-for="DataCarrierName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PublicationDate" for="PublicationDate">PublicationDate</label>
+        <input asp-for="PublicationDate" type="date" class="form-control" id="PublicationDate" placeholder="Example data PublicationDate">
+        <span asp-validation-for="PublicationDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add book" class="btn btn-success" style="margin-top:30px" />
+    </div>
+</form>

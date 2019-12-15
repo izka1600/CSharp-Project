@@ -1,0 +1,49 @@
+﻿@using WebApplication_Library.ViewModels;
+
+@model BookDetailsVM
+@{
+    ViewData["Title"] = "Rent item";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div>
+                <label asp-for="BookId"></label>
+                <input asp-for="BookId" readonly class="form-control-static"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookName"></label>
+                <input asp-for="BookName" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DataCarrierName"></label>
+                <input asp-for="DataCarrierName" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PublicationDate"></label>
+                <input asp-for="PublicationDate" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" readonly class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Comment"></label>
+                <input asp-for="Comment" class="text-info" />
+            </div>
+
+            <button type="submit" class="btn btn-default">Rent</button>
+            <!--<a asp-action="RentItem" asp-route-id="@Model.BookId">Rent</a>-->
+        </form>
+        </div>
+    </div>
