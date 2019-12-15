@@ -1,6 +1,6 @@
-# CSharp-Project
+# CSharp-Projects
 
-This repository contains C# several solutions prepared in .Net technology:
+This repository contains several solutions prepared in .Net technology:
 
 1. WebApplication - KeepUpWithYourMoney
 
