@@ -12,6 +12,7 @@ namespace Arkusz_Wydatki_WPF
 	public class MainWindowViewModel : INotifyPropertyChanged
 	{
 		protected readonly Arkusz_WydatkiEntities context;
+		public ICommand SaveCommand { get; private set; }
 
 		public MainWindowViewModel()
 		{
@@ -20,18 +21,64 @@ namespace Arkusz_Wydatki_WPF
 			Task.Run(() =>
 			{
 				Transakcje = new ObservableCollection<Transakcje>(context.Transakcje);
+				Kategorie = new ObservableCollection<Kategorie>(context.Kategorie);
 			}
 					);
+			Task.Run(() => Init());
+		}
+		internal void Init()
+		{
+			this.OdswiezTransakcje();
+			this.OdswiezKategorie();
 		}
 
-		private ObservableCollection<Transakcje> transakcje { get; set; }
-		public ObservableCollection<Transakcje> Transakcje
+		private IEnumerable<Transakcje> transakcje { get; set; }
+		public IEnumerable<Transakcje> Transakcje
 		{
 			get { return transakcje; }
 			set
 			{
-				transakcje = value;
+				this.transakcje = value;
 				OnPropertyChanged();
+			}
+		}
+		private void OdswiezTransakcje()
+		{
+			this.Transakcje = null;
+			this.Transakcje = this.WybraneKategorie?.Transakcje;
+		}
+
+		private IEnumerable<Kategorie> kategorie;
+		public IEnumerable<Kategorie> Kategorie
+		{
+			get
+			{
+				return this.kategorie;
+				this.OnPropertyChanged();
+			}
+			set
+			{
+				this.kategorie = value;
+				this.OnPropertyChanged(nameof(Kategorie));
+			}
+		}
+
+		private void OdswiezKategorie()
+		{
+			this.Kategorie = this.Kategorie;
+		}
+		private Kategorie wybraneKategorie;
+		public Kategorie WybraneKategorie
+		{
+			get
+			{
+				return this.wybraneKategorie;
+			}
+			set
+			{
+				this.wybraneKategorie = value;
+				this.OnPropertyChanged();
+				this.OdswiezTransakcje();  // dodane ponizej
 			}
 		}
 

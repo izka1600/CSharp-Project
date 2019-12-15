@@ -11,10 +11,15 @@
 	</Window.DataContext>
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="30"/>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<ListView ItemsSource="{Binding Transakcje}" Grid.Row="0">
+		<ComboBox Margin= "5"
+                  ItemsSource="{Binding Kategorie}" 
+                  DisplayMemberPath="Kategoria"
+                  SelectedItem="{Binding Path=WybraneKategorie, Mode=TwoWay}" />
+		<ListView ItemsSource="{Binding Transakcje}" Grid.Row="1">
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<StackPanel x:Name="Main" Width="480">
@@ -55,7 +60,7 @@
 		</ListView>
 		<Button Name="ViewOrders"
                 Content="ViewOrders"
-                Grid.Row="1"
+                Grid.Row="2"
                 Command="{Binding ViewKategorieCommand}"/>
 	</Grid>
 </Window>
