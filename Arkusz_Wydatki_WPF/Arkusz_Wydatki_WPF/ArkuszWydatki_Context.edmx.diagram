@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="706dcb6079034ce3a9862f4ab725e1b0" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="Arkusz_WydatkiModel.C__EFMigrationsHistory" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arkusz_WydatkiModel.AspNetRoleClaims" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arkusz_WydatkiModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arkusz_WydatkiModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arkusz_WydatkiModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arkusz_WydatkiModel.AspNetUsers" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arkusz_WydatkiModel.AspNetUserTokens" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arkusz_WydatkiModel.Kategorie" Width="1.5" PointX="10" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arkusz_WydatkiModel.Plan" Width="1.5" PointX="10" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arkusz_WydatkiModel.Podkategorie" Width="1.5" PointX="10" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arkusz_WydatkiModel.Transakcje" Width="1.5" PointX="12.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arkusz_WydatkiModel.Uzytkownik" Width="1.5" PointX="7.75" PointY="2.75" IsExpanded="true" />
+        <AssociationConnector Association="Arkusz_WydatkiModel.FK_AspNetRoleClaims_AspNetRoles_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="Arkusz_WydatkiModel.FK_AspNetUserClaims_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Arkusz_WydatkiModel.FK_AspNetUserLogins_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Arkusz_WydatkiModel.FK_AspNetUserTokens_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Arkusz_WydatkiModel.FK_T1_T2_Cascade" ManuallyRouted="false" />
+        <AssociationConnector Association="Arkusz_WydatkiModel.FKUzytkownik_K" ManuallyRouted="false" />
+        <AssociationConnector Association="Arkusz_WydatkiModel.FKPlanUzytkownik" ManuallyRouted="false" />
+        <AssociationConnector Association="Arkusz_WydatkiModel.FKPodKategoria_Cascade" ManuallyRouted="false" />
+        <AssociationConnector Association="Arkusz_WydatkiModel.FKUzytkownik" ManuallyRouted="false" />
+        <AssociationConnector Association="Arkusz_WydatkiModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
