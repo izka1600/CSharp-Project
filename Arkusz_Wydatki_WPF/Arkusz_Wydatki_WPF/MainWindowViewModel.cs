@@ -13,6 +13,14 @@ namespace Arkusz_Wydatki_WPF
 	{
 		protected readonly Arkusz_WydatkiEntities context;
 		public ICommand SaveCommand { get; private set; }
+		public ICommand ClearCommand { get; private set; }
+		internal void Init()
+		{
+			this.OdswiezTransakcje();
+			this.OdswiezKategorie();
+			this.ClearCommand = new RelayCommand(
+				action => this.WyczyscWybraneKategorie());
+		}
 
 		public MainWindowViewModel()
 		{
@@ -25,11 +33,6 @@ namespace Arkusz_Wydatki_WPF
 			}
 					);
 			Task.Run(() => Init());
-		}
-		internal void Init()
-		{
-			this.OdswiezTransakcje();
-			this.OdswiezKategorie();
 		}
 
 		private IEnumerable<Transakcje> transakcje { get; set; }
@@ -89,6 +92,12 @@ namespace Arkusz_Wydatki_WPF
 		}
 		public ICommand ViewKategorieCommand { get; private set; }
 
+
+
+
+
+
+
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		private void OnPropertyChanged(
@@ -97,6 +106,11 @@ namespace Arkusz_Wydatki_WPF
 		{
 			PropertyChanged?.Invoke(this,
 				new PropertyChangedEventArgs(propertyName));
+		}
+
+		private void WyczyscWybraneKategorie()
+		{
+			this.WybraneKategorie = null;
 		}
 	}
 }
