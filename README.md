@@ -23,4 +23,6 @@ This repository contains several solutions prepared in .Net technology:
       
       *    this is Team project created during postgraduate studies in Institute of Computer Science of Polish Academy of                 Sciences : „Programming in .NET platform” 
       *    project structure is similar to WebApplication - KeepUpWithYourMoney
+     
+4. DBClassMapper
  
