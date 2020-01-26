@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Reflection;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DBClassMapper
 {
@@ -21,7 +23,7 @@ namespace DBClassMapper
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add(new SqlParameter("@TableName", "Transakcje"));
 				cmd.Parameters.Add(new SqlParameter("@TableSchema", "dbo"));
-				cmd.Parameters.Add("@result", SqlDbType.VarChar,8000).Direction = ParameterDirection.Output;
+				cmd.Parameters.Add("@result", SqlDbType.VarChar, 8000).Direction = ParameterDirection.Output;
 				cmd.ExecuteNonQuery();
 				var result = cmd.Parameters["@result"].Value;
 				string NewClass = result.ToString();

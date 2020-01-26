@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBClassMapper", "DBClassMapper.csproj", "{B038B9EC-008A-4E6A-ACB5-6D551A3CEF4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBClassMapper", "DBClassMapper.csproj", "{E0C3BDB2-CF6A-4C9E-ABA8-B6D9D41DBEDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B038B9EC-008A-4E6A-ACB5-6D551A3CEF4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B038B9EC-008A-4E6A-ACB5-6D551A3CEF4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B038B9EC-008A-4E6A-ACB5-6D551A3CEF4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B038B9EC-008A-4E6A-ACB5-6D551A3CEF4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0C3BDB2-CF6A-4C9E-ABA8-B6D9D41DBEDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0C3BDB2-CF6A-4C9E-ABA8-B6D9D41DBEDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0C3BDB2-CF6A-4C9E-ABA8-B6D9D41DBEDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0C3BDB2-CF6A-4C9E-ABA8-B6D9D41DBEDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {63686469-A6C6-4813-92B2-5DF36EA8FF52}
+		SolutionGuid = {9A9E1DCF-BAB1-4AC8-804C-F2039A91193B}
 	EndGlobalSection
 EndGlobal
