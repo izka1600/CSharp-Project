@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Build.Evaluation;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Data;
@@ -46,6 +47,14 @@ namespace DBClassMapper
 				OutputAssembly = outputName,
 				GenerateInMemory = false, // as a physical file
 			});
+
+			var collection = new ProjectCollection();
+			collection.DefaultToolsVersion = "4.0";
+			var project = collection.LoadProject("DBClassMapper.csproj");
+
+			project.AddItem("Class", ClassFile);
+			project.Save();
+
 
 			Console.WriteLine("Press any key to exit...");
 			Console.ReadKey();
