@@ -1,1 +1,0 @@
-using System;namespace dbo{public class Transakcje{ public int Trans_ID { get; set; }  public DateTime? Data { get; set; }  public int IdUzytkownika { get; set; }  public int IdKategorii { get; set; }  public int IdPodkategorii { get; set; }  public Single? Kwota { get; set; }  public int? PlanId { get; set; } }}

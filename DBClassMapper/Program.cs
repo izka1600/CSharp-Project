@@ -29,59 +29,20 @@ namespace DBClassMapper
 				var result = cmd.Parameters["@result"].Value;
 				string NewClass = result.ToString();
 				string workingDirectory = Environment.CurrentDirectory;
-				ClassFile = Directory.GetParent(workingDirectory).Parent.Parent.FullName + "\\" + "Transakcje" + ".cs";
+				ClassFile = Directory.GetParent(workingDirectory).Parent.FullName + "\\" + "Transakcje" + ".cs";
 				System.IO.File.WriteAllText(ClassFile, NewClass);
 			}
-			// Get a path to the file(s) to compile.
-			FileInfo sourceFile = new FileInfo(ClassFile);
-
-			// Prepary a file path for the compiled library.
-			string outputName = string.Format(@"{0}\{1}.dll",
-				Environment.CurrentDirectory,
-				Path.GetFileNameWithoutExtension(sourceFile.Name));
-
-			// Compile the code as a dynamic-link library.
-			bool success = Compile(sourceFile, new CompilerParameters()
-			{
-				GenerateExecutable = false, // compile as library (dll)
-				OutputAssembly = outputName,
-				GenerateInMemory = false, // as a physical file
-			});
-
 			var collection = new ProjectCollection();
-			collection.DefaultToolsVersion = "4.0";
-			var project = collection.LoadProject("DBClassMapper.csproj");
 
-			project.AddItem("Class", ClassFile);
-			project.Save();
-
+			var project = collection.LoadProject(Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\" + "DBClassMapper.csproj");
+				project.AddItem("Class", ClassFile);
+				project.Save();
 
 			Console.WriteLine("Press any key to exit...");
 			Console.ReadKey();
+			Transakcje das = new Transakcje();
 
 		}
 
-		private static bool Compile(FileInfo sourceFile, CompilerParameters options)
-		{
-			CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-
-			CompilerResults results = provider.CompileAssemblyFromFile(options, sourceFile.FullName);
-
-			if (results.Errors.Count > 0)
-			{
-				Console.WriteLine("Errors building {0} into {1}", sourceFile.Name, results.PathToAssembly);
-				foreach (CompilerError error in results.Errors)
-				{
-					Console.WriteLine("  {0}", error.ToString());
-					Console.WriteLine();
-				}
-				return false;
-			}
-			else
-			{
-				Console.WriteLine("Source {0} built into {1} successfully.", sourceFile.Name, results.PathToAssembly);
-				return true;
-			}
-		}
 	}
 }
