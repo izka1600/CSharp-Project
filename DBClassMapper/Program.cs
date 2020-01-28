@@ -40,7 +40,7 @@ namespace DBClassMapper
 
 			Console.WriteLine("Press any key to exit...");
 			Console.ReadKey();
-			Transakcje das = new Transakcje();
+			//Transakcje das = new Transakcje();
 
 		}
 
