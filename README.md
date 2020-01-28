@@ -24,5 +24,7 @@ This repository contains several solutions prepared in .Net technology:
       *    this is Team project created during postgraduate studies in Institute of Computer Science of Polish Academy of                 Sciences : „Programming in .NET platform” 
       *    project structure is similar to WebApplication - KeepUpWithYourMoney
      
-4. DBClassMapper
+4. DBClassMapper - short csolution with two console projects:
+      *     generate class definition in string through T-SQL save as a flat file and add to c# project - use Microsoft.Build library
+      *     create instance of some class dynamically and use it during program running - use System.CodeDom.Compiler, System.Reflection and System.Collections.Generic
  
