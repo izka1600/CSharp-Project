@@ -28,3 +28,6 @@ This repository contains several solutions prepared in .Net technology:
       *     generate class definition in string through T-SQL save as a flat file and add to c# project - use Microsoft.Build library
       *     create instance of some class dynamically and use it during program running - use System.CodeDom.Compiler, System.Reflection and System.Collections.Generic
  
+5. WzorceProjetowe (Design Patterns) - Console exercises to practice Design Patterns such as Strategy...
+In these projects Class Designer is used to better understand relations between entities and whole idea of every design pattern
+ 
