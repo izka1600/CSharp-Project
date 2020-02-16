@@ -1,0 +1,7 @@
+C:\Users\izabela.kukawska\Downloads\New folder\CSharp-Projects-master\WzorceProjektowe\3 Wzorzec Dekorator\bin\Debug\3 Wzorzec Dekorator.exe.config
+C:\Users\izabela.kukawska\Downloads\New folder\CSharp-Projects-master\WzorceProjektowe\3 Wzorzec Dekorator\bin\Debug\3 Wzorzec Dekorator.exe
+C:\Users\izabela.kukawska\Downloads\New folder\CSharp-Projects-master\WzorceProjektowe\3 Wzorzec Dekorator\bin\Debug\3 Wzorzec Dekorator.pdb
+C:\Users\izabela.kukawska\Downloads\New folder\CSharp-Projects-master\WzorceProjektowe\3 Wzorzec Dekorator\obj\Debug\3 Wzorzec Dekorator.csprojAssemblyReference.cache
+C:\Users\izabela.kukawska\Downloads\New folder\CSharp-Projects-master\WzorceProjektowe\3 Wzorzec Dekorator\obj\Debug\3 Wzorzec Dekorator.csproj.CoreCompileInputs.cache
+C:\Users\izabela.kukawska\Downloads\New folder\CSharp-Projects-master\WzorceProjektowe\3 Wzorzec Dekorator\obj\Debug\3 Wzorzec Dekorator.exe
+C:\Users\izabela.kukawska\Downloads\New folder\CSharp-Projects-master\WzorceProjektowe\3 Wzorzec Dekorator\obj\Debug\3 Wzorzec Dekorator.pdb
