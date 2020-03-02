@@ -15,6 +15,5 @@ C:\Users\Iza\source\IzaIza\WzorceProjektowe\WzorceProjektowe\bin\Debug\WzorcePro
 C:\Users\Iza\source\IzaIza\WzorceProjektowe\WzorceProjektowe\bin\Debug\WzorceProjektowe.exe
 C:\Users\Iza\source\IzaIza\WzorceProjektowe\WzorceProjektowe\bin\Debug\WzorceProjektowe.pdb
 C:\Users\Iza\source\IzaIza\WzorceProjektowe\WzorceProjektowe\obj\Debug\1 Wzorzec Strategia.csprojAssemblyReference.cache
-C:\Users\Iza\source\IzaIza\WzorceProjektowe\WzorceProjektowe\obj\Debug\1 Wzorzec Strategia.csproj.CoreCompileInputs.cache
 C:\Users\Iza\source\IzaIza\WzorceProjektowe\WzorceProjektowe\obj\Debug\WzorceProjektowe.exe
 C:\Users\Iza\source\IzaIza\WzorceProjektowe\WzorceProjektowe\obj\Debug\WzorceProjektowe.pdb
