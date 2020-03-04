@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4 Wzorzec Fabryka", "4 Wzor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5 Wzorzec Singleton", "5 Wzorzec Singleton\5 Wzorzec Singleton.csproj", "{2CEF9FB2-8A79-4FDD-8284-BC5CF48E9E64}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "6 Wzorzec Polecenie", "6 Wzorzec Polecenie\6 Wzorzec Polecenie.csproj", "{79AAA000-761D-41B5-813D-6332424054C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{2CEF9FB2-8A79-4FDD-8284-BC5CF48E9E64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CEF9FB2-8A79-4FDD-8284-BC5CF48E9E64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CEF9FB2-8A79-4FDD-8284-BC5CF48E9E64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79AAA000-761D-41B5-813D-6332424054C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79AAA000-761D-41B5-813D-6332424054C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79AAA000-761D-41B5-813D-6332424054C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79AAA000-761D-41B5-813D-6332424054C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
