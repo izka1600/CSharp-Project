@@ -32,6 +32,13 @@ namespace _6_Wzorzec_Polecenie
 			Console.WriteLine(pilot);
 			pilot.wcisnietoPrzyciskWlacz(0);
 			pilot.wcisnietoPrzyciskWylacz(0);
+			Console.WriteLine(pilot);
+			pilot.wcisnietoPrzyciskWycofaj();
+			pilot.wcisnietoPrzyciskWylacz(0);
+			pilot.wcisnietoPrzyciskWlacz(0);
+			Console.WriteLine(pilot);
+			pilot.wcisnietoPrzyciskWycofaj();
+
 
 			Console.ReadKey();
 		}

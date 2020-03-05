@@ -10,6 +10,7 @@ namespace _6_Wzorzec_Polecenie
 	{
 		IPolecenie[] poleceniaWlacz;
 		IPolecenie[] poleceniaWylacz;
+		IPolecenie polecenieWycofaj;
 
 
 		public SuperPilot()
@@ -24,6 +25,7 @@ namespace _6_Wzorzec_Polecenie
 				poleceniaWylacz[i] = brakPolecenia;
 				poleceniaWlacz[i] = brakPolecenia;
 			}
+			polecenieWycofaj = brakPolecenia;
 
 		}
 
@@ -37,13 +39,19 @@ namespace _6_Wzorzec_Polecenie
 		public void wcisnietoPrzyciskWlacz(int slot)
 		{
 			poleceniaWlacz[slot].wykonaj();
+			polecenieWycofaj = poleceniaWlacz[slot];
 		}
 
 		public void wcisnietoPrzyciskWylacz(int slot)
 		{
 			poleceniaWylacz[slot].wykonaj();
+			polecenieWycofaj = poleceniaWylacz[slot];
 		}
 
+		public void wcisnietoPrzyciskWycofaj()
+		{
+			polecenieWycofaj.wycofaj();
+		}
 		public override String ToString()
 		{
 			string x = "";

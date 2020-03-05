@@ -19,5 +19,9 @@ namespace _6_Wzorzec_Polecenie
 		{
 			swiatlo.wylacz();
 		}
+		public void wycofaj()
+		{
+			swiatlo.wlacz();
+		}
 	}
 }

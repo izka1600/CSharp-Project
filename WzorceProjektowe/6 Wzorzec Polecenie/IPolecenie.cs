@@ -9,5 +9,6 @@ namespace _6_Wzorzec_Polecenie
 	public interface IPolecenie
 	{
 		void wykonaj();
+		void wycofaj();
 	}
 }
