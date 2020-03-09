@@ -21,6 +21,8 @@ namespace _6_Wzorzec_Polecenie
 			wiezaStereo.ustawCD();
 			wiezaStereo.UstawGlosnosc(11);
 		}
+		public void wycofaj()
+		{ }
 
 	}
 }

@@ -3,5 +3,6 @@
 	internal class BrakPolecenia : IPolecenie
 	{
 		public void wykonaj() { }
+		public void wycofaj() { }
 	}
 }
