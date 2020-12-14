@@ -1,4 +1,5 @@
 ﻿using BookWarm.Data;
+using BookWarm.Data.Repository;
 using BookWarm.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,11 +12,11 @@ namespace BookWarm.Controllers
 {
     public class HomeController : Controller 
     {
-		private AppDbContext _ctx;
+		private IRepository _repo;
 
-		public HomeController(AppDbContext ctx)
+		public HomeController(IRepository repo)
 		{
-            _ctx = ctx;
+            _repo = repo;
 		}
         public IActionResult Index()
 		{
@@ -36,9 +37,10 @@ namespace BookWarm.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Post post)
 		{
-            _ctx.Posts.Add(post);
-            await _ctx.SaveChangesAsync();
-            return RedirectToAction("Index");
+            _repo.AddPost(post);
+            if (await _repo.SaveChangesAsync())
+                return RedirectToAction("Index");
+            else return View(post);
 		}
     }
 }
