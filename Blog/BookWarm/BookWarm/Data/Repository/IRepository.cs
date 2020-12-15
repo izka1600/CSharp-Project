@@ -9,7 +9,7 @@ namespace BookWarm.Data.Repository
 	public interface IRepository
 	{
 		Post GetPost(int id);
-		List<Post> GetAllPosts(int id);
+		List<Post> GetAllPosts();
 		void RemovePost(int id);
 		void AddPost(Post post);
 		void UpdatePost(Post post);
