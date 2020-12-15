@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BookWarm.Data;
 using BookWarm.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace BookWarm
 {
@@ -27,6 +24,15 @@ namespace BookWarm
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_config["DefaultConnection"]));
+			services.AddDefaultIdentity<IdentityUser>(options=>
+			{
+				options.Password.RequireDigit = false;
+				options.Password.RequireNonAlphanumeric = false;
+				options.Password.RequireUppercase = false;
+				options.Password.RequiredLength = 6;
+			})
+				.AddRoles<IdentityRole>()
+				.AddEntityFrameworkStores<AppDbContext>();
 			services.AddTransient<IRepository, Repository>();
 			services.AddMvc(options => options.EnableEndpointRouting = false);
 		}
@@ -38,6 +44,8 @@ namespace BookWarm
 			{
 				app.UseDeveloperExceptionPage();
 			}
+
+			app.UseAuthentication();
 
 			app.UseMvcWithDefaultRoute();
 
