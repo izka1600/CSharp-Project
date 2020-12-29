@@ -7,18 +7,20 @@
     <title></title>
 </head>
 <body>
+
     <h2>Home Page</h2>
+    <img src="~/content/static/orig_307182.jpg" width="500"/>
     <div>
         <ul>
             @foreach (var post in Model)
-	            {
-            <li>
-                <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
-                    @post.Title
-                </a>
+            {
+                <li>
+                    <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
+                        @post.Title
+                    </a>
 
-            </li>
-	            }
+                </li>
+            }
         </ul>
     </div>
 </body>

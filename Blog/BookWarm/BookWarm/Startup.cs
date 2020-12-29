@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using BookWarm.Data.FileManager;
 
 namespace BookWarm
 {
@@ -39,6 +40,8 @@ namespace BookWarm
 				options.LoginPath = "/Auth/Login";
 			});
 			services.AddTransient<IRepository, Repository>();
+			services.AddTransient<IFileManager, FileManager>();
+
 			services.AddMvc(options => options.EnableEndpointRouting = false);
 		}
 
@@ -49,6 +52,8 @@ namespace BookWarm
 			{
 				app.UseDeveloperExceptionPage();
 			}
+
+			app.UseStaticFiles(); //to display images
 
 			app.UseAuthentication();
 
