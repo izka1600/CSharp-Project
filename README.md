@@ -37,9 +37,9 @@ This repository contains several solutions prepared in .Net technology:
       *    this is Team project created during postgraduate studies in Institute of Computer Science of Polish Academy of                 Sciences : „Programming in .NET platform” 
       *    project structure is similar to WebApplication - KeepUpWithYourMoney
       
-6. OneDrive - downloadData
+6. OneDrive - download and upload Data
  
-      *   simple .Net Core ConsoleApplication to dowload files from OneDrive
+      *   simple .Net Core ConsoleApplication to dowload files from OneDrive and upload files to OneDrive
  
 7. WzorceProjetowe 
       (Design Patterns) - 
