@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using PhotoSauce.MagicScaler;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,6 +23,24 @@ namespace BookWarm.Data.FileManager
 			return new FileStream(Path.Combine(_imagePath,image),FileMode.Open,FileAccess.Read);
 		}
 
+		public bool RemoveImage(string image)
+		{
+			try
+			{
+				var file = Path.Combine(_imagePath, image);
+				if (File.Exists(file))
+				{
+					File.Delete(file);
+				}
+				return true;
+			}
+			catch (Exception e )
+			{
+				Console.WriteLine(e.Message);
+				return false;
+			}
+		}
+
 		public async Task<string> SaveImage(IFormFile image)
 		{
 			try
@@ -42,7 +61,8 @@ namespace BookWarm.Data.FileManager
 
 				using (var fileStream = new FileStream(Path.Combine(save_path, fileName), FileMode.Create)) //File Stream is tunel to a folder
 				{
-					await image.CopyToAsync(fileStream);
+					//await image.CopyToAsync(fileStream);
+					MagicImageProcessor.ProcessImage(image.OpenReadStream(), fileStream, ImageOptions());
 				}
 
 				return fileName;
@@ -53,5 +73,14 @@ namespace BookWarm.Data.FileManager
 				return "Error";
 			}
 		}
+		private ProcessImageSettings ImageOptions() => new ProcessImageSettings
+		{
+			Width = 800,
+			Height = 500,
+			ResizeMode = CropScaleMode.Crop,
+			SaveFormat = FileFormat.Jpeg,
+			JpegQuality = 100,
+			JpegSubsampleMode = ChromaSubsampleMode.Subsample420
+		}; 
 	}
 }

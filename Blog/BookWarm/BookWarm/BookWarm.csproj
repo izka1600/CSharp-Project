@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>4d930a36-6308-4836-9dfc-7efa8338e842</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,10 +16,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="PhotoSauce.MagicScaler" Version="0.11.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\content\blog\" />
+    <Content Update="wwwroot/content/blog/*.*" CopyToPublishDirectory="Never" />
+    <Content Update="wwwroot/lib/**/*.*" CopyToPublishDirectory="Never" />
+    <Content Update="wwwroot/lib/**/dist/**/*.*" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
   <ItemGroup>

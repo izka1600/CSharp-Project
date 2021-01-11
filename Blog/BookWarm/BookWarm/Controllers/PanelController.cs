@@ -74,6 +74,10 @@ namespace BookWarm.Controllers
 			}
 			else
 			{
+				if (!String.IsNullOrEmpty(vm.CurrentImage))
+				{
+                    _fileManager.RemoveImage(vm.CurrentImage);
+				}
                 post.Image = await _fileManager.SaveImage(vm.Image);
 			}
             if (post.Id > 0)
