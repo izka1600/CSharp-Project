@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using BookWarm.Data.FileManager;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookWarm
 {
@@ -42,7 +43,11 @@ namespace BookWarm
 			services.AddTransient<IRepository, Repository>();
 			services.AddTransient<IFileManager, FileManager>();
 
-			services.AddMvc(options => options.EnableEndpointRouting = false);
+			services.AddMvc(options =>
+			{
+				options.EnableEndpointRouting = false;
+				options.CacheProfiles.Add("Monthly", new CacheProfile { Duration = 60 * 60 * 24 * 7 * 4 });
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

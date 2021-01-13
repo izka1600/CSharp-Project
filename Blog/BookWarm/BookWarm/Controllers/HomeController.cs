@@ -2,6 +2,8 @@
 using BookWarm.Data.FileManager;
 using BookWarm.Data.Repository;
 using BookWarm.Models;
+using BookWarm.Models.Comments;
+using BookWarm.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -49,12 +51,47 @@ namespace BookWarm.Controllers
         //}
 
         [HttpGet("/Image/{image}")]
+        [ResponseCache(CacheProfileName = "Monthly")]
         public IActionResult Image(string image) =>
             new FileStreamResult(
                 _fileManager.ImageStream(image), 
                 $"image/{image.Substring(image.LastIndexOf('.') + 1)}"
                 );
-		
 
+        [HttpPost]
+        public async Task<IActionResult> Comment(CommentViewModel vm)
+		{
+			if (!ModelState.IsValid)
+			{
+                return RedirectToAction("Post", new { id = vm.PostId });
+			}
+            var post = _repo.GetPost(vm.PostId);
+			if (vm.MainCommentId == 0)
+			{
+                post.MainComments = post.MainComments ?? new List<MainComment>();
+                post.MainComments.Add(new MainComment
+                {
+                    Message = vm.Message,
+                    Created = DateTime.Now
+                }) ;
+
+                _repo.UpdatePost(post);
+			}
+			else
+			{
+                var comment = new SubComment
+                {
+                    MainCommentId = vm.MainCommentId,
+                    Message = vm.Message,
+                    Created = DateTime.Now
+                };
+                _repo.AddSubComment(comment);
+			}
+
+            await _repo.SaveChangesAsync();
+
+            return RedirectToAction("Post", new { id = vm.PostId });
+        }
+		
     }
 }

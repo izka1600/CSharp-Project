@@ -1,0 +1,16 @@
+﻿[
+  //css
+  {
+    "inputFiles": [ "wwwroot/content/css/site.css" ],
+    "outputFileName": "wwwroot/content/css/site.min.css"
+  },
+  //js
+  {
+    "inputFiles": [ "wwwroot/content/js/site.js" ],
+    "outputFileName": "wwwroot/content/js/site.min.js",
+    "minify": {      
+      "enabled": true, //this reduces size 
+      "renameLocals": true// this reduces name e. var options = {} ==>> var o = {}
+    }
+  }
+]

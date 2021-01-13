@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookWarm.Models.Comments;
+using System;
+using System.Collections.Generic;
 
 namespace BookWarm.Models
 {
@@ -14,6 +16,7 @@ namespace BookWarm.Models
 		public string Tags { get; set; } = "";
 		public string Category { get; set; } = "";
 
+		public List<MainComment> MainComments { get; set; }
 	}
 }
  

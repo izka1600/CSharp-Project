@@ -1,4 +1,6 @@
 ﻿using BookWarm.Models;
+using BookWarm.Models.Comments;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +36,10 @@ namespace BookWarm.Data.Repository
 
 		public Post GetPost(int id)
 		{
-			return _ctx.Posts.FirstOrDefault(m=> m.Id==id);
+			return _ctx.Posts
+				.Include(p => p.MainComments)
+					.ThenInclude(p=>p.SubComments) //looks in MainComments
+				.FirstOrDefault(m=> m.Id==id);
 		}
 
 		public void RemovePost(int id)
@@ -53,6 +58,11 @@ namespace BookWarm.Data.Repository
 				return true;
 			}
 			return false;
+		}
+
+		public void AddSubComment(SubComment comment)
+		{
+			_ctx.SubComments.Add(comment);
 		}
 	}
 }

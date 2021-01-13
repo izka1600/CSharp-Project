@@ -1,4 +1,5 @@
 ﻿using BookWarm.Models;
+using BookWarm.Models.Comments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace BookWarm.Data.Repository
 		void RemovePost(int id);
 		void AddPost(Post post);
 		void UpdatePost(Post post);
+
+		void AddSubComment(SubComment comment);
 
 		Task<bool> SaveChangesAsync();
 	}
