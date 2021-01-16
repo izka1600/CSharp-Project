@@ -50,6 +50,7 @@ namespace BookWarm.Data.Repository
 					.Take(pageSize)
 					.ToList(),
 				PageNumber = pageNumber,
+				PageCount = (int)Math.Ceiling((double)postsCount/pageSize),
 				NextPage = postsCount > capacity,
 				Category=category
 			};

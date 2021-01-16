@@ -44,16 +44,23 @@
         </a>
         }
 
-    <div>
+    <div class="pages">
         @if (Model.PageNumber > 0)
         {
             <a asp-action="Index" asp-controller="Home" asp-route-category="@Model.Category"
-                asp-route-pageNumber="@(Model.PageNumber - 1)">Previous Page</a>
+               asp-route-pageNumber="@(Model.PageNumber - 1)">&#60;</a>// < caused an error, so I used EntityNumber https://www.w3schools.com/html/html_entities.asp
         }
+
+        @for (int i = 0; i < Model.PageCount; i++)
+        {
+          <a class="@(i == Model.PageNumber ? "active" : "")" asp-action="Index" asp-controller="Home" asp-route-category="@Model.Category"
+             asp-route-pageNumber="@i">@(i + 1)</a>
+        }
+
         @if (Model.NextPage)
         {
             <a asp-action="Index" asp-controller="Home" asp-route-category="@Model.Category"
-               asp-route-pageNumber="@(Model.PageNumber + 1)">Next Page</a>
+               asp-route-pageNumber="@(Model.PageNumber + 1)">></a>
         }
     </div>
 
