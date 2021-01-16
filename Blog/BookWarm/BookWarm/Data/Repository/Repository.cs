@@ -1,5 +1,6 @@
 ﻿using BookWarm.Models;
 using BookWarm.Models.Comments;
+using BookWarm.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,31 @@ namespace BookWarm.Data.Repository
 			return _ctx.Posts.ToList();
 		}
 
-		public List<Post> GetAllPosts(string category)
+		public IndexViewModel GetAllPosts(int pageNumber, string category)
 		{
-			Func<Post, bool> InCategory = (post) => { return post.Category.ToLower().Equals(category.ToLower()); };
+			//Func<Post, bool> InCategory = (post) => { return post.Category.ToLower().Equals(category.ToLower()); }; --doesnt work :(
 
-			return _ctx.Posts.Where(post=>InCategory(post)).ToList();
+			int pageSize = 2;
+			int skipAmount = pageSize * (pageNumber);
+			int capacity = skipAmount + pageSize;
+
+			var query = _ctx.Posts.AsQueryable();
+
+			if (!String.IsNullOrEmpty(category))
+				query = query.Where(x => x.Category.ToLower().Equals(category.ToLower()));
+
+			int postsCount = query.Count();
+
+			return new IndexViewModel
+			{
+				Posts = query
+					.Skip(skipAmount) //paging - 2 posts for one page and then next page // multiple here is to know in which page we are now
+					.Take(pageSize)
+					.ToList(),
+				PageNumber = pageNumber,
+				NextPage = postsCount > capacity,
+				Category=category
+			};
 		}
 
 		public Post GetPost(int id)

@@ -24,15 +24,22 @@ namespace BookWarm.Controllers
             _fileManager = fileManager;
 		}
         //public IActionResult Index(string category)
-		//{
+        //{
         //   var posts = string.IsNullOrEmpty(category) ? _repo.GetAllPosts() : _repo.GetAllPosts(category);
         //   return View(posts); 
-		//}
+        //}
 
-        public IActionResult Index(string category) =>
-            View(string.IsNullOrEmpty(category) ? 
-                _repo.GetAllPosts() : 
-                _repo.GetAllPosts(category));
+        public IActionResult Index(int pageNumber, string category)
+        {
+			if (pageNumber<0)
+			{
+                return RedirectToAction("Index", new { pageNumber = 0, category}); // tu wracamy do tej własnie akcji ale ze zmiana jednego parametru
+			}
+
+            var vm = _repo.GetAllPosts(pageNumber, category);
+
+            return View(vm);
+        }
 
         //public IActionResult Post(int id)
         //{

@@ -1,5 +1,6 @@
 ﻿using BookWarm.Models;
 using BookWarm.Models.Comments;
+using BookWarm.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace BookWarm.Data.Repository
 	{
 		Post GetPost(int id);
 		List<Post> GetAllPosts();
-		List<Post> GetAllPosts(string Category);
+		IndexViewModel GetAllPosts(int pageNumber, string Category);
 		void RemovePost(int id);
 		void AddPost(Post post);
 		void UpdatePost(Post post);
