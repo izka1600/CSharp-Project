@@ -31,9 +31,8 @@ namespace BookWarm.Data.Repository
 		public IndexViewModel GetAllPosts(int pageNumber, string category)
 		{
 			//Func<Post, bool> InCategory = (post) => { return post.Category.ToLower().Equals(category.ToLower()); }; --doesnt work :(
-
 			int pageSize = 2;
-			int skipAmount = pageSize * (pageNumber);
+			int skipAmount = pageSize * (pageNumber - 1);
 			int capacity = skipAmount + pageSize;
 
 			var query = _ctx.Posts.AsQueryable();
@@ -50,10 +49,55 @@ namespace BookWarm.Data.Repository
 					.Take(pageSize)
 					.ToList(),
 				PageNumber = pageNumber,
-				PageCount = (int)Math.Ceiling((double)postsCount/pageSize),
+				PageCount = (int)Math.Ceiling((double)postsCount / pageSize),
 				NextPage = postsCount > capacity,
-				Category=category
+				Pages = PageNumbers(pageNumber, (int)Math.Ceiling((double)postsCount / pageSize)),
+				Category = category
 			};
+		} 
+
+		private IEnumerable<int> PageNumbers(int pageNumber, int pageCount)
+		{
+			int midPoint = pageNumber;
+			if (midPoint < 3)
+			{
+				midPoint = 3;
+			}
+			else if (midPoint > pageCount - 2)
+			{
+				midPoint = pageCount - 2 > 3 ? pageCount - 2 : 3;
+			}
+
+			int lowerBound = midPoint - 2;
+			int upperBound = midPoint + 2;
+
+			if (lowerBound != 1)
+			{
+				// pages.Insert(0, 1);
+				yield return 1;
+				if (lowerBound-1 > 1)
+				{
+					//pages.Insert(1, -1);
+					yield return -1;
+				}
+			}
+
+			for (int i = lowerBound; i <= upperBound; i++)
+			{
+				yield return i;
+				//pages.Add(i);
+			}
+
+			if (upperBound < pageCount)
+			{
+				//pages.Insert(pages.Count, pageCount);
+				if (pageCount-upperBound > 1)
+				{
+					//pages.Insert(pages.Count - 1, -1);
+					yield return -1;
+				}
+				yield return pageCount;
+			}
 		}
 
 		public Post GetPost(int id)

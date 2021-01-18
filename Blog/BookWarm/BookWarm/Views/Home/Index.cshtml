@@ -33,36 +33,20 @@
                 </li>
             }
         </ul>*@
+        <partial name="BlogPagination" model="Model" />
+
         @foreach (var post in Model.Posts)
         {
             var image_path = $"{base_path}/Image/{post.Image}";
-        <a class="post" asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
-            <img src="@image_path"/>
-            <span class="title">
-                @post.Title
-            </span>
-        </a>
+            <a class="post" asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
+                <img src="@image_path" />
+                <span class="title">
+                    @post.Title
+                </span>
+            </a>
         }
 
-    <div class="pages">
-        @if (Model.PageNumber > 0)
-        {
-            <a asp-action="Index" asp-controller="Home" asp-route-category="@Model.Category"
-               asp-route-pageNumber="@(Model.PageNumber - 1)">&#60;</a>// < caused an error, so I used EntityNumber https://www.w3schools.com/html/html_entities.asp
-        }
-
-        @for (int i = 0; i < Model.PageCount; i++)
-        {
-          <a class="@(i == Model.PageNumber ? "active" : "")" asp-action="Index" asp-controller="Home" asp-route-category="@Model.Category"
-             asp-route-pageNumber="@i">@(i + 1)</a>
-        }
-
-        @if (Model.NextPage)
-        {
-            <a asp-action="Index" asp-controller="Home" asp-route-category="@Model.Category"
-               asp-route-pageNumber="@(Model.PageNumber + 1)">></a>
-        }
-    </div>
+        <partial name="BlogPagination" model="Model" />
 
     </div>
 </body>

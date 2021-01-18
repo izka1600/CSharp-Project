@@ -31,9 +31,10 @@ namespace BookWarm.Controllers
 
         public IActionResult Index(int pageNumber, string category)
         {
-			if (pageNumber<0)
+
+			if (pageNumber<1)
 			{
-                return RedirectToAction("Index", new { pageNumber = 0, category}); // tu wracamy do tej własnie akcji ale ze zmiana jednego parametru
+                return RedirectToAction("Index", new { pageNumber = 1, category}); // tu wracamy do tej własnie akcji ale ze zmiana jednego parametru
 			}
 
             var vm = _repo.GetAllPosts(pageNumber, category);

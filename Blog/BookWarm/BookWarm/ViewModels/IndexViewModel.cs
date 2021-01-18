@@ -13,5 +13,6 @@ namespace BookWarm.ViewModels
 		public bool NextPage { get; set; }
 		public string Category { get; set; }
 		public int PageCount { get; set; }
+		public IEnumerable<int> Pages { get; internal set; }
 	}
 }
