@@ -10,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using BookWarm.Data.FileManager;
 using Microsoft.AspNetCore.Mvc;
+using BookWarm.Configuration;
+using BookWarm.Services.Email;
 
 namespace BookWarm
 {
@@ -25,6 +27,7 @@ namespace BookWarm
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.Configure<SmtpSettings>(_config.GetSection("SmtpSettings"));
 			services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_config["DefaultConnection"]));
 			services.AddIdentity<IdentityUser, IdentityRole>(options=>
 			{
@@ -42,6 +45,7 @@ namespace BookWarm
 			});
 			services.AddTransient<IRepository, Repository>();
 			services.AddTransient<IFileManager, FileManager>();
+			services.AddSingleton<IEmailService, EmailService>();
 
 			services.AddMvc(options =>
 			{

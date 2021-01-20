@@ -1,4 +1,5 @@
-﻿using BookWarm.ViewModels;
+﻿using BookWarm.Services.Email;
+using BookWarm.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,14 +13,17 @@ namespace BookWarm.Controllers
 	{
 		private SignInManager<IdentityUser> _signInManager;
 		private UserManager<IdentityUser> _userManager;
+		private IEmailService _emailService;
 
 		public AuthController(
 			SignInManager<IdentityUser> signInManager,
-			UserManager<IdentityUser> userManager
+			UserManager<IdentityUser> userManager,
+			IEmailService emailService
 			)
 		{
 			_signInManager = signInManager;
 			_userManager = userManager;
+			_emailService = emailService;
 		}
 
 		[HttpGet]
@@ -80,7 +84,7 @@ namespace BookWarm.Controllers
 			if (result.Succeeded)
 			{
 				await _signInManager.SignInAsync(user,false);
-
+				await _emailService.SendEmail(user.Email, "Welcome", "Thank you for registering!");
 				return RedirectToAction("Index", "Home");
 			}
 
