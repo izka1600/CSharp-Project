@@ -29,17 +29,20 @@ namespace BookWarm.Data.Repository
 			return _ctx.Posts.ToList();
 		}
 
-		public IndexViewModel GetAllPosts(int pageNumber, string category)
+		public IndexViewModel GetAllPosts(int pageNumber, string category, string search)
 		{
 			//Func<Post, bool> InCategory = (post) => { return post.Category.ToLower().Equals(category.ToLower()); }; --doesnt work :(
 			int pageSize = 2;
 			int skipAmount = pageSize * (pageNumber - 1);
 			int capacity = skipAmount + pageSize;
 
-			var query = _ctx.Posts.AsQueryable();
+			var query = _ctx.Posts.AsNoTracking().AsQueryable();
 
 			if (!String.IsNullOrEmpty(category))
 				query = query.Where(x => x.Category.ToLower().Equals(category.ToLower()));
+
+			if (!String.IsNullOrEmpty(search))
+				query = query.Where(x => EF.Functions.Like(x.Title + x.Body + x.Description, $"%{search}%"));
 
 			int postsCount = query.Count();
 
@@ -53,7 +56,8 @@ namespace BookWarm.Data.Repository
 				PageCount = (int)Math.Ceiling((double)postsCount / pageSize),
 				NextPage = postsCount > capacity,
 				Pages = PageHelper.PageNumbers(pageNumber, (int)Math.Ceiling((double)postsCount / pageSize)).ToList(),
-				Category = category
+				Category = category,
+				Search = search
 			};
 		} 
 

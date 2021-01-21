@@ -29,7 +29,7 @@ namespace BookWarm.Controllers
         //   return View(posts); 
         //}
 
-        public IActionResult Index(int pageNumber, string category)
+        public IActionResult Index(int pageNumber, string category, string search)
         {
 
 			if (pageNumber<1)
@@ -37,7 +37,7 @@ namespace BookWarm.Controllers
                 return RedirectToAction("Index", new { pageNumber = 1, category}); // tu wracamy do tej własnie akcji ale ze zmiana jednego parametru
 			}
 
-            var vm = _repo.GetAllPosts(pageNumber, category);
+            var vm = _repo.GetAllPosts(pageNumber, category,search);
 
             return View(vm);
         }
