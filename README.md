@@ -46,4 +46,8 @@ This repository contains several solutions prepared in .Net technology:
 
       Console exercises to practice Design Patterns such as Strategy, Builder, Factory Method, Singleton...
       In these projects Class Designer is used to better understand relations between entities and whole idea of every design pattern
- 
+ 8. C# exercises:
+      * Middleware In Out 
+           * delegates, 
+           * Actions, 
+           * building Pipes
