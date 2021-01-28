@@ -51,3 +51,4 @@ This repository contains several solutions prepared in .Net technology:
            * delegates, 
            * Actions, 
            * building Pipes
+      * Dependency Injection
