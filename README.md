@@ -52,3 +52,4 @@ This repository contains several solutions prepared in .Net technology:
            * Actions, 
            * building Pipes
       * Dependency Injection
+ 9. C# & SqlServer
