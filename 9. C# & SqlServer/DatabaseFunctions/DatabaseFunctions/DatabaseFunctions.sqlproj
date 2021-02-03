@@ -26,8 +26,9 @@
     <AssemblyOwner>
     </AssemblyOwner>
     <PermissionSet>SAFE</PermissionSet>
-    <SignAssembly>False</SignAssembly>
-    <AssemblyOriginatorKeyFile>Iza.pfx</AssemblyOriginatorKeyFile>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>DatabaseFunctions.pfx</AssemblyOriginatorKeyFile>
+    <Trustworthy>True</Trustworthy>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -84,5 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseFunctions.publish.xml" />
+    <None Include="DatabaseFunctions.pfx" />
   </ItemGroup>
 </Project>

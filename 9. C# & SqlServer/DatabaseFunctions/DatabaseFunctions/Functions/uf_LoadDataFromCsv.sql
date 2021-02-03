@@ -1,17 +1,45 @@
-﻿CREATE FUNCTION [utils].[uf_LoadDataFromCsv] (@path varchar(100), @separator varchar(1))
-RETURNS varchar(max) WITH EXECUTE AS CALLER, RETURNS NULL ON NULL INPUT
+﻿CREATE FUNCTION [utils].[uf_LoadDataFromCsv] (@path nvarchar(100), @separator nvarchar(1))
+RETURNS nvarchar(max) WITH EXECUTE AS CALLER, RETURNS NULL ON NULL INPUT
 AS
 EXTERNAL NAME [DatabaseFunctions].[UserDefinedFunctions].[uf_LoadDataFromCsv]
 Go  
 
+--SqlString = nvarchar
 
+--https://www.sqlshack.com/impact-clr-strict-security-configuration-setting-sql-server-2017/
 
---DECLARE @clrDescription nvarchar(4000) = N'split, version=0.0.0.0, culture=neutral, publickeytoken=null, processorarchitecture=msil';
---DECLARE @clrBin varbinary(max) = 0x4D5A90000300000004000000FFFF0000B800000000000000400000000000000000000000000000000000000000000000000000000000000000000000800000000E1FBA0E00B409CD21B8014CCD21546869732070726F6772616D2063616E6E6F742062652072756E20696E20444F53206D6F64652E0D0D0A2400000000000000504500004C010300053D14600000000000000000E00022200B013000000C00000006000000000000062A0000002000000040000000000010002000000002000004000000000000000600000000000000008000000002000000000000030060850000100000100000000010000010000000000000100000000000000000000000B42900004F00000000400000C802000000000000000000000000000000000000006000000C0000007C2800001C0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000080000000000000000000000082000004800000000000000000000002E746578740000000C0A000000200000000C000000020000000000000000000000000000200000602E72737263000000C80200000040000000040000000E0000000000000000000000000000400000402E72656C6F6300000C000000006000000002000
---DECLARE @hash varbinary(64);
---SET @hash = HASHBYTES('SHA2_512', @clrBin);
---SELECT @hash;
+-- 1. Sign Assembly in Visual Studio with strong name
+-- 2. Add Permissions to bin/debug folder for SQLServerUser (NT Service\MSSQL$SQLEXPRESS)
+-- 3. Create Asymmetric Key from Assembly File
+		--USE master;
+		--GO
+		--CREATE ASYMMETRIC KEY CLRStringSplitKey FROM EXECUTABLE FILE = 'C:\CLRStringSplit.dll';
+		--GO
 
---EXECUTE sys.sp_add_trusted_assembly @hash, @clrDescription
+--4. Step 2: Create SQL Server Login linked to the Asymmetric Key
+		--USE master;
+		--GO
+		--CREATE LOGIN CLRStringSplitKeyLogin FROM ASYMMETRIC KEY CLRStringSplitKey;
+		--GO
 
---SELECT * FROM sys.trusted_assemblies;
+--5. Step 3: Grant UNSAFE assembly permission to the login created in Step 2
+		--USE master;
+		--GO
+		--GRANT UNSAFE ASSEMBLY TO CLRStringSplitKeyLogin;
+		--GO
+
+--6. Step 4: Create a SQL Server database user for the SQL Server login created in Step 2
+		--USE DbExercises;
+		--GO
+		--CREATE USER CLRStringSplitKeyLogin FOR LOGIN CLRStringSplitKeyLogin;
+		--GO
+
+--7. Step 5: Create CLR Assembly
+		--USE DbExercises;
+		--GO
+		--CREATE ASSEMBLY DatabaseFunctions FROM 'C:\CLRStringSplit.dll' WITH PERMISSION_SET = SAFE;
+		--GO
+
+--8. Run Function
+		--Select [utils].[uf_LoadDataFromCsv] ('C:\Users\Admin\OneDrive\Dokumenty\csv.csv',',')
+		--important! NT Service\MSSQL$SQLEXPRESS has to have permission to folder Documents
