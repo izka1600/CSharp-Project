@@ -54,3 +54,6 @@ This repository contains several solutions prepared in .Net technology:
            * building Pipes
       * Dependency Injection
  9. C# & SqlServer
+       * Database Functions
+            *safe
+            *unsafe
