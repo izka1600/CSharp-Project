@@ -55,5 +55,5 @@ This repository contains several solutions prepared in .Net technology:
       * Dependency Injection
  9. C# & SqlServer
        * Database Functions
-            *safe
-            *unsafe
+           * safe, 
+           * unsafe (read flat files), 
