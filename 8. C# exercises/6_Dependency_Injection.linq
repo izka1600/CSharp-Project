@@ -2,11 +2,10 @@
 
 void Main()
 {
-//24 min
-
 	var container = new DependencyContainer();
 	container.AddDependency(typeof(HelloService));
 	container.AddDependency<ServiceConsumer>();
+	container.AddDependency<MessageService>();
 	
 	var resolver = new DependencyResolver(container);
 	
@@ -28,8 +27,13 @@ public class DependencyResolver
 	
 	public T GetService<T>()
 	{
-		var dependency = _container.GetDependency(typeof(T));
-		var constructor = dependency.GetConstructors().Single();
+		return (T) GetService(typeof(T));
+	}
+	
+	public object GetService(Type type)
+	{
+		var dependency = _container.GetDependency(type);
+		var constructor = dependency.GetConstructors().Single(); // because when we run program we can have only one used constructor during runtime
 		var parameters = constructor.GetParameters().ToArray();
 		
 		if(parameters.Length > 0)
@@ -38,12 +42,12 @@ public class DependencyResolver
 			
 			for(int i = 0; i < parameters.Length;i++)
 			{
-				parameterImplementations[i] = Activator.CreateInstance(parameters[i].ParameterType);
+				parameterImplementations[i] = GetService(parameters[i].ParameterType);
 			}
-			return (T) Activator.CreateInstance(dependency, parameterImplementations); 
+			return Activator.CreateInstance(dependency, parameterImplementations); 
 		}
 		
-		return (T) Activator.CreateInstance(dependency); 
+		return Activator.CreateInstance(dependency); 
 	}
 }
 
@@ -70,9 +74,15 @@ public class DependencyContainer
 
 public class HelloService
 {
+	MessageService _message;
+	public HelloService(MessageService message)
+	{
+		_message = message;
+	}
+	
 	public void Print()
 	{
-		"Hello world".Dump();
+		$"Hello world {_message.Message()}".Dump();
 	}
 }
 
@@ -88,6 +98,14 @@ public class ServiceConsumer
 	public void Print()
 	{
 		_hello.Print();
+	}
+}
+
+public class MessageService
+{
+	public string Message()
+	{
+		return "yo";
 	}
 }
 
