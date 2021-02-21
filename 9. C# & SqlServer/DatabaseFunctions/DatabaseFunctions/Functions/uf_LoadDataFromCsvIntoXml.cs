@@ -9,7 +9,7 @@ public partial class UserDefinedFunctions
     //XDocument doc = ConversorCsvXml.ConvertCsvToXML(csv, new[] { "," });
 
     [SqlFunction(DataAccess = DataAccessKind.None, FillRowMethodName = "FillRow ", IsDeterministic = true)]
-        public static SqlString uf_LoadDataFromCsv(SqlString path, SqlString separator)
+        public static SqlString uf_LoadDataFromCsvIntoXml(SqlString path, SqlString separator)
 	    {
              string csvString = File.ReadAllText((string)path);
              var sep = new[] { "\r\n" };

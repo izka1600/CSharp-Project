@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{cbe87f1a-c1a5-4e8e-980b-92d933fe7f79}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql140DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -29,6 +29,7 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>DatabaseFunctions.pfx</AssemblyOriginatorKeyFile>
     <Trustworthy>True</Trustworthy>
+    <DefaultSchema>dbo</DefaultSchema>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -71,20 +72,24 @@
     <Folder Include="Schema" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Functions\uf_LoadDataFromCsv.cs" />
+    <Compile Include="Functions\uf_LoadDataFromCsvIntoXml.cs" />
+    <Compile Include="Functions\uf_LoadDataFromCsvIntoTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Functions\uf_LoadDataFromCsv.sql">
+    <Build Include="Functions\uf_LoadDataFromCsvIntoXml.sql">
       <SuppressTSqlWarnings>71521</SuppressTSqlWarnings>
     </Build>
     <Build Include="Schema\utils.sql" />
+    <Build Include="Functions\uf_LoadDataFromCsvIntoTable.sql">
+      <SuppressTSqlWarnings>71521</SuppressTSqlWarnings>
+    </Build>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DatabaseFunctions.publish.xml" />
     <None Include="DatabaseFunctions.pfx" />
   </ItemGroup>
 </Project>

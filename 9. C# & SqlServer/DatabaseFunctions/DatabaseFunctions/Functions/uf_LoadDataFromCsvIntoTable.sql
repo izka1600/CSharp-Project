@@ -1,7 +1,7 @@
-﻿CREATE FUNCTION [utils].[uf_LoadDataFromCsv] (@path nvarchar(100), @separator nvarchar(1))
-RETURNS nvarchar(max) WITH EXECUTE AS CALLER, RETURNS NULL ON NULL INPUT
+﻿CREATE FUNCTION [utils].[uf_LoadDataFromCsvIntoTable] (@path nvarchar(100), @separator nvarchar(1))
+RETURNS INT WITH EXECUTE AS CALLER, RETURNS NULL ON NULL INPUT
 AS
-EXTERNAL NAME [DatabaseFunctions].[UserDefinedFunctions].[uf_LoadDataFromCsv]
+EXTERNAL NAME [DatabaseFunctions].[UserDefinedFunctions].[uf_LoadDataFromCsvIntoTable]
 Go  
 
 --SqlString = nvarchar
